@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Register from "./Auth/Register";
-import Login from "./Auth/login";
+import Login from "./Auth/Login";
 import { useContext } from "react";
 import AdminDashboard from "./admin/AdminDashboard";
 import { AuthContext } from "./context/AuthContext";
@@ -15,7 +15,7 @@ import BookAppointment from "./pages/patients/BookAppointment";
 import DoctorAppointment from "./pages/doctor/DoctorAppointment";
 import AdminRegister from "./Auth/AdminRegister";
 import HospitalsByCity from "./pages/HospitalsByCity";
-import AddHospital from "./admin/AddHostipal";
+import AddHospital from "./admin/AddHospital";
 import CreatePatientProfile from "./admin/CreatePatientProfile";
 import DoctorProfile from "./pages/doctor/DoctorProfile";
 import DoctorPatientHistory from "./pages/doctor/DoctorPatientHistory";
