@@ -23,7 +23,7 @@ import CreatePrescription from "./pages/doctor/CreatePrescription";
 import PatientPrescriptions from "./pages/patients/PatientPrescriptions";
 import PatientHistory from "./pages/patients/PatientHistory";
 import MySavedHospitals from "./pages/MySavedHospitals";
-import Login from "./auth/login"; 
+import Login from "./auth/Login"; 
 function App() {
   const { user } = useContext(AuthContext);
   return (
@@ -36,7 +36,7 @@ function App() {
           }
         />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<Register/>} />
         <Route path="/admin/register" element={<AdminRegister />} />
 
         <Route path="/hospitals" element={<HospitalsByCity />} />
