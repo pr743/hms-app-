@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import Register from "./Auth/Register";
+import Register from "./auth/Register";
 import { useContext } from "react";
 import AdminDashboard from "./admin/AdminDashboard";
 import { AuthContext } from "./context/AuthContext";
@@ -23,7 +23,7 @@ import CreatePrescription from "./pages/doctor/CreatePrescription";
 import PatientPrescriptions from "./pages/patients/PatientPrescriptions";
 import PatientHistory from "./pages/patients/PatientHistory";
 import MySavedHospitals from "./pages/MySavedHospitals";
-import Login from "./auth/login";
+import Login from "./auth/login"; 
 function App() {
   const { user } = useContext(AuthContext);
   return (
