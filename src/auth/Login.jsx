@@ -56,7 +56,7 @@ function Login() {
     setAlert({ msg, type });
     setTimeout(() => {
       setAlert(null);
-    }, 2000);
+    }, 4000);
   };
   return (
     <>
