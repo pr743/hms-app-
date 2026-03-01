@@ -48,10 +48,13 @@ function Register() {
       login(res.data);
 
 
-      showAlert("Register Successfully ✅");
+      showAlert("Register Successfully ✅","success");
 
       
-      navigate(`/${res.data.user.role}`);
+       setTimeout(() => {
+        login(res.data.admin);
+        navigate(`/${res.data.user.role}`);
+      }, 1500);
     } catch (err) {
       showAlert(
         err.response?.data?.message || "Register Failed ❌",

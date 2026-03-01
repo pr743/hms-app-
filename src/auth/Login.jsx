@@ -41,10 +41,12 @@ function Login() {
       localStorage.setItem("user",JSON.stringify(res.data.user));
 
 
-      showAlert("login successfully");
+      showAlert("login successfully","success");
 
-      navigate(`/${res.data.user.role}`);
-
+     setTimeout(() => {
+        login(res.data.admin);
+        navigate(`/${res.data.user.role}`);
+      }, 1500);
     } catch {
       showAlert("Login failed", "error");
     } finally {

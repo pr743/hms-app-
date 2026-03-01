@@ -39,11 +39,11 @@ function AdminRegister() {
         city: form.city.trim(), 
       });
 
-      login(res.data.admin);
 
-      showAlert("Admin registered successfully");
+      showAlert("Admin registered successfully","success");
 
       setTimeout(() => {
+        login(res.data.admin);
         navigate(`/${res.data.admin.role}`);
       }, 1500);
     } catch {
