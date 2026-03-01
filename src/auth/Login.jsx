@@ -43,10 +43,8 @@ function Login() {
 
       showAlert("login successfully","success");
 
-     setTimeout(() => {
-        login(res.data.admin);
-        navigate(`/${res.data.user.role}`);
-      }, 1500);
+      navigate(`/${res.data.user.role}`);
+
     } catch {
       showAlert("Login failed", "error");
     } finally {
