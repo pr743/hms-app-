@@ -296,7 +296,7 @@
 // export default BookAppointment;
 
 import React, { useEffect, useState } from "react";
-import { Calendar, Clock, User, FileText } from "lucide-react";
+import { Calendar, User, FileText } from "lucide-react";
 import API from "../../api/axios";
 import Navbar from "../../components/Navbar";
 
@@ -308,6 +308,7 @@ function BookAppointment() {
 
   const [form, setForm] = useState({
     hospitalId: "",
+    doctorId: "", // ✅ NEW
     appointmentDate: "",
     reason: "",
     appointmentType: "normal",
@@ -320,7 +321,7 @@ function BookAppointment() {
       .catch(() => {});
   }, []);
 
-  // 🔥 LOAD DOCTORS (SHOW STATUS ONLY)
+  // 🔥 LOAD DOCTORS
   useEffect(() => {
     if (!form.hospitalId) return;
 
@@ -346,6 +347,7 @@ function BookAppointment() {
 
       setForm({
         hospitalId: "",
+        doctorId: "",
         appointmentDate: "",
         reason: "",
         appointmentType: "normal",
@@ -393,15 +395,33 @@ function BookAppointment() {
               ))}
             </select>
 
-            {/* DOCTOR STATUS */}
-            <div className="bg-gray-50 p-3 rounded-lg">
-              <p className="font-medium mb-2">Available Doctors:</p>
+            {/* 🔥 DOCTOR SELECT (NEW) */}
+            <select
+              name="doctorId"
+              value={form.doctorId}
+              onChange={handleChange}
+              className="w-full p-3 bg-gray-100 rounded-lg"
+            >
+              <option value="">🤖 Auto Assign Doctor (Recommended)</option>
+
               {doctors.map((d) => (
-                <p key={d._id}>
+                <option key={d._id} value={d._id}>
                   {d.user?.name} ({d.specialization}) {d.isOnline ? "🟢" : "🔴"}
-                </p>
+                </option>
               ))}
-            </div>
+            </select>
+
+            {/* DOCTOR STATUS LIST */}
+            {doctors.length > 0 && (
+              <div className="bg-gray-50 p-3 rounded-lg text-sm">
+                <p className="font-medium mb-1">Doctor Status:</p>
+                {doctors.map((d) => (
+                  <p key={d._id}>
+                    {d.user?.name} → {d.isOnline ? "🟢 Online" : "🔴 Offline"}
+                  </p>
+                ))}
+              </div>
+            )}
 
             {/* DATE */}
             <input
@@ -424,17 +444,17 @@ function BookAppointment() {
             />
 
             <button className="w-full bg-blue-600 text-white py-3 rounded-lg">
-              {loading ? "Booking..." : "Auto Book"}
+              {loading ? "Booking..." : "Book Appointment"}
             </button>
           </form>
 
-          {/* 🔥 RESULT CARD */}
+          {/* RESULT */}
           {result && (
             <div className="mt-6 p-4 bg-green-50 border rounded-xl">
               <h2 className="font-bold text-green-700">✅ Confirmed</h2>
               <p>🎟 Token: {result.token}</p>
               <p>⏳ Wait Time: {result.waitTime} mins</p>
-              <p>📍 Queue: {result.queue}</p>
+              <p>📍 Queue Position: {result.queueNumber}</p>
             </div>
           )}
         </div>
