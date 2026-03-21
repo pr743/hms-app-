@@ -94,12 +94,17 @@ function BookAppointment() {
 
       console.log("ApI response", res.data);
 
-      setResult({
-        token: res.data.token || 0,
-        queueNumber: res.data.queueNumber || 0,
-        waitTime: res.data.waitTime || 0,
-      });
+      // setResult({
+      //   token: res.data.token || 0,
+      //   queueNumber: res.data.queueNumber || 0,
+      //   waitTime: res.data.waitTime || 0,
+      // });
 
+      setResult({
+        token: res.data.data.token,
+        queueNumber: res.data.data.queueNumber,
+        waitTime: res.data.data.estimatedWaitTime,
+      });
       setMessage("Appointment booked successfully ✅");
 
       setForm({
