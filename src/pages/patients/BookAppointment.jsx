@@ -61,66 +61,6 @@ function BookAppointment() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   if (!form.doctorId) {
-  //     setMessage("Please select a doctor");
-  //     return;
-  //   }
-
-  //   if (!form.appointmentDate) {
-  //     setMessage("Please select appointment date");
-  //     return;
-  //   }
-
-  //   if (form.appointmentType === "normal" && !form.slotTime) {
-  //     setMessage("Please select time slot");
-  //     return;
-  //   }
-
-  //   if (!form.reason.trim()) {
-  //     setMessage("Please enter reason");
-  //     return;
-  //   }
-
-  //   if (form.appointmentType === "normal" && !form.slotTime) {
-  //     setMessage("Please select time slot");
-  //     return;
-  //   }
-
-  //   if (!form.reason.trim()) {
-  //     setMessage("Please enter reason");
-  //     return;
-  //   }
-
-  //   if (loading) return;
-
-  //   try {
-  //     setLoading(true);
-  //     setMessage("");
-
-  //     await API.post("/patient/appointment", form);
-
-  //     setMessage("Appointment booked successfully ✅");
-
-  //     setForm({
-  //       hospitalId: "",
-  //       doctorId: "",
-  //       appointmentDate: "",
-  //       slotTime: "",
-  //       reason: "",
-  //       appointmentType: "normal",
-  //     });
-
-  //     setDoctors([]);
-  //   } catch (err) {
-  //     setMessage(err.response?.data?.message || "Booking failed ❌");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -155,9 +95,9 @@ function BookAppointment() {
       console.log("ApI response", res.data);
 
       setResult({
-        token: res.data.token,
-        queueNumber: res.data.queueNumber,
-        waitTime: res.data.waitTime,
+        token: res.data.token || 0,
+        queueNumber: res.data.queueNumber || 0,
+        waitTime: res.data.waitTime || 0,
       });
 
       setMessage("Appointment booked successfully ✅");
