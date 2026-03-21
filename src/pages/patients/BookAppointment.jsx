@@ -152,7 +152,11 @@ function BookAppointment() {
 
       const res = await API.post("/patient/appointment", form);
 
-      setResult(res.data);
+      setResult({
+        token: res.data.token,
+        queueNumber: res.data.queueNumber,
+        waitTime: res.data.waitTime,
+      });
 
       setMessage("Appointment booked successfully ✅");
 
