@@ -152,6 +152,8 @@ function BookAppointment() {
 
       const res = await API.post("/patient/appointment", form);
 
+      console.log("ApI response", res.data);
+
       setResult({
         token: res.data.token,
         queueNumber: res.data.queueNumber,
