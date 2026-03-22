@@ -103,6 +103,7 @@ function BookAppointment() {
       setResult({
         queueNumber: res.data.data.queueNumber,
         waitTime: res.data.data.estimatedWaitTime,
+        type: res.data.data.appointmentType,
       });
       setMessage("Appointment booked successfully ✅");
 
@@ -294,19 +295,20 @@ function BookAppointment() {
                   ✅ Appointment Confirmed
                 </h2>
 
-                {result.queueNumber > 0 ? (
+                {result.type === "emergency" ? (
+                  <p className="text-red-600 font-bold">
+                    🚨 Emergency - Immediate Attention
+                  </p>
+                ) : (
                   <>
                     <p>
                       📍 Queue Position: <b>{result.queueNumber}</b>
                     </p>
+
                     <p>
                       ⏳ Estimated Wait Time: <b>{result.waitTime} mins</b>
                     </p>
                   </>
-                ) : (
-                  <p className="text-red-500 font-semibold">
-                    🚨 Emergency - Immediate Attention
-                  </p>
                 )}
               </div>
             )}
