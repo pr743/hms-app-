@@ -101,7 +101,6 @@ function BookAppointment() {
       // });
 
       setResult({
-        token: res.data.data.token,
         queueNumber: res.data.data.queueNumber,
         waitTime: res.data.data.estimatedWaitTime,
       });
@@ -295,17 +294,20 @@ function BookAppointment() {
                   ✅ Appointment Confirmed
                 </h2>
 
-                <p>
-                  🎟 Token Number: <b>{result.token}</b>
-                </p>
-
-                <p>
-                  📍 Queue Position: <b>{result.queueNumber}</b>
-                </p>
-
-                <p>
-                  ⏳ Estimated Wait Time: <b>{result.waitTime} mins</b>
-                </p>
+                {result.queueNumber > 0 ? (
+                  <>
+                    <p>
+                      📍 Queue Position: <b>{result.queueNumber}</b>
+                    </p>
+                    <p>
+                      ⏳ Estimated Wait Time: <b>{result.waitTime} mins</b>
+                    </p>
+                  </>
+                ) : (
+                  <p className="text-red-500 font-semibold">
+                    🚨 Emergency - Immediate Attention
+                  </p>
+                )}
               </div>
             )}
           </form>
