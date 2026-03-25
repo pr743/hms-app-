@@ -23,7 +23,8 @@ import CreatePrescription from "./pages/doctor/CreatePrescription";
 import PatientPrescriptions from "./pages/patients/PatientPrescriptions";
 import PatientHistory from "./pages/patients/PatientHistory";
 import MySavedHospitals from "./pages/MySavedHospitals";
-import Login from "./auth/Login"; 
+import Login from "./auth/Login";
+import EditDoctor from "./admin/EditDoctor";
 function App() {
   const { user } = useContext(AuthContext);
   return (
@@ -36,7 +37,7 @@ function App() {
           }
         />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register/>} />
+        <Route path="/register" element={<Register />} />
         <Route path="/admin/register" element={<AdminRegister />} />
 
         <Route path="/hospitals" element={<HospitalsByCity />} />
@@ -80,6 +81,8 @@ function App() {
           }
         />
 
+
+        <Route path="/admin/doctors/edit/:id" element={<EditDoctor />} />
 
         <Route
           path="/admin/hospitals"
@@ -183,7 +186,7 @@ function App() {
           path="/doctor/profile"
           element={
             user?.role === "doctor" ? (
-              <DoctorProfile/>
+              <DoctorProfile />
             ) : (
               <Navigate to="/login" />
             )
@@ -195,7 +198,7 @@ function App() {
           path="/doctor/patient/:patientId/history"
           element={
             user?.role === "doctor" ? (
-              <DoctorPatientHistory/>
+              <DoctorPatientHistory />
             ) : (
               <Navigate to="/login" />
             )
@@ -207,7 +210,7 @@ function App() {
           path="/doctor/prescriptions"
           element={
             user?.role === "doctor" ? (
-              <DoctorPrescriptions/>
+              <DoctorPrescriptions />
             ) : (
               <Navigate to="/login" />
             )
@@ -219,7 +222,7 @@ function App() {
           path="/doctor/create-prescription"
           element={
             user?.role === "doctor" ? (
-              <CreatePrescription/>
+              <CreatePrescription />
             ) : (
               <Navigate to="/login" />
             )

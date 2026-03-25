@@ -21,7 +21,7 @@ function EditDoctor() {
     const [loading, setLoading] = useState(false);
     const fetchDoctor = async () => {
         try {
-            const res = await API.get("/admin/doctor");
+            const res = await API.get("/admin/doctors");
             const doctor = res.data.data.find(d => d._id === id);
 
             if (doctor) {
