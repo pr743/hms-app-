@@ -12,7 +12,7 @@ function Register() {
 
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
-
+  const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -44,14 +44,14 @@ function Register() {
         role: "patient",
       });
 
-     
+
       login(res.data);
 
 
-      showAlert("Register Successfully ✅","success");
+      showAlert("Register Successfully ✅", "success");
 
-      
-       setTimeout(() => {
+
+      setTimeout(() => {
         login(res.data.admin);
         navigate(`/${res.data.user.role}`);
       }, 1500);
@@ -68,7 +68,7 @@ function Register() {
   return (
     <>
       <Navbar />
-     <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-blue-500 to-blue-200 px-4 pt-12 pb-6">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-blue-500 to-blue-200 px-4 pt-12 pb-6">
         <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8">
           <div className="text-center mb-6">
             <h1 className="text-3xl font-bold text-blue-600">
@@ -80,18 +80,17 @@ function Register() {
             <div
               className={`fixed top-4 left-1/2 -translate-x-1/2 
               px-4 py-2 rounded-xl text-black font-semibold z-50
-              ${
-                alert.type === "error"
+              ${alert.type === "error"
                   ? "bg-red-400"
                   : "bg-green-400"
-              }`}
+                }`}
             >
               {alert.msg}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="text-black">
-            
+
             <div className="mb-5">
               <label className="mb-2 block">Name</label>
               <div className="flex items-center bg-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-500">
@@ -107,7 +106,7 @@ function Register() {
               </div>
             </div>
 
-            
+
             <div className="mb-5">
               <label className="mb-2 block">Email</label>
               <div className="flex items-center bg-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-500">
@@ -123,7 +122,7 @@ function Register() {
               </div>
             </div>
 
-            
+
             <div className="mb-6">
               <label className="mb-2 block">Password</label>
               <div className="flex items-center bg-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-500">
@@ -136,6 +135,19 @@ function Register() {
                   onChange={handleChange}
                   required
                 />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  onMouseDown={(e) => e.preventDefault()}
+                  className="text-gray-500"
+                >
+                  {showPassword ? (
+                    <EyeOff size={20} />
+                  ) : (
+                    <Eye size={20} />
+                  )}
+                </button>
               </div>
             </div>
 

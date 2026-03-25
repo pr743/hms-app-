@@ -12,8 +12,9 @@ function AdminRegister() {
 
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
 
-  
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -36,11 +37,11 @@ function AdminRegister() {
         name: form.name.trim(),
         email: form.email.trim(),
         password: form.password,
-        city: form.city.trim(), 
+        city: form.city.trim(),
       });
 
 
-      showAlert("Admin registered successfully","success");
+      showAlert("Admin registered successfully", "success");
 
       setTimeout(() => {
         login(res.data.admin);
@@ -73,22 +74,21 @@ function AdminRegister() {
             </p>
           </div>
 
-        {alert && (
+          {alert && (
             <div
               className={`fixed top-4 left-1/2 -translate-x-1/2 
               px-4 py-2 rounded-xl text-black font-semibold z-50
-              ${
-                alert.type === "error"
+              ${alert.type === "error"
                   ? "bg-red-400"
                   : "bg-green-400"
-              }`}
+                }`}
             >
               {alert.msg}
             </div>
           )}
 
           <form onSubmit={handleSubmit}>
-           
+
             <div className="mb-5">
               <label className="text-black mb-2 block">Name</label>
               <div className="flex items-center bg-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-500">
@@ -104,7 +104,7 @@ function AdminRegister() {
               </div>
             </div>
 
-           
+
             <div className="mb-5">
               <label className="text-black mb-2 block">Email</label>
               <div className="flex items-center bg-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-500">
@@ -120,7 +120,7 @@ function AdminRegister() {
               </div>
             </div>
 
-            
+
             <div className="mb-5">
               <label className="text-black mb-2 block">Password</label>
               <div className="flex items-center bg-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-500">
@@ -133,10 +133,23 @@ function AdminRegister() {
                   onChange={handleChange}
                   required
                 />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  onMouseDown={(e) => e.preventDefault()}
+                  className="text-gray-500"
+                >
+                  {showPassword ? (
+                    <EyeOff size={20} />
+                  ) : (
+                    <Eye size={20} />
+                  )}
+                </button>
               </div>
             </div>
 
-            
+
             <div className="mb-6">
               <label className="text-black mb-2 block">City</label>
               <div className="flex items-center bg-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-500">

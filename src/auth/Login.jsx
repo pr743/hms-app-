@@ -80,7 +80,7 @@ function Login() {
           )}
 
           <form onSubmit={handleSubmit} className="bg-white text-black">
-            {/* Email */}
+
             <div className="mb-5">
               <label className="text-black mb-2 block">Email</label>
               <div className="flex items-center bg-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-500">
@@ -96,7 +96,7 @@ function Login() {
               </div>
             </div>
 
-            {/* Password with Toggle */}
+
             <div className="mb-6">
               <label className="text-black mb-2 block">Password</label>
               <div className="flex items-center bg-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-500">
@@ -111,7 +111,7 @@ function Login() {
                   required
                 />
 
-                {/* Toggle Button */}
+
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
