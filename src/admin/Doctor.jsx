@@ -108,15 +108,6 @@ function Doctors() {
                         </button>
 
 
-
-                        {/* <button
-                          onClick={() => navigate(`/admin/doctors/edit/${doc.user._id}`)}
-                          className="px-4 py-2 bg-blue-500 text-white rounded-lg"
-                        >
-                          Edit
-                        </button> */}
-
-
                         <button
                           onClick={() => navigate(`/admin/doctors/edit/${doc._id}`)}
                           className="px-4 py-2 bg-blue-500 text-white rounded-lg"
