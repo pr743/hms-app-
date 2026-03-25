@@ -35,8 +35,30 @@ function Appointments() {
       await API.patch(`/appointments/${id}/cancel`);
 
       fetchAppointments();
-    } catch{
+    } catch {
       console.error("Failed to cancel appointment");
+    }
+  };
+
+
+
+
+  const deleteAppointment = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this appointment?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      await API.delete(`/appointments/admin/${id}`);
+
+
+      setAppointments((prev) =>
+        prev.filter((appt) => appt._id !== id)
+      );
+    } catch {
+      console.error("Delete failed");
     }
   };
 
@@ -58,17 +80,16 @@ function Appointments() {
                 key={appt._id}
                 className="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition"
               >
-               
+
                 <div className="flex items-center justify-between mb-4">
                   <span
                     className={`px-3 py-1 rounded-full text-sm font-semibold
-                    ${
-                      appt.status === "booked"
+                    ${appt.status === "booked"
                         ? "bg-blue-100 text-blue-600"
                         : appt.status === "completed"
-                        ? "bg-green-100 text-green-600"
-                        : "bg-red-100 text-red-600"
-                    }`}
+                          ? "bg-green-100 text-green-600"
+                          : "bg-red-100 text-red-600"
+                      }`}
                   >
                     {appt.status}
                   </span>
@@ -81,9 +102,19 @@ function Appointments() {
                       <XCircle size={22} />
                     </button>
                   )}
+
+                  {appt.status === "cancelled" && (
+                    <button
+                      onClick={() => deleteAppointment(appt._id)}
+                      className="text-black hover:text-gray-700"
+                    >
+                      🗑
+                    </button>
+                  )}
+
                 </div>
 
-                
+
                 <div className="flex items-center gap-3 mb-2">
                   <User className="text-blue-500" />
                   <span className="font-medium">
@@ -91,7 +122,7 @@ function Appointments() {
                   </span>
                 </div>
 
-               
+
                 <div className="flex items-center gap-3 mb-2">
                   <Stethoscope className="text-green-500" />
                   <span className="font-medium">
@@ -100,19 +131,19 @@ function Appointments() {
                   </span>
                 </div>
 
-                
+
                 <div className="flex items-center gap-3 mb-2 text-gray-600">
                   <CalendarDays size={18} />
                   <span>{new Date(appt.appointmentDate).toLocaleDateString()}</span>
                 </div>
 
-               
+
                 <div className="flex items-center gap-3 mb-4 text-gray-600">
                   <Clock size={18} />
                   <span>{appt.slotTime}</span>
                 </div>
 
-               
+
                 <p className="text-gray-600 text-sm">
                   <strong>Reason:</strong> {appt.reason || "—"}
                 </p>
