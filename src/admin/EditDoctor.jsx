@@ -19,11 +19,9 @@ function EditDoctor() {
     });
 
     const [loading, setLoading] = useState(false);
-
-    // 🔥 GET doctor data
     const fetchDoctor = async () => {
         try {
-            const res = await API.get("/admin/doctors");
+            const res = await API.get("/admin/doctor");
             const doctor = res.data.data.find(d => d._id === id);
 
             if (doctor) {
@@ -51,7 +49,7 @@ function EditDoctor() {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    // 🔥 UPDATE API
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
