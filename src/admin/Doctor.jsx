@@ -70,11 +70,10 @@
 //                       </td>
 //                       <td className="px-6 py-4">
 //                         <span
-//                           className={`px-3 py-1 rounded-full text-sm font-semibold ${
-//                             doc.user?.isActive
+//                           className={`px-3 py-1 rounded-full text-sm font-semibold ${doc.user?.isActive
 //                               ? "bg-green-100 text-green-600"
 //                               : "bg-red-100 text-red-600"
-//                           }`}
+//                             }`}
 //                         >
 //                           {doc.user?.isActive ? "Active" : "Inactive"}
 //                         </span>
@@ -82,11 +81,10 @@
 //                       <td className="px-6 py-4">
 //                         <button
 //                           onClick={() => toggleStatus(doc.user._id)}
-//                           className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-white ${
-//                             doc.user?.isActive
+//                           className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-white ${doc.user?.isActive
 //                               ? "bg-red-500 hover:bg-red-600"
 //                               : "bg-green-500 hover:bg-green-600"
-//                           }`}
+//                             }`}
 //                         >
 //                           {doc.user?.isActive ? (
 //                             <>
@@ -149,11 +147,10 @@
 
 //                   <div>
 //                     <span
-//                       className={`px-3 py-1 rounded-full text-xs font-semibold ${
-//                         doc.user?.isActive
+//                       className={`px-3 py-1 rounded-full text-xs font-semibold ${doc.user?.isActive
 //                           ? "bg-green-100 text-green-600"
 //                           : "bg-red-100 text-red-600"
-//                       }`}
+//                         }`}
 //                     >
 //                       {doc.user?.isActive ? "Active" : "Inactive"}
 //                     </span>
@@ -161,11 +158,10 @@
 
 //                   <button
 //                     onClick={() => toggleStatus(doc.user._id)}
-//                     className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-semibold text-white ${
-//                       doc.user?.isActive
+//                     className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-semibold text-white ${doc.user?.isActive
 //                         ? "bg-red-500 hover:bg-red-600"
 //                         : "bg-green-500 hover:bg-green-600"
-//                     }`}
+//                       }`}
 //                   >
 //                     {doc.user?.isActive ? (
 //                       <>
@@ -188,11 +184,6 @@
 // }
 
 // export default Doctors;
-
-
-
-
-
 
 
 
@@ -240,12 +231,12 @@ function Doctors() {
     fetchDoctors();
   }, []);
 
-  // ✅ Toggle Status
+
   const toggleStatus = async (userId) => {
     try {
       await API.patch(`/admin/users/${userId}/toggle`);
 
-      // remove doctor instantly
+
       setDoctors(prev =>
         prev.filter(doc => doc.user._id !== userId)
       );
@@ -254,7 +245,7 @@ function Doctors() {
     }
   };
 
-  // ✅ Delete Doctor
+
   const deleteDoctor = async (userId) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this doctor?"
@@ -265,7 +256,7 @@ function Doctors() {
     try {
       await API.delete(`/admin/users/${userId}`);
 
-      // remove from UI
+
       setDoctors(prev =>
         prev.filter(doc => doc.user._id !== userId)
       );
@@ -380,3 +371,7 @@ function Doctors() {
 }
 
 export default Doctors;
+
+
+
+
