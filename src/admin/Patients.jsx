@@ -31,6 +31,27 @@ function Patients() {
     }
   };
 
+
+
+  const deletePatient = async (userId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this patient?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      await API.delete(`/admin/patients/${userId}`);
+
+
+      setPatients((prev) =>
+        prev.filter((p) => p.user._id !== userId)
+      );
+    } catch {
+      console.error("Delete failed");
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -49,7 +70,7 @@ function Patients() {
                 key={patient._id}
                 className="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition"
               >
-                
+
                 <div className="flex items-center gap-4 mb-4">
                   <div className="bg-blue-100 p-3 rounded-full">
                     <User className="text-blue-600" size={26} />
@@ -64,21 +85,20 @@ function Patients() {
                   </div>
                 </div>
 
-               
+
                 <div className="flex items-center gap-2 text-gray-600 mb-4">
                   <Mail size={18} />
                   <span className="text-sm">{patient.user?.email}</span>
                 </div>
 
-               
-                <div className="flex items-center justify-between">
+
+                <div className="flex items-center justify-between gap-2">
                   <span
                     className={`px-3 py-1 rounded-full text-sm font-semibold
-                    ${
-                      patient.user?.isActive
+                    ${patient.user?.isActive
                         ? "bg-green-100 text-green-600"
                         : "bg-red-100 text-red-600"
-                    }`}
+                      }`}
                   >
                     {patient.user?.isActive ? "Active" : "Blocked"}
                   </span>
@@ -86,11 +106,10 @@ function Patients() {
                   <button
                     onClick={() => toggleStatus(patient.user._id)}
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg text-white font-semibold
-                    ${
-                      patient.user?.isActive
+                    ${patient.user?.isActive
                         ? "bg-red-500 hover:bg-red-600"
                         : "bg-green-500 hover:bg-green-600"
-                    }`}
+                      }`}
                   >
                     {patient.user?.isActive ? (
                       <>
@@ -102,6 +121,17 @@ function Patients() {
                       </>
                     )}
                   </button>
+
+                  {!patient.user?.isActive && (
+                    <button
+                      onClick={() => deletePatient(patient.user._id)}
+                      className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800"
+                    >
+                      🗑 Delete
+                    </button>
+                  )}
+
+
                 </div>
               </div>
             ))}

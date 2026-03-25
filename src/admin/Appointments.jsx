@@ -108,12 +108,11 @@ function Appointments() {
                       onClick={() => deleteAppointment(appt._id)}
                       className="text-black hover:text-gray-700"
                     >
-                      🗑
+                      🗑 Delete
                     </button>
                   )}
 
                 </div>
-
 
                 <div className="flex items-center gap-3 mb-2">
                   <User className="text-blue-500" />
