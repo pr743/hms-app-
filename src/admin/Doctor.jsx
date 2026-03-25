@@ -2,10 +2,15 @@ import React, { useEffect, useState } from "react";
 import API from "../api/axios";
 import Navbar from "../components/Navbar";
 import { UserCheck, UserX } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function Doctors() {
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
+
+
+
+  const navigate = useNavigate();
 
   const fetchDoctors = async () => {
     try {
@@ -100,6 +105,15 @@ function Doctors() {
                           className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg"
                         >
                           <UserX size={16} /> Deactivate
+                        </button>
+
+
+
+                        <button
+                          onClick={() => navigate(`/admin/doctors/edit/${doc._id}`)}
+                          className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+                        >
+                          Edit
                         </button>
 
 
