@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import API from "../api/axios";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
-import { Lock, Mail, User, MapPin } from "lucide-react";
+import { Lock, Mail, User, MapPin, Eye, EyeOff } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 
