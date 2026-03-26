@@ -86,13 +86,13 @@ function Patients() {
                 </div>
 
 
-                <div className="grid grid-cols-2 gap-2 mt-4">
+                <div className="flex items-center gap-2 text-gray-600 mb-4">
                   <Mail size={18} />
                   <span className="text-sm">{patient.user?.email}</span>
                 </div>
 
 
-                <div className="flex items-center justify-between gap-2">
+                <div className="grid grid-cols-2 gap-2 mt-4">
                   <span
                     className={`px-3 py-1 rounded-full text-sm font-semibold
                     ${patient.user?.isActive
