@@ -230,18 +230,25 @@ export default function CreatePrescription() {
 
   const [medicines, setMedicines] = useState([]);
 
-  // 🤖 AI CALL
+
   const getAISuggestion = async () => {
     try {
       setAiLoading(true);
+      setAiMedicines([]); // clear previous result
 
       const res = await API.post("/ai/suggest", {
         symptom,
       });
 
-      setAiMedicines(res.data.data);
-    } catch (error) {
-      alert("AI failed");
+      if (res.data?.data && Array.isArray(res.data.data)) {
+        setAiMedicines(res.data.data);
+      } else {
+        setAiMedicines([]);
+      }
+
+    } catch {
+      setAiMedicines([]);
+      alert("AI failed ❌");
     } finally {
       setAiLoading(false);
     }
