@@ -86,7 +86,7 @@ function Patients() {
                 </div>
 
 
-                <div className="flex items-center gap-2 text-gray-600 mb-4">
+                <div className="grid grid-cols-2 gap-2 mt-4">
                   <Mail size={18} />
                   <span className="text-sm">{patient.user?.email}</span>
                 </div>
@@ -125,7 +125,7 @@ function Patients() {
                   {!patient.user?.isActive && (
                     <button
                       onClick={() => deletePatient(patient.user._id)}
-                      className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800"
+                      className="flex items-center justify-center py-2 bg-black text-white rounded-lg hover:bg-gray-800"
                     >
                       🗑 Delete
                     </button>
