@@ -222,40 +222,47 @@
 
 import { useState } from "react";
 import API from "../../api/axios";
+import Navbar from "../../components/Navbar";
 
-const COMMON_SYMPTOMS = [
-  "Fever",
-  "Cold",
-  "Cough",
-  "Headache",
-  "Eye Pain",
-  "Eye Infection",
-  "Ear Pain",
-  "Chest Pain",
-  "Stomach Pain",
-  "Skin Allergy",
-  "Back Pain",
-  "Vomiting",
-  "Diabetes",
-  "Blood Pressure",
+const ALL_SYMPTOMS = [
+  "Fever", "Cold", "Cough", "Headache", "Migraine",
+  "Eye Pain", "Eye Infection", "Blur Vision",
+  "Ear Pain", "Hearing Issue",
+  "Chest Pain", "Heart Pain", "Breathing Problem",
+  "Stomach Pain", "Acidity", "Vomiting", "Diarrhea",
+  "Back Pain", "Joint Pain", "Muscle Pain",
+  "Skin Allergy", "Rash", "Itching",
+  "Diabetes", "High Blood Pressure", "Low BP",
+  "Thyroid", "Weakness", "Fatigue",
+  "Anxiety", "Depression", "Sleep Problem",
+  "Tooth Pain", "Gum Infection",
+  "Hair Fall", "Dandruff",
+  "Kidney Pain", "Urine Infection",
+  "Liver Problem",
+  "Asthma", "Sinus",
+  "Covid Symptoms",
 ];
 
 export default function CreatePrescription() {
-  const [symptom, setSymptom] = useState("");
-  const [customSymptom, setCustomSymptom] = useState("");
+  const [search, setSearch] = useState("");
+  const [selectedSymptom, setSelectedSymptom] = useState("");
 
   const [aiLoading, setAiLoading] = useState(false);
   const [aiMedicines, setAiMedicines] = useState([]);
 
   const [medicines, setMedicines] = useState([]);
 
-  // ✅ FINAL SYMPTOM VALUE
-  const finalSymptom = customSymptom || symptom;
 
-  // ✅ AI CALL
+  const filteredSymptoms = ALL_SYMPTOMS.filter((item) =>
+    item.toLowerCase().includes(search.toLowerCase())
+  );
+
+
   const getAISuggestion = async () => {
+    const finalSymptom = selectedSymptom || search;
+
     if (!finalSymptom) {
-      alert("Select or type symptom ❌");
+      alert("Please select or type symptom ❌");
       return;
     }
 
@@ -272,124 +279,134 @@ export default function CreatePrescription() {
       } else {
         setAiMedicines([]);
       }
-    } catch (err) {
-      console.error(err);
-      setAiMedicines([]);
+    } catch (error) {
+      console.error(error);
       alert("AI failed ❌");
     } finally {
       setAiLoading(false);
     }
   };
 
-  // ✅ ADD MEDICINE
+  // ➕ ADD MEDICINE
   const addMedicine = (med) => {
     setMedicines((prev) => [...prev, med]);
   };
 
-  // ✅ REMOVE MEDICINE
+  // ❌ REMOVE MEDICINE
   const removeMedicine = (index) => {
     setMedicines((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto bg-white shadow rounded">
+    <>
+      <Navbar />
 
-      <h2 className="text-2xl font-bold mb-4">
-        🧠 Smart Prescription AI
-      </h2>
+      <div className="p-6 max-w-5xl mx-auto bg-white shadow rounded">
 
-      {/* ✅ SELECT SYMPTOM */}
-      <select
-        value={symptom}
-        onChange={(e) => {
-          setSymptom(e.target.value);
-          setCustomSymptom("");
-        }}
-        className="w-full border p-2 rounded"
-      >
-        <option value="">Select Symptom</option>
-        {COMMON_SYMPTOMS.map((s, i) => (
-          <option key={i} value={s.toLowerCase()}>
-            {s}
-          </option>
-        ))}
-      </select>
+        <h2 className="text-2xl font-bold mb-4">
+          🧠 Smart Prescription AI (Doctor Panel)
+        </h2>
 
+        {/* 🔍 SEARCH INPUT */}
+        <input
+          type="text"
+          placeholder="Type symptom (e.g. heart pain, eye issue...)"
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setSelectedSymptom("");
+          }}
+          className="w-full border p-2 rounded"
+        />
 
-      <input
-        type="text"
-        placeholder="Or type custom symptom (e.g. heart pain)"
-        value={customSymptom}
-        onChange={(e) => {
-          setCustomSymptom(e.target.value);
-          setSymptom("");
-        }}
-        className="w-full border p-2 rounded mt-2"
-      />
-
-      {/* ✅ AI BUTTON */}
-      <button
-        onClick={getAISuggestion}
-        disabled={aiLoading}
-        className="mt-3 bg-purple-600 text-white px-4 py-2 rounded w-full"
-      >
-        {aiLoading ? "Thinking..." : "🤖 Get AI Suggestion"}
-      </button>
-
-      {/* ✅ AI RESULT */}
-      {aiMedicines.length > 0 && (
-        <div className="mt-5 border p-4 rounded bg-gray-50">
-          <h3 className="font-bold mb-3">AI Suggestions</h3>
-
-          {aiMedicines.map((med, index) => (
-            <div
-              key={index}
-              className="flex justify-between items-center border p-2 mb-2 rounded"
-            >
-              <div>
-                <p className="font-semibold">{med.name}</p>
-                <p className="text-sm">
-                  {med.dosage} - {med.duration}
-                </p>
+        {/* 📋 SUGGESTION LIST */}
+        {search && (
+          <div className="border rounded mt-2 max-h-40 overflow-y-auto">
+            {filteredSymptoms.length > 0 ? (
+              filteredSymptoms.map((item, i) => (
+                <div
+                  key={i}
+                  onClick={() => {
+                    setSelectedSymptom(item);
+                    setSearch(item);
+                  }}
+                  className="p-2 hover:bg-gray-100 cursor-pointer"
+                >
+                  {item}
+                </div>
+              ))
+            ) : (
+              <div className="p-2 text-gray-500">
+                No match — will use custom input
               </div>
-
-              <button
-                onClick={() => addMedicine(med)}
-                className="bg-green-500 text-white px-3 py-1 rounded"
-              >
-                Add
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
-
-
-      <div className="mt-6">
-        <h3 className="font-bold text-lg">Final Prescription</h3>
-
-        {medicines.length === 0 ? (
-          <p className="text-gray-500 mt-2">No medicines added</p>
-        ) : (
-          medicines.map((m, i) => (
-            <div
-              key={i}
-              className="flex justify-between items-center border p-2 mt-2 rounded"
-            >
-              <div>
-                {m.name} - {m.dosage} ({m.duration})
-              </div>
-
-              <button
-                onClick={() => removeMedicine(i)}
-                className="text-red-500"
-              >
-                Remove
-              </button>
-            </div>
-          ))
+            )}
+          </div>
         )}
+
+
+        <button
+          onClick={getAISuggestion}
+          disabled={aiLoading}
+          className="mt-4 w-full bg-purple-600 text-white py-2 rounded"
+        >
+          {aiLoading ? "Thinking..." : "🤖 Get AI Suggestion"}
+        </button>
+
+        {/* 🤖 AI RESULTS */}
+        {aiMedicines.length > 0 && (
+          <div className="mt-5 border p-4 rounded bg-gray-50">
+            <h3 className="font-bold mb-3">AI Suggested Medicines</h3>
+
+            {aiMedicines.map((med, index) => (
+              <div
+                key={index}
+                className="flex justify-between items-center border p-2 mb-2 rounded"
+              >
+                <div>
+                  <p className="font-semibold">{med.name}</p>
+                  <p className="text-sm">
+                    {med.dosage} - {med.duration}
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => addMedicine(med)}
+                  className="bg-green-500 text-white px-3 py-1 rounded"
+                >
+                  Add
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* 📦 FINAL PRESCRIPTION */}
+        <div className="mt-6">
+          <h3 className="font-bold text-lg">Final Prescription</h3>
+
+          {medicines.length === 0 ? (
+            <p className="text-gray-500 mt-2">No medicines added</p>
+          ) : (
+            medicines.map((m, i) => (
+              <div
+                key={i}
+                className="flex justify-between items-center border p-2 mt-2 rounded"
+              >
+                <div>
+                  {m.name} - {m.dosage} ({m.duration})
+                </div>
+
+                <button
+                  onClick={() => removeMedicine(i)}
+                  className="text-red-500"
+                >
+                  Remove
+                </button>
+              </div>
+            ))
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
