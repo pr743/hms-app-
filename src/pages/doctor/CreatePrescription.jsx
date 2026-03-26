@@ -219,8 +219,7 @@
 
 
 
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import API from "../../api/axios";
 import Navbar from "../../components/Navbar";
 
@@ -244,25 +243,37 @@ const ALL_SYMPTOMS = [
 ];
 
 export default function CreatePrescription() {
-  const [search, setSearch] = useState("");
+  const [appointments, setAppointments] = useState([]);
+  const [appointmentId, setAppointmentId] = useState("");
+
   const [selectedSymptom, setSelectedSymptom] = useState("");
+
+  const [diagnosis, setDiagnosis] = useState("");
+  const [notes, setNotes] = useState("");
 
   const [aiLoading, setAiLoading] = useState(false);
   const [aiMedicines, setAiMedicines] = useState([]);
 
   const [medicines, setMedicines] = useState([]);
 
+  // ✅ FETCH APPOINTMENTS
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const res = await API.get("/prescriptions/doctor/appointments");
+        setAppointments(res.data.data || []);
+      } catch (err) {
+        console.error("Failed to load appointments", err);
+      }
+    };
 
-  const filteredSymptoms = ALL_SYMPTOMS.filter((item) =>
-    item.toLowerCase().includes(search.toLowerCase())
-  );
+    fetchAppointments();
+  }, []);
 
-
+  // 🤖 AI CALL
   const getAISuggestion = async () => {
-    const finalSymptom = selectedSymptom || search;
-
-    if (!finalSymptom) {
-      alert("Please select or type symptom ❌");
+    if (!selectedSymptom) {
+      alert("Please select symptom ❌");
       return;
     }
 
@@ -271,7 +282,7 @@ export default function CreatePrescription() {
       setAiMedicines([]);
 
       const res = await API.post("/ai/suggest", {
-        symptom: finalSymptom,
+        symptom: selectedSymptom,
       });
 
       if (Array.isArray(res.data?.data)) {
@@ -297,115 +308,172 @@ export default function CreatePrescription() {
     setMedicines((prev) => prev.filter((_, i) => i !== index));
   };
 
+  // ✅ SUBMIT
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!appointmentId) {
+      alert("Select appointment ❌");
+      return;
+    }
+
+    try {
+      await API.post("/prescriptions", {
+        appointmentId,
+        diagnosis: diagnosis || selectedSymptom,
+        notes,
+        medicines,
+      });
+
+      alert("Prescription Created ✅");
+
+      // remove used appointment
+      setAppointments((prev) =>
+        prev.filter((a) => a._id !== appointmentId)
+      );
+
+      // reset
+      setAppointmentId("");
+      setSelectedSymptom("");
+      setDiagnosis("");
+      setNotes("");
+      setMedicines([]);
+      setAiMedicines([]);
+
+    } catch {
+      alert("Error creating prescription ❌");
+    }
+  };
+
   return (
     <>
       <Navbar />
 
-      <div className="p-6 max-w-5xl mx-auto bg-white shadow rounded">
+      <div className="max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-lg">
 
         <h2 className="text-2xl font-bold mb-4">
-          🧠 Smart Prescription AI (Doctor Panel)
+          Smart Prescription AI (Doctor Panel)
         </h2>
 
-        {/* 🔍 SEARCH INPUT */}
-        <input
-          type="text"
-          placeholder="Type symptom (e.g. heart pain, eye issue...)"
-          value={search}
-          onChange={(e) => {
-            setSearch(e.target.value);
-            setSelectedSymptom("");
-          }}
-          className="w-full border p-2 rounded"
-        />
+        <form onSubmit={handleSubmit} className="space-y-4">
 
-        {/* 📋 SUGGESTION LIST */}
-        {search && (
-          <div className="border rounded mt-2 max-h-40 overflow-y-auto">
-            {filteredSymptoms.length > 0 ? (
-              filteredSymptoms.map((item, i) => (
+
+          <select
+            className="w-full border p-2 rounded"
+            value={appointmentId}
+            onChange={(e) => setAppointmentId(e.target.value)}
+            required
+          >
+            <option value="">Select Appointment</option>
+
+            {appointments.length === 0 ? (
+              <option disabled>No completed appointments</option>
+            ) : (
+              appointments.map((appt) => (
+                <option key={appt._id} value={appt._id}>
+                  {appt?.patient?.user?.name || "Unknown"} |{" "}
+                  {appt?.slotTime || "No Time"}
+                </option>
+              ))
+            )}
+          </select>
+
+
+          <select
+            value={selectedSymptom}
+            onChange={(e) => setSelectedSymptom(e.target.value)}
+            className="w-full border p-2 rounded"
+          >
+            <option value="">Select Disease / Symptom</option>
+            {ALL_SYMPTOMS.map((item, i) => (
+              <option key={i} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+
+
+          <button
+            type="button"
+            onClick={getAISuggestion}
+            className="w-full bg-purple-600 text-white py-2 rounded"
+          >
+            {aiLoading ? "Thinking..." : "🤖 Get AI Suggestion"}
+          </button>
+
+
+          {aiMedicines.length > 0 && (
+            <div className="border p-4 rounded bg-gray-50">
+              <h3 className="font-bold mb-3">AI Suggested Medicines</h3>
+
+              {aiMedicines.map((med, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between items-center border p-2 mb-2 rounded"
+                >
+                  <div>
+                    <p className="font-semibold">{med.name}</p>
+                    <p className="text-sm">
+                      {med.dosage} - {med.duration}
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => addMedicine(med)}
+                    className="bg-green-500 text-white px-3 py-1 rounded"
+                  >
+                    Add
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+
+          <div>
+            <h3 className="font-bold text-lg">Final Prescription</h3>
+
+            {medicines.length === 0 ? (
+              <p className="text-gray-500">No medicines added</p>
+            ) : (
+              medicines.map((m, i) => (
                 <div
                   key={i}
-                  onClick={() => {
-                    setSelectedSymptom(item);
-                    setSearch(item);
-                  }}
-                  className="p-2 hover:bg-gray-100 cursor-pointer"
+                  className="flex justify-between items-center border p-2 mt-2 rounded"
                 >
-                  {item}
+                  <div>
+                    {m.name} - {m.dosage} ({m.duration})
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => removeMedicine(i)}
+                    className="text-red-500"
+                  >
+                    Remove
+                  </button>
                 </div>
               ))
-            ) : (
-              <div className="p-2 text-gray-500">
-                No match — will use custom input
-              </div>
             )}
           </div>
-        )}
+
+          <textarea
+            placeholder="Doctor Notes"
+            className="w-full border p-2 rounded"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+          />
 
 
-        <button
-          onClick={getAISuggestion}
-          disabled={aiLoading}
-          className="mt-4 w-full bg-purple-600 text-white py-2 rounded"
-        >
-          {aiLoading ? "Thinking..." : "🤖 Get AI Suggestion"}
-        </button>
+          <button
+            type="submit"
+            className="w-full bg-green-600 text-white py-2 rounded"
+          >
+            Save Prescription
+          </button>
 
-        {/* 🤖 AI RESULTS */}
-        {aiMedicines.length > 0 && (
-          <div className="mt-5 border p-4 rounded bg-gray-50">
-            <h3 className="font-bold mb-3">AI Suggested Medicines</h3>
-
-            {aiMedicines.map((med, index) => (
-              <div
-                key={index}
-                className="flex justify-between items-center border p-2 mb-2 rounded"
-              >
-                <div>
-                  <p className="font-semibold">{med.name}</p>
-                  <p className="text-sm">
-                    {med.dosage} - {med.duration}
-                  </p>
-                </div>
-
-                <button
-                  onClick={() => addMedicine(med)}
-                  className="bg-green-500 text-white px-3 py-1 rounded"
-                >
-                  Add
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* 📦 FINAL PRESCRIPTION */}
-        <div className="mt-6">
-          <h3 className="font-bold text-lg">Final Prescription</h3>
-
-          {medicines.length === 0 ? (
-            <p className="text-gray-500 mt-2">No medicines added</p>
-          ) : (
-            medicines.map((m, i) => (
-              <div
-                key={i}
-                className="flex justify-between items-center border p-2 mt-2 rounded"
-              >
-                <div>
-                  {m.name} - {m.dosage} ({m.duration})
-                </div>
-
-                <button
-                  onClick={() => removeMedicine(i)}
-                  className="text-red-500"
-                >
-                  Remove
-                </button>
-              </div>
-            ))
-          )}
-        </div>
+        </form>
       </div>
     </>
   );
