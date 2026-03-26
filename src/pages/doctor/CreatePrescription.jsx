@@ -19,7 +19,7 @@ export default function CreatePrescription() {
       try {
         const res = await API.get("/prescriptions/doctor/appointments");
 
-        console.log("Appointments:", res.data.data); // DEBUG
+        console.log("Appointments:", res.data.data);
 
         setAppointments(res.data.data || []);
       } catch (err) {
@@ -52,10 +52,6 @@ export default function CreatePrescription() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!appointmentId) {
-      return alert("Please select appointment");
-    }
-
     try {
       await API.post("/prescriptions", {
         appointmentId,
@@ -66,14 +62,18 @@ export default function CreatePrescription() {
 
       alert("Prescription Created ✅");
 
+
+      setAppointments((prev) =>
+        prev.filter((a) => a._id !== appointmentId)
+      );
+
       setAppointmentId("");
       setDiagnosis("");
       setNotes("");
       setMedicines([
         { name: "", dosage: "", duration: "", instructions: "" },
       ]);
-    } catch (err) {
-      console.error(err);
+    } catch {
       alert("Error creating prescription ❌");
     }
   };
