@@ -120,8 +120,23 @@ function DoctorAppointment() {
   };
 
 
+  // const handleSelectEvent = (event) => {
+  //   console.log("Clicked event:", event);
+  //   navigate(`/doctor/create-prescription/${event.id}`);
+  // };
+
+
+  // const handleSelectEvent = (event) => {
+  //   console.log("Clicked event:", event);
+  //   try {
+  //     navigate(`/doctor/create-prescription/${event.id}`);
+  //   } catch {
+  //     window.location.href = `/doctor/create-prescription/${event.id}`;
+  //   }
+  // };
+
   const handleSelectEvent = (event) => {
-    console.log("Clicked event:", event);
+    console.log("Navigating to:", `/doctor/create-prescription/${event.id}`);
     navigate(`/doctor/create-prescription/${event.id}`);
   };
 
