@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../../api/axios";
 import Navbar from "../../components/Navbar";
+import DoctorSignature from "./DoctorSignature";
 
 const ALL_SYMPTOMS = [
   "Fever", "Cold", "Cough", "Headache", "Migraine",
@@ -34,6 +35,10 @@ export default function CreatePrescription() {
   const [aiMedicines, setAiMedicines] = useState([]);
 
   const [medicines, setMedicines] = useState([]);
+
+  const [signature, setSignature] = useState("");
+
+
 
 
   useEffect(() => {
@@ -126,6 +131,8 @@ export default function CreatePrescription() {
         diagnosis: diagnosis || selectedSymptom,
         notes,
         medicines,
+        signature,
+
       });
 
       alert("Prescription Created ✅");
@@ -302,6 +309,10 @@ export default function CreatePrescription() {
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
           />
+
+
+          <DoctorSignature onSave={setSignature} />
+
 
           <button
             type="submit"
