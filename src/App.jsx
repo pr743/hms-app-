@@ -219,7 +219,7 @@ function App() {
 
 
         <Route
-          path="/doctor/create-prescription"
+          path="/doctor/create-prescription:/id"
           element={
             user?.role === "doctor" ? (
               <CreatePrescription />
@@ -228,8 +228,6 @@ function App() {
             )
           }
         />
-
-
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
