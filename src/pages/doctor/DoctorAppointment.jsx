@@ -151,6 +151,8 @@ function DoctorAppointment() {
         newSlotTime: format(start, "hh:mm a"),
       });
 
+      console.log(event);
+
       fetchAppointments();
     } catch (err) {
       console.error(err);
