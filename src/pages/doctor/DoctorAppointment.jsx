@@ -36,7 +36,7 @@ function DoctorAppointment() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // ✅ FETCH
+
   const fetchAppointments = async () => {
     try {
       const res = await API.get("/appointments/doctor");

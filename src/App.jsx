@@ -217,9 +217,8 @@ function App() {
           }
         />
 
-
         <Route
-          path="/doctor/create-prescription:/id"
+          path="/doctor/create-prescription"
           element={
             user?.role === "doctor" ? (
               <CreatePrescription />
