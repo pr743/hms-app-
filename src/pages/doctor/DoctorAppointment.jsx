@@ -87,15 +87,45 @@ function DoctorAppointment() {
     };
   });
 
-  // ✅ COLOR LOGIC
+
+  // const eventStyleGetter = (event) => {
+  //   let bg = "#3b82f6";
+
+  //   if (event.status === "completed") bg = "#16a34a";
+  //   else if (event.status === "booked") bg = "#f59e0b";
+  //   else if (event.status === "cancelled") bg = "#dc2626";
+
+  //   if (event.type === "emergency") bg = "#7f1d1d";
+
+  //   return {
+  //     style: {
+  //       backgroundColor: bg,
+  //       color: "#fff",
+  //       borderRadius: "8px",
+  //       padding: "6px",
+  //       fontSize: "12px",
+  //       border: "none",
+  //     },
+  //   };
+  // };
+
+
   const eventStyleGetter = (event) => {
     let bg = "#3b82f6";
 
-    if (event.status === "completed") bg = "#16a34a"; // green
-    else if (event.status === "booked") bg = "#f59e0b"; // orange
-    else if (event.status === "cancelled") bg = "#dc2626"; // red
+    const status = event.status?.toLowerCase();
+    const type = event.type?.toLowerCase();
 
-    if (event.type === "emergency") bg = "#7f1d1d"; // dark red
+
+    if (type === "emergency") {
+      bg = "#dc2626";
+    } else if (status === "completed") {
+      bg = "#16a34a";
+    } else if (status === "booked") {
+      bg = "#f59e0b";
+    } else if (status === "cancelled") {
+      bg = "#ef4444";
+    }
 
     return {
       style: {
@@ -109,12 +139,11 @@ function DoctorAppointment() {
     };
   };
 
-  // ✅ CLICK EVENT FIXED
-  const handleSelectEvent = (event) => {
-    navigate(`/doctor/create-prescription/${event.id}`);
-  };
+  // const handleSelectEvent = (event) => {
+  //   navigate(`/doctor/create-prescription/${event.id}`);
+  // };
 
-  // ✅ DRAG & DROP
+
   const moveEvent = async ({ event, start }) => {
     try {
       await API.patch(`/appointments/${event.id}/reschedule`, {
@@ -129,7 +158,7 @@ function DoctorAppointment() {
     }
   };
 
-  // ✅ COMPLETE BUTTON
+
   const markCompleted = async (id) => {
     try {
       await API.patch(`/appointments/doctor/${id}/status`, {
@@ -142,7 +171,7 @@ function DoctorAppointment() {
     }
   };
 
-  // 🚨 EMERGENCY ALERT
+
   useEffect(() => {
     const emergency = appointments.filter(
       (a) => a.appointmentType === "emergency" && a.status === "booked"
@@ -169,10 +198,10 @@ function DoctorAppointment() {
       <div className="p-3 md:p-6 bg-gray-100 min-h-screen">
 
         <h1 className="text-xl md:text-3xl font-bold mb-4">
-          📅 Smart Doctor Dashboard
+          My Appointment
         </h1>
 
-        {/* ✅ STATUS LEGEND */}
+
         <div className="flex flex-wrap gap-3 text-xs md:text-sm mb-4">
           <span>🟢 Completed</span>
           <span>🟠 Pending</span>
@@ -183,7 +212,7 @@ function DoctorAppointment() {
 
         <div className="bg-white rounded-xl shadow p-2 md:p-4 mb-6">
           <div className="h-[400px] md:h-[650px]">
-            <DnDCalendar
+            {/* <DnDCalendar
               localizer={localizer}
               events={events}
               startAccessor="start"
@@ -194,6 +223,35 @@ function DoctorAppointment() {
 
               onSelectEvent={handleSelectEvent}
               onDoubleClickEvent={handleSelectEvent}
+
+              onEventDrop={moveEvent}
+              eventPropGetter={eventStyleGetter}
+
+              longPressThreshold={10}
+            /> */}
+
+
+
+            <DnDCalendar
+              localizer={localizer}
+              events={events}
+              startAccessor="start"
+              endAccessor="end"
+
+              selectable
+              popup
+
+              onSelectEvent={(event) => {
+                navigate(`/doctor/create-prescription/${event.id}`);
+              }}
+
+              onDoubleClickEvent={(event) => {
+                navigate(`/doctor/create-prescription/${event.id}`);
+              }}
+
+              onSelectSlot={(slot) => {
+                console.log("Slot clicked:", slot);
+              }}
 
               onEventDrop={moveEvent}
               eventPropGetter={eventStyleGetter}
