@@ -40,6 +40,15 @@ export default function CreatePrescription() {
 
 
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    if (id) {
+      setAppointmentId(id);
+    }
+  }, []);
+
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -112,51 +121,7 @@ export default function CreatePrescription() {
   };
 
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
 
-  //   if (!appointmentId) {
-  //     alert("Select appointment ❌");
-  //     return;
-  //   }
-
-  //   if (medicines.length === 0) {
-  //     alert("Add at least 1 medicine ❌");
-  //     return;
-  //   }
-
-
-
-  //   try {
-  //     await API.post("/prescriptions", {
-  //       appointmentId,
-  //       diagnosis: diagnosis || selectedSymptom,
-  //       notes,
-  //       medicines,
-  //       signature,
-
-  //     });
-
-  //     alert("Prescription Created ✅");
-
-
-  //     setAppointments((prev) =>
-  //       prev.filter((a) => a._id !== appointmentId)
-  //     );
-
-
-  //     setAppointmentId("");
-  //     setSelectedSymptom("");
-  //     setDiagnosis("");
-  //     setNotes("");
-  //     setMedicines([]);
-  //     setAiMedicines([]);
-  //     setSignature("");
-
-  //   } catch {
-  //     alert("Error creating prescription ❌");
-  //   }
-  // };
 
 
   const handleSubmit = async (e) => {
