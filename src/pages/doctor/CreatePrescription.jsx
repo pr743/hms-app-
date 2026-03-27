@@ -149,6 +149,7 @@ export default function CreatePrescription() {
       setNotes("");
       setMedicines([]);
       setAiMedicines([]);
+      setSignature("");
 
     } catch {
       alert("Error creating prescription ❌");
