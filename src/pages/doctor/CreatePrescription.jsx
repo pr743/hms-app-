@@ -112,6 +112,53 @@ export default function CreatePrescription() {
   };
 
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   if (!appointmentId) {
+  //     alert("Select appointment ❌");
+  //     return;
+  //   }
+
+  //   if (medicines.length === 0) {
+  //     alert("Add at least 1 medicine ❌");
+  //     return;
+  //   }
+
+
+
+  //   try {
+  //     await API.post("/prescriptions", {
+  //       appointmentId,
+  //       diagnosis: diagnosis || selectedSymptom,
+  //       notes,
+  //       medicines,
+  //       signature,
+
+  //     });
+
+  //     alert("Prescription Created ✅");
+
+
+  //     setAppointments((prev) =>
+  //       prev.filter((a) => a._id !== appointmentId)
+  //     );
+
+
+  //     setAppointmentId("");
+  //     setSelectedSymptom("");
+  //     setDiagnosis("");
+  //     setNotes("");
+  //     setMedicines([]);
+  //     setAiMedicines([]);
+  //     setSignature("");
+
+  //   } catch {
+  //     alert("Error creating prescription ❌");
+  //   }
+  // };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -125,18 +172,28 @@ export default function CreatePrescription() {
       return;
     }
 
+    if (!signature) {
+      alert("Signature required ❌");
+      return;
+    }
+
     try {
+      const cleanMedicines = medicines.map((m) => ({
+        name: m.name,
+        dosage: m.dosage,
+        duration: m.duration,
+        instructions: m.instructions || "",
+      }));
+
       await API.post("/prescriptions", {
         appointmentId,
         diagnosis: diagnosis || selectedSymptom,
         notes,
-        medicines,
+        medicines: cleanMedicines,
         signature,
-
       });
 
       alert("Prescription Created ✅");
-
 
       setAppointments((prev) =>
         prev.filter((a) => a._id !== appointmentId)
@@ -151,11 +208,11 @@ export default function CreatePrescription() {
       setAiMedicines([]);
       setSignature("");
 
-    } catch {
-      alert("Error creating prescription ❌");
+    } catch (err) {
+      console.error(err.response?.data);
+      alert(err.response?.data?.message || "Error creating prescription ❌");
     }
   };
-
   return (
     <>
       <Navbar />
