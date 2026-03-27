@@ -125,7 +125,9 @@ function DoctorAppointment() {
 
   const handleSelectEvent = (event) => {
     console.log("Clicked event:", event);
-    navigate(`/doctor/create-prescription?id=${event.id}`);
+    navigate(`/doctor/create-prescription?id=${event.id}`, {
+      replace: true,
+    });
   };
 
 
