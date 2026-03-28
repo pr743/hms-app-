@@ -19,14 +19,14 @@ function Navbar() {
   return (
     <nav className="sticky top-0 w-full bg-blue-600 text-white shadow-md z-50">
       <div className="flex items-center justify-between px-6 py-3">
-        
-        
+
+
         <div className="flex items-center gap-2">
           <Hospital size={28} />
           <span className="text-xl font-bold">HMS</span>
         </div>
 
-        
+
         <div className="hidden md:flex items-center gap-6 font-medium">
           {!user && (
             <>
@@ -40,6 +40,10 @@ function Navbar() {
             <>
               <Link to="/patient">Dashboard</Link>
               <Link to="/patient/appointment"> Book Appointment </Link>
+              <Link to="/patient/appointments">
+                My Appointments
+              </Link>
+
               <Link to="/hospitals">Find Hospital</Link>
               <Link to="/saved-hospitals">Saved</Link>
               <Link to="/patient/prescriptions"> Prescriptions </Link>
@@ -69,7 +73,7 @@ function Navbar() {
           )}
         </div>
 
-        
+
         <div className="flex items-center gap-4">
           {user && (
             <div className="hidden md:flex items-center gap-2 bg-blue-500 px-3 py-1 rounded-lg">
@@ -90,26 +94,26 @@ function Navbar() {
             </button>
           )}
 
-          
+
           <button onClick={() => setIsOpen(true)} className="md:hidden">
             <Menu size={26} />
           </button>
         </div>
       </div>
 
-      
+
       {isOpen && (
         <>
-          
+
           <div
             className="fixed inset-0 bg-black bg-opacity-50 z-40"
             onClick={closeMenu}
           ></div>
 
-          
+
           <div className="fixed top-0 left-0 h-full w-72 bg-white text-black z-50 shadow-lg transition-transform duration-300">
-            
-            
+
+
             <div className="flex justify-between items-center p-4 border-b">
               <h2 className="text-lg font-bold text-blue-600">Menu</h2>
               <X
@@ -119,7 +123,7 @@ function Navbar() {
               />
             </div>
 
-            
+
             <div className="flex flex-col p-4 space-y-4">
 
               {!user && (
@@ -163,7 +167,7 @@ function Navbar() {
                 </>
               )}
 
-             
+
               {user && (
                 <div className="border-t pt-4 mt-4">
                   <div className="flex items-center gap-2 mb-3 bg-blue-100 px-3 py-2 rounded">

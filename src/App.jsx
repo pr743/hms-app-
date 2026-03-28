@@ -25,6 +25,7 @@ import PatientHistory from "./pages/patients/PatientHistory";
 import MySavedHospitals from "./pages/MySavedHospitals";
 import Login from "./auth/Login";
 import EditDoctor from "./admin/EditDoctor";
+import PatientAppointments from "./pages/patients/PatientAppointments";
 function App() {
   const { user } = useContext(AuthContext);
   return (
@@ -110,6 +111,12 @@ function App() {
               <Navigate to="/login" />
             )
           }
+        />
+
+
+        <Route
+          path="/patient/appointments"
+          element={<PatientAppointments />}
         />
 
         <Route
