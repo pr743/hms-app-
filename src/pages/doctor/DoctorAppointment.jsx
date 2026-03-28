@@ -144,7 +144,6 @@ function DoctorAppointment() {
       fetchAppointments();
     } catch (err) {
       console.error(err);
-      // alert("Reschedule failed ❌");
       Swal.fire({
         icon: "error",
         title: "Failed",
@@ -175,7 +174,6 @@ function DoctorAppointment() {
     );
 
     if (emergency.length > 0) {
-      // alert(`🚨 ${emergency.length} Emergency patients waiting!`);
       Swal.fire({
         icon: "warning",
         title: "Emergency Alert 🚨",

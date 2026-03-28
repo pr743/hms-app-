@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import API from "../../api/axios";
 import Navbar from "../../components/Navbar";
 import DoctorSignature from "./DoctorSignature";
+import Swal from "sweetalert2";
 
 const ALL_SYMPTOMS = [
   "Fever", "Cold", "Cough", "Headache", "Migraine",
@@ -66,7 +67,11 @@ export default function CreatePrescription() {
 
   const getAISuggestion = async () => {
     if (!selectedSymptom) {
-      alert("Please select symptom ❌");
+      Swal.fire({
+        icon: "warning",
+        title: "Select Symptom",
+        text: "Please select symptom ❌",
+      });
       return;
     }
 
@@ -92,7 +97,11 @@ export default function CreatePrescription() {
 
     } catch (error) {
       console.error(error);
-      alert("AI failed ❌");
+      Swal.fire({
+        icon: "error",
+        title: "AI Error",
+        text: "AI failed ❌",
+      });
     } finally {
       setAiLoading(false);
     }
@@ -128,17 +137,29 @@ export default function CreatePrescription() {
     e.preventDefault();
 
     if (!appointmentId) {
-      alert("Select appointment ❌");
+      Swal.fire({
+        icon: "warning",
+        title: "Missing Appointment",
+        text: "Select appointment ❌",
+      });
       return;
     }
 
     if (medicines.length === 0) {
-      alert("Add at least 1 medicine ❌");
+      Swal.fire({
+        icon: "warning",
+        title: "No Medicines",
+        text: "Add at least 1 medicine ❌",
+      });
       return;
     }
 
     if (!signature) {
-      alert("Signature required ❌");
+      Swal.fire({
+        icon: "warning",
+        title: "Signature Required",
+        text: "Signature required ❌",
+      });
       return;
     }
 
@@ -158,7 +179,13 @@ export default function CreatePrescription() {
         signature,
       });
 
-      alert("Prescription Created ✅");
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Prescription Created ✅",
+        timer: 1500,
+        showConfirmButton: false,
+      });
 
       setAppointments((prev) =>
         prev.filter((a) => a._id !== appointmentId)
@@ -175,7 +202,11 @@ export default function CreatePrescription() {
 
     } catch (err) {
       console.error(err.response?.data);
-      alert(err.response?.data?.message || "Error creating prescription ❌");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: err.response?.data?.message || "Error creating prescription ❌",
+      });
     }
   };
   return (
