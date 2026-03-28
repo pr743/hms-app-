@@ -5,12 +5,14 @@ import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 
+
 import { format, parse, startOfWeek, getDay } from "date-fns";
 import enUS from "date-fns/locale/en-US";
 
 import API from "../../api/axios";
 import Navbar from "../../components/Navbar";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 import {
   Calendar,
@@ -142,7 +144,12 @@ function DoctorAppointment() {
       fetchAppointments();
     } catch (err) {
       console.error(err);
-      alert("Reschedule failed ❌");
+      // alert("Reschedule failed ❌");
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: "Reschedule failed ❌",
+      });
     }
   };
 
@@ -168,7 +175,13 @@ function DoctorAppointment() {
     );
 
     if (emergency.length > 0) {
-      alert(`🚨 ${emergency.length} Emergency patients waiting!`);
+      // alert(`🚨 ${emergency.length} Emergency patients waiting!`);
+      Swal.fire({
+        icon: "warning",
+        title: "Emergency Alert 🚨",
+        text: `${emergency.length} Emergency patients waiting!`,
+        confirmButtonColor: "#d33",
+      });
     }
   }, [appointments]);
 
