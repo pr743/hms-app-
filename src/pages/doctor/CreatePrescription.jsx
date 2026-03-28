@@ -183,7 +183,7 @@ export default function CreatePrescription() {
         icon: "success",
         title: "Success",
         text: "Prescription Created ✅",
-        timer: 1500,
+        timer: 2500,
         showConfirmButton: false,
       });
 

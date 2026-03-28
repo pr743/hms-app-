@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Calendar, Clock, User, FileText } from "lucide-react";
 import API from "../../api/axios";
 import Navbar from "../../components/Navbar";
+import Swal from "sweetalert2";
 
 function BookAppointment() {
   const [hospitals, setHospitals] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
 
   const [form, setForm] = useState({
     hospitalId: "",
@@ -63,22 +63,38 @@ function BookAppointment() {
     e.preventDefault();
 
     if (!form.doctorId) {
-      setMessage("Please select a doctor");
+      Swal.fire({
+        icon: "warning",
+        title: "Doctor Required",
+        text: "Please select a doctor",
+      });
       return;
     }
 
     if (!form.appointmentDate) {
-      setMessage("Please select appointment date");
+      Swal.fire({
+        icon: "warning",
+        title: "Date Required",
+        text: "Please select appointment date",
+      });
       return;
     }
 
     if (form.appointmentType === "normal" && !form.slotTime) {
-      setMessage("Please select time slot");
+      Swal.fire({
+        icon: "warning",
+        title: "Time Slot Required",
+        text: "Please select time slot",
+      });
       return;
     }
 
     if (!form.reason.trim()) {
-      setMessage("Please enter reason");
+      Swal.fire({
+        icon: "warning",
+        title: "Reason Required",
+        text: "Please enter reason",
+      });
       return;
     }
 
@@ -86,13 +102,18 @@ function BookAppointment() {
 
     try {
       setLoading(true);
-      setMessage("");
 
       const res = await API.post("/patient/appointment", form);
 
       console.log("ApI response", res.data);
 
-      setMessage("Appointment booked successfully ✅");
+      Swal.fire({
+        icon: "success",
+        title: "Booked",
+        text: "Appointment booked successfully ✅",
+        timer: 2500,
+        showConfirmButton: false,
+      });
 
       setForm({
         hospitalId: "",
@@ -105,7 +126,11 @@ function BookAppointment() {
 
       setDoctors([]);
     } catch (err) {
-      setMessage(err.response?.data?.message || "Booking failed ❌");
+      Swal.fire({
+        icon: "error",
+        title: "Booking Failed",
+        text: err.response?.data?.message || "Booking failed ❌",
+      });
     } finally {
       setLoading(false);
     }
@@ -119,12 +144,6 @@ function BookAppointment() {
           <h1 className="text-2xl font-bold mb-6 text-gray-800">
             Book Appointment
           </h1>
-
-          {message && (
-            <p className="mb-4 text-center font-semibold text-blue-600">
-              {message}
-            </p>
-          )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>

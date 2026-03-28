@@ -2,23 +2,23 @@ import { useState } from "react";
 import API from "../api/axios";
 import Navbar from "../components/Navbar";
 import { UserPlus } from "lucide-react";
+import Swal from "sweetalert2";
 
 function AddDoctor() {
   const [form, setForm] = useState({
-  name: "",
-  email: "",
-  password: "",
-  specialization: "",
-  qualification: "",
-  experience: "",
-  consultationFee: "",
-  avgConsultTime: "",
-  dailyLimit: "",
-});
+    name: "",
+    email: "",
+    password: "",
+    specialization: "",
+    qualification: "",
+    experience: "",
+    consultationFee: "",
+    avgConsultTime: "",
+    dailyLimit: "",
+  });
 
 
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -39,7 +39,13 @@ function AddDoctor() {
         dailyLimit: Number(form.dailyLimit || 20),
       });
 
-      setMessage("Doctor added successfully ✅");
+      Swal.fire({
+        icon: "success",
+        title: "Doctor Added",
+        text: "Doctor added successfully ✅",
+        timer: 1800,
+        showConfirmButton: false,
+      });
 
       setForm({
         name: "",
@@ -53,9 +59,11 @@ function AddDoctor() {
         dailyLimit: "",
       });
     } catch (error) {
-      setMessage(
-        error.response?.data?.message || "Failed to add doctor ❌",
-      );
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: error.response?.data?.message || "Failed to add doctor ❌",
+      });
 
       console.error(error.message);
     } finally {
@@ -72,12 +80,6 @@ function AddDoctor() {
           <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
             <UserPlus /> Add Doctor
           </h1>
-
-          {message && (
-            <p className="mb-4 text-center text-blue-600 font-medium">
-              {message}
-            </p>
-          )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <input name="name" placeholder="Doctor Name" className="input" onChange={handleChange} required />

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import API from "../api/axios";
 import Navbar from "../components/Navbar";
 import { User, Mail, ShieldCheck, ShieldOff } from "lucide-react";
+import Swal from "sweetalert2";
 
 function Patients() {
   const [patients, setPatients] = useState([]);
@@ -23,32 +24,80 @@ function Patients() {
   }, []);
 
   const toggleStatus = async (userId) => {
+    const result = await Swal.fire({
+      title: "Change Status?",
+      text: "Do you want to update patient status?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#2563eb",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Yes, update",
+    });
+
+    if (!result.isConfirmed) return;
+
     try {
       await API.patch(`/admin/users/${userId}/toggle`);
+
       fetchPatients();
-    } catch {
-      console.error("Failed to update status");
+
+      Swal.fire({
+        icon: "success",
+        title: "Updated",
+        text: "Patient status updated",
+        timer: 1200,
+        showConfirmButton: false,
+      });
+
+    } catch (error) {
+      console.error("Failed to update status", error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to update status ❌",
+      });
     }
   };
 
 
 
   const deletePatient = async (userId) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this patient?"
-    );
+    const result = await Swal.fire({
+      title: "Delete Patient?",
+      text: "Are you sure you want to delete this patient?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Yes, delete",
+    });
 
-    if (!confirmDelete) return;
+    if (!result.isConfirmed) return;
 
     try {
       await API.delete(`/admin/patients/${userId}`);
 
-
       setPatients((prev) =>
         prev.filter((p) => p.user._id !== userId)
       );
-    } catch {
-      console.error("Delete failed");
+
+      Swal.fire({
+        icon: "success",
+        title: "Deleted",
+        text: "Patient deleted successfully",
+        timer: 1200,
+        showConfirmButton: false,
+      });
+
+    } catch (error) {
+      console.error("Delete failed", error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to delete patient ❌",
+      });
     }
   };
 

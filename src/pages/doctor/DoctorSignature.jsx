@@ -1,12 +1,17 @@
 import SignatureCanvas from "react-signature-canvas";
 import { useRef } from "react";
+import Swal from "sweetalert2";
 
 export default function DoctorSignature({ onSave }) {
     const sigRef = useRef();
 
     const saveSignature = () => {
         if (sigRef.current.isEmpty()) {
-            alert("Draw signature first ❌");
+            Swal.fire({
+                icon: "warning",
+                title: "Signature Required",
+                text: "Draw signature first ❌",
+            });
             return;
         }
 

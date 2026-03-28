@@ -4,6 +4,7 @@ import { fetchHospitalsByCity } from "../api/hospitalApi";
 import HospitalCard from "../components/HospitalCard";
 import { Search, MapPin, RotateCcw } from "lucide-react";
 import Navbar from "../components/Navbar";
+import Swal from "sweetalert2";
 
 function HospitalsByCity() {
   const { user } = useContext(AuthContext);
@@ -11,17 +12,19 @@ function HospitalsByCity() {
   const [city, setCity] = useState("");
   const [hospitals, setHospitals] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [alert, setAlert] = useState("");
 
   const handleSearch = async () => {
     if (!city.trim()) {
-      setAlert("Please enter a city name");
+      Swal.fire({
+        icon: "warning",
+        title: "City Required",
+        text: "Please enter a city name",
+      });
       return;
     }
 
     try {
       setLoading(true);
-      setAlert("");
 
       const res = await fetchHospitalsByCity(city.trim());
       const hospitalList = res?.data?.data || [];
@@ -29,11 +32,19 @@ function HospitalsByCity() {
       setHospitals(hospitalList);
 
       if (hospitalList.length === 0) {
-        setAlert("No hospitals found in this city");
+        Swal.fire({
+          icon: "info",
+          title: "No Results",
+          text: "No hospitals found in this city",
+        });
       }
     } catch {
       setHospitals([]);
-      setAlert("Failed to fetch hospitals");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to fetch hospitals",
+      });
     } finally {
       setLoading(false);
     }
@@ -42,7 +53,6 @@ function HospitalsByCity() {
   const handleReset = () => {
     setCity("");
     setHospitals([]);
-    setAlert("");
   };
 
   const handleKeyPress = (e) => {
@@ -58,7 +68,7 @@ function HospitalsByCity() {
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 py-10 px-4">
         <div className="max-w-6xl mx-auto">
 
-          
+
           <div className="text-center mb-10">
             <h1 className="text-4xl font-bold text-gray-800">
               Find Hospitals Near You
@@ -68,14 +78,14 @@ function HospitalsByCity() {
             </p>
           </div>
 
-          
+
           {user?.role === "admin" && (
             <div className="bg-yellow-100 text-yellow-800 p-4 rounded-xl text-center mb-6">
               Admin users cannot search hospitals.
             </div>
           )}
 
-          
+
           {user?.role !== "admin" && (
             <div className="bg-white shadow-lg rounded-2xl p-5 flex flex-col sm:flex-row gap-4 mb-8">
               <div className="flex items-center gap-2 flex-1 bg-gray-100 px-4 py-3 rounded-xl">
@@ -109,7 +119,7 @@ function HospitalsByCity() {
             </div>
           )}
 
-          
+
           {loading && (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3].map((i) => (
@@ -122,13 +132,6 @@ function HospitalsByCity() {
                   <div className="h-3 bg-gray-200 rounded w-full"></div>
                 </div>
               ))}
-            </div>
-          )}
-
-          
-          {!loading && alert && (
-            <div className="bg-white shadow-md rounded-xl p-6 text-center text-gray-600">
-              {alert}
             </div>
           )}
 

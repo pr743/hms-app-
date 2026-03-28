@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import API from "../api/axios";
 import Navbar from "../components/Navbar";
+import Swal from "sweetalert2";
+
 import {
   CalendarDays,
   User,
@@ -29,39 +31,80 @@ function Appointments() {
   }, []);
 
   const cancelAppointment = async (id) => {
-    if (!window.confirm("Cancel this appointment?")) return;
+    const result = await Swal.fire({
+      title: "Cancel Appointment?",
+      text: "Are you sure you want to cancel this appointment?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Yes, cancel it",
+    });
+
+    if (!result.isConfirmed) return;
 
     try {
       await API.patch(`/appointments/${id}/cancel`);
 
+      Swal.fire({
+        icon: "success",
+        title: "Cancelled",
+        text: "Appointment cancelled successfully",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
       fetchAppointments();
-    } catch {
-      console.error("Failed to cancel appointment");
+    } catch (error) {
+      console.error("Failed to cancel appointment", error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to cancel appointment ❌",
+      });
     }
   };
-
 
 
 
   const deleteAppointment = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this appointment?"
-    );
+    const result = await Swal.fire({
+      title: "Delete Appointment?",
+      text: "This action cannot be undone!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Yes, delete it",
+    });
 
-    if (!confirmDelete) return;
+    if (!result.isConfirmed) return;
 
     try {
       await API.delete(`/appointments/admin/${id}`);
 
-
       setAppointments((prev) =>
         prev.filter((appt) => appt._id !== id)
       );
-    } catch {
-      console.error("Delete failed");
+
+      Swal.fire({
+        icon: "success",
+        title: "Deleted",
+        text: "Appointment deleted successfully",
+        timer: 1800,
+        showConfirmButton: false,
+      });
+    } catch (error) {
+      console.error("Delete failed", error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to delete appointment ❌",
+      });
     }
   };
-
   return (
     <>
       <Navbar />

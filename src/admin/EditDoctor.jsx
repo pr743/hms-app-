@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../api/axios";
 import Navbar from "../components/Navbar";
+import Swal from "sweetalert2";
 
 function EditDoctor() {
     const { id } = useParams();
@@ -64,11 +65,24 @@ function EditDoctor() {
                 dailyLimit: Number(form.dailyLimit),
             });
 
-            alert("Doctor updated ✅");
+            Swal.fire({
+                icon: "success",
+                title: "Updated",
+                text: "Doctor updated successfully ✅",
+                timer: 1500,
+                showConfirmButton: false,
+            });
 
-            navigate("/admin/doctors");
+            setTimeout(() => {
+                navigate("/admin/doctors");
+            }, 1500);
+
         } catch {
-            alert("Update failed ❌");
+            Swal.fire({
+                icon: "error",
+                title: "Failed",
+                text: "Update failed ❌",
+            });
         } finally {
             setLoading(false);
         }

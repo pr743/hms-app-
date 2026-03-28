@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import API from "../../api/axios";
 import Navbar from "../../components/Navbar";
+import Swal from "sweetalert2";
 
 function DoctorPrescriptions() {
   const [prescriptions, setPrescriptions] = useState([]);
@@ -37,9 +38,22 @@ function DoctorPrescriptions() {
       link.click();
 
       link.remove();
+
+
+      Swal.fire({
+        icon: "success",
+        title: "Downloaded",
+        text: "Prescription PDF downloaded ✅",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     } catch (error) {
       console.error("Download failed", error);
-      alert("Failed to download PDF ❌");
+      Swal.fire({
+        icon: "error",
+        title: "Download Failed",
+        text: "Failed to download PDF ❌",
+      });
     }
   };
 

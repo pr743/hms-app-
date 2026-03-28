@@ -3,6 +3,7 @@ import API from "../api/axios";
 import Navbar from "../components/Navbar";
 import { UserCheck, UserX } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Doctors() {
   const [doctors, setDoctors] = useState([]);
@@ -32,35 +33,81 @@ function Doctors() {
 
 
   const toggleStatus = async (userId) => {
+    const result = await Swal.fire({
+      title: "Deactivate Doctor?",
+      text: "This doctor will be removed from active list",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Yes, deactivate",
+    });
+
+    if (!result.isConfirmed) return;
+
     try {
       await API.patch(`/admin/users/${userId}/toggle`);
-
 
       setDoctors(prev =>
         prev.filter(doc => doc.user._id !== userId)
       );
-    } catch {
-      console.error("Failed to update status");
+
+      Swal.fire({
+        icon: "success",
+        title: "Updated",
+        text: "Doctor deactivated successfully",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+    } catch (error) {
+      console.error("Failed to update status", error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to update status ❌",
+      });
     }
   };
 
 
   const deleteDoctor = async (userId) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this doctor?"
-    );
+    const result = await Swal.fire({
+      title: "Delete Doctor?",
+      text: "Are you sure you want to delete this doctor?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Yes, delete",
+    });
 
-    if (!confirmDelete) return;
+    if (!result.isConfirmed) return;
 
     try {
       await API.delete(`/admin/users/${userId}`);
 
-
       setDoctors(prev =>
         prev.filter(doc => doc.user._id !== userId)
       );
-    } catch {
-      console.error("Failed to delete doctor");
+
+      Swal.fire({
+        icon: "success",
+        title: "Deleted",
+        text: "Doctor deleted successfully",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+    } catch (error) {
+      console.error("Failed to delete doctor", error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to delete doctor ❌",
+      });
     }
   };
 

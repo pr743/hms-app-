@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Hospital } from "lucide-react";
 import Navbar from "../components/Navbar";
 import API from "../api/axios";
+import Swal from "sweetalert2";
 
 function AddHospital() {
   const [form, setForm] = useState({
@@ -11,7 +12,6 @@ function AddHospital() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -23,7 +23,26 @@ function AddHospital() {
         ...form,
       });
 
-      setMessage(res.data.message || "Hospital saved successfully ✅");
+
+
+
+
+      Swal.fire({
+        icon: "success",
+        title: "Saved",
+        text: res.data.message || "Hospital saved successfully ✅",
+        timer: 1800,
+        showConfirmButton: false,
+      });
+
+
+      setForm({
+        name: "",
+        city: "",
+        address: "",
+        area: "",
+      });
+
       setLoading(true);
     } catch {
       alert("Failed to save hospital ");
@@ -94,11 +113,6 @@ function AddHospital() {
               {loading ? "Saving..." : "Save Hospital"}
             </button>
 
-            {message && (
-              <p className="text-center text-green-600 font-medium mt-4">
-                {message}
-              </p>
-            )}
           </div>
         </div>
       </div>

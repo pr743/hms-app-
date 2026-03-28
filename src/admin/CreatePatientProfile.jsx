@@ -1,6 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import API from "../api/axios";
 import { useState } from "react";
+import Swal from "sweetalert2";
+
 
 function CreatePatientProfile() {
   const location = useLocation();
@@ -23,9 +25,23 @@ function CreatePatientProfile() {
 
     try {
       await API.post("/patient/profile", form);
+
+      Swal.fire({
+        icon: "success",
+        title: "Profile Created",
+        text: "Profile created successfully ✅",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+
       navigate("/patient/dashboard", { replace: true });
     } catch (err) {
-      alert(err.response?.data?.message || "Failed to create profile");
+      Swal.fire({
+        icon: "error",
+        title: "Profile Error",
+        text: err.response?.data?.message || "Failed to create profile",
+      });
     }
   };
 
@@ -35,7 +51,7 @@ function CreatePatientProfile() {
 
         {message && (
           <div className="mb-4 p-3 bg-blue-100 text-blue-700 rounded-lg">
-             {message}
+            {message}
           </div>
         )}
 
