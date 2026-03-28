@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 
 export default function PatientPrescriptions() {
   const [prescriptions, setPrescriptions] = useState([]);
+  const [deletingId, setDeletingId] = useState(null);
 
   const fetchData = async () => {
     const res = await API.get("/prescriptions/patient");
@@ -12,7 +13,9 @@ export default function PatientPrescriptions() {
   };
 
   const handleDelete = async (id) => {
-    const confirm = await Swal.fire({
+    if (deletingId) return; // prevent multiple clicks
+
+    const result = await Swal.fire({
       title: "Are you sure?",
       text: "This record will be deleted permanently!",
       icon: "warning",
@@ -22,9 +25,10 @@ export default function PatientPrescriptions() {
       confirmButtonText: "Yes, delete it",
     });
 
-    if (!confirm.isConfirmed) return;
+    if (!result.isConfirmed) return;
 
     try {
+      setDeletingId(id);
       await API.delete(`/prescriptions/${id}`);
 
       Swal.fire({
@@ -36,12 +40,15 @@ export default function PatientPrescriptions() {
       });
 
       setPrescriptions((prev) => prev.filter((p) => p._id !== id));
-    } catch {
+
+    } catch (err) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Delete failed ❌",
+        text: err.response?.data?.message || "Delete failed ❌",
       });
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -132,9 +139,14 @@ export default function PatientPrescriptions() {
                 <div className="flex justify-end">
                   <button
                     onClick={() => handleDelete(p._id)}
-                    className="text-sm px-4 py-2 rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition"
+                    disabled={deletingId === p._id}
+                    className={`text-sm px-4 py-2 rounded-lg transition
+    ${deletingId === p._id
+                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        : "bg-red-100 text-red-600 hover:bg-red-200"
+                      }`}
                   >
-                    Delete
+                    {deletingId === p._id ? "Deleting..." : "Delete"}
                   </button>
                 </div>
 
