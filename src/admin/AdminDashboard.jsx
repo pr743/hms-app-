@@ -238,7 +238,6 @@ function AdminDashboard() {
 
       <div className="p-6 bg-gray-100 min-h-screen">
 
-        {/* 🏥 First Setup */}
         {needsHospitalSetup && (
           <div className="flex items-center justify-center min-h-[70vh]">
             <div className="text-center bg-white p-10 rounded-2xl shadow-lg">
@@ -261,14 +260,14 @@ function AdminDashboard() {
           </div>
         )}
 
-        {/* 📊 Dashboard */}
+
         {!needsHospitalSetup && stats && (
           <>
             <h1 className="text-3xl font-bold text-gray-800 mb-6">
               Admin Dashboard
             </h1>
 
-            {/* Stats */}
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <StatCard
                 title="Total Doctors"
@@ -299,7 +298,7 @@ function AdminDashboard() {
               />
             </div>
 
-            {/* 🤖 AI INSIGHTS */}
+
             {aiData && (
               <div className="mt-10 bg-white p-6 rounded-xl shadow-md">
                 <h2 className="text-xl font-semibold mb-4">
@@ -323,7 +322,7 @@ function AdminDashboard() {
               </div>
             )}
 
-            {/* System Info */}
+
             <div className="mt-10 bg-white p-6 rounded-xl shadow-md">
               <h2 className="text-xl font-semibold mb-2">System Status</h2>
               <p className="text-gray-600">
