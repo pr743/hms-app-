@@ -1,7 +1,238 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
+// import API from "../api/axios";
+// import Navbar from "../components/Navbar";
+// import Swal from "sweetalert2";
+
+// import {
+//   CalendarDays,
+//   User,
+//   Stethoscope,
+//   Clock,
+//   XCircle,
+// } from "lucide-react";
+
+// function Appointments() {
+//   const [appointments, setAppointments] = useState([]);
+//   const [loading, setLoading] = useState(true);
+
+//   const fetchAppointments = async () => {
+//     try {
+//       const res = await API.get("/appointments/admin");
+//       setAppointments(res.data.data);
+//     } catch (error) {
+//       console.error("Failed to load appointments:", error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchAppointments();
+//   }, []);
+
+//   const cancelAppointment = async (id) => {
+//     const result = await Swal.fire({
+//       title: "Cancel Appointment?",
+//       text: "Are you sure you want to cancel this appointment?",
+//       icon: "warning",
+//       showCancelButton: true,
+//       confirmButtonColor: "#d33",
+//       cancelButtonColor: "#6b7280",
+//       confirmButtonText: "Yes, cancel it",
+//     });
+
+//     if (!result.isConfirmed) return;
+
+//     try {
+//       await API.patch(`/appointments/${id}/cancel`);
+
+//       Swal.fire({
+//         icon: "success",
+//         title: "Cancelled",
+//         text: "Appointment cancelled successfully",
+//         timer: 1500,
+//         showConfirmButton: false,
+//       });
+
+//       fetchAppointments();
+//     } catch (error) {
+//       console.error("Failed to cancel appointment", error);
+
+//       Swal.fire({
+//         icon: "error",
+//         title: "Error",
+//         text: "Failed to cancel appointment ❌",
+//       });
+//     }
+//   };
+
+
+
+//   const deleteAppointment = async (id) => {
+//     const result = await Swal.fire({
+//       title: "Delete Appointment?",
+//       text: "This action cannot be undone!",
+//       icon: "warning",
+//       showCancelButton: true,
+//       confirmButtonColor: "#000",
+//       cancelButtonColor: "#6b7280",
+//       confirmButtonText: "Yes, delete it",
+//     });
+
+//     if (!result.isConfirmed) return;
+
+//     try {
+//       await API.delete(`/appointments/admin/${id}`);
+
+//       setAppointments((prev) =>
+//         prev.filter((appt) => appt._id !== id)
+//       );
+
+//       Swal.fire({
+//         icon: "success",
+//         title: "Deleted",
+//         text: "Appointment deleted successfully",
+//         timer: 1800,
+//         showConfirmButton: false,
+//       });
+//     } catch (error) {
+//       console.error("Delete failed", error);
+
+//       Swal.fire({
+//         icon: "error",
+//         title: "Error",
+//         text: "Failed to delete appointment ❌",
+//       });
+//     }
+//   };
+//   return (
+//     <>
+//       <Navbar />
+
+//       <div className="p-6 bg-gray-100 min-h-screen">
+//         <h1 className="text-3xl font-bold text-gray-800 mb-6">
+//           Appointments Monitoring
+//         </h1>
+
+//         {loading ? (
+//           <p className="text-lg">Loading appointments...</p>
+//         ) : (
+//           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+//             {appointments.map((appt) => (
+//               <div
+//                 key={appt._id}
+//                 className="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition"
+//               >
+
+//                 <div className="flex items-center justify-between mb-4">
+//                   <span
+//                     className={`px-3 py-1 rounded-full text-sm font-semibold
+//                     ${appt.status === "booked"
+//                         ? "bg-blue-100 text-blue-600"
+//                         : appt.status === "completed"
+//                           ? "bg-green-100 text-green-600"
+//                           : "bg-red-100 text-red-600"
+//                       }`}
+//                   >
+//                     {appt.status}
+//                   </span>
+
+//                   {appt.status === "booked" && (
+//                     <button
+//                       onClick={() => cancelAppointment(appt._id)}
+//                       className="text-red-500 hover:text-red-700"
+//                     >
+//                       <XCircle size={22} />
+//                     </button>
+//                   )}
+
+//                   {appt.status === "cancelled" && (
+//                     <button
+//                       onClick={() => deleteAppointment(appt._id)}
+//                       className="text-black hover:text-gray-700"
+//                     >
+//                       🗑 Delete
+//                     </button>
+//                   )}
+
+//                 </div>
+
+//                 <div className="flex items-center gap-3 mb-2">
+//                   <User className="text-blue-500" />
+//                   <span className="font-medium">
+//                     {appt.patient?.user?.name || "N/A"}
+//                   </span>
+//                 </div>
+
+
+//                 <div className="flex items-center gap-3 mb-2">
+//                   <Stethoscope className="text-green-500" />
+//                   <span className="font-medium">
+//                     {appt.doctor?.user?.name || "N/A"}
+
+//                   </span>
+//                 </div>
+
+
+//                 <div className="flex items-center gap-3 mb-2 text-gray-600">
+//                   <CalendarDays size={18} />
+//                   <span>{new Date(appt.appointmentDate).toLocaleDateString()}</span>
+//                 </div>
+
+
+//                 <div className="flex items-center gap-3 mb-4 text-gray-600">
+//                   <Clock size={18} />
+//                   <span>{appt.slotTime}</span>
+//                 </div>
+
+
+//                 <p className="text-gray-600 text-sm">
+//                   <strong>Reason:</strong> {appt.reason || "—"}
+//                 </p>
+//               </div>
+//             ))}
+
+//             {appointments.length === 0 && (
+//               <p className="text-gray-500">No appointments found</p>
+//             )}
+//           </div>
+//         )}
+//       </div>
+//     </>
+//   );
+// }
+
+// export default Appointments;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useEffect, useState, useMemo } from "react";
 import API from "../api/axios";
 import Navbar from "../components/Navbar";
 import Swal from "sweetalert2";
+
+import {
+  Calendar as BigCalendar,
+  dateFnsLocalizer,
+} from "react-big-calendar";
+
+import { format, parse, startOfWeek, getDay } from "date-fns";
+import enUS from "date-fns/locale/en-US";
+
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import {
   CalendarDays,
@@ -11,14 +242,25 @@ import {
   XCircle,
 } from "lucide-react";
 
+const locales = { "en-US": enUS };
+
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales,
+});
+
 function Appointments() {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
 
+
   const fetchAppointments = async () => {
     try {
       const res = await API.get("/appointments/admin");
-      setAppointments(res.data.data);
+      setAppointments(res.data.data || []);
     } catch (error) {
       console.error("Failed to load appointments:", error);
     } finally {
@@ -30,171 +272,176 @@ function Appointments() {
     fetchAppointments();
   }, []);
 
+
+  const events = useMemo(() => {
+    return appointments.map((appt) => {
+      const date = new Date(appt.appointmentDate);
+
+      let hour = 9;
+      let minute = 0;
+
+      if (appt.slotTime) {
+        const [time, modifier] = appt.slotTime.split(" ");
+        let [h, m] = time.split(":");
+
+        hour = parseInt(h);
+        minute = parseInt(m);
+
+        if (modifier === "PM" && hour !== 12) hour += 12;
+        if (modifier === "AM" && hour === 12) hour = 0;
+      }
+
+      const start = new Date(date);
+      start.setHours(hour, minute);
+
+      const end = new Date(start);
+      end.setMinutes(start.getMinutes() + 30);
+
+      return {
+        id: appt._id,
+        title: `${appt.patient?.user?.name || "Patient"} • ${appt.doctor?.user?.name || "Doctor"
+          }`,
+        start,
+        end,
+        status: appt.status,
+        fullData: appt,
+      };
+    });
+  }, [appointments]);
+
+
+  const eventStyleGetter = (event) => {
+    let bg = "#3b82f6";
+
+    if (event.status === "completed") bg = "#16a34a";
+    if (event.status === "cancelled") bg = "#ef4444";
+
+    return {
+      style: {
+        backgroundColor: bg,
+        color: "#fff",
+        borderRadius: "6px",
+        padding: "4px",
+      },
+    };
+  };
+
+
+  const handleSelectEvent = (event) => {
+    const appt = event.fullData;
+
+    Swal.fire({
+      title: "Appointment Info",
+      html: `
+        <b>Patient:</b> ${appt.patient?.user?.name || "N/A"} <br/>
+        <b>Doctor:</b> ${appt.doctor?.user?.name || "N/A"} <br/>
+        <b>Date:</b> ${new Date(appt.appointmentDate).toLocaleDateString()} <br/>
+        <b>Time:</b> ${appt.slotTime} <br/>
+        <b>Status:</b> ${appt.status}
+      `,
+    });
+  };
+
+
   const cancelAppointment = async (id) => {
     const result = await Swal.fire({
       title: "Cancel Appointment?",
-      text: "Are you sure you want to cancel this appointment?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#6b7280",
-      confirmButtonText: "Yes, cancel it",
+      confirmButtonText: "Yes",
     });
 
     if (!result.isConfirmed) return;
 
-    try {
-      await API.patch(`/appointments/${id}/cancel`);
-
-      Swal.fire({
-        icon: "success",
-        title: "Cancelled",
-        text: "Appointment cancelled successfully",
-        timer: 1500,
-        showConfirmButton: false,
-      });
-
-      fetchAppointments();
-    } catch (error) {
-      console.error("Failed to cancel appointment", error);
-
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Failed to cancel appointment ❌",
-      });
-    }
+    await API.patch(`/appointments/${id}/cancel`);
+    fetchAppointments();
   };
-
 
 
   const deleteAppointment = async (id) => {
     const result = await Swal.fire({
       title: "Delete Appointment?",
-      text: "This action cannot be undone!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#000",
-      cancelButtonColor: "#6b7280",
-      confirmButtonText: "Yes, delete it",
+      confirmButtonText: "Delete",
     });
 
     if (!result.isConfirmed) return;
 
-    try {
-      await API.delete(`/appointments/admin/${id}`);
+    await API.delete(`/appointments/admin/${id}`);
 
-      setAppointments((prev) =>
-        prev.filter((appt) => appt._id !== id)
-      );
-
-      Swal.fire({
-        icon: "success",
-        title: "Deleted",
-        text: "Appointment deleted successfully",
-        timer: 1800,
-        showConfirmButton: false,
-      });
-    } catch (error) {
-      console.error("Delete failed", error);
-
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Failed to delete appointment ❌",
-      });
-    }
+    setAppointments((prev) =>
+      prev.filter((appt) => appt._id !== id)
+    );
   };
+
   return (
     <>
       <Navbar />
 
       <div className="p-6 bg-gray-100 min-h-screen">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">
-          Appointments Monitoring
+
+        <h1 className="text-3xl font-bold mb-6">
+          📅 Appointments Dashboard
         </h1>
 
+
+        <div className="bg-white rounded-xl shadow p-4 mb-8">
+          <div className="h-[500px]">
+            <BigCalendar
+              localizer={localizer}
+              events={events}
+              startAccessor="start"
+              endAccessor="end"
+              eventPropGetter={eventStyleGetter}
+              onSelectEvent={handleSelectEvent}
+              views={["month", "week", "day"]}
+            />
+          </div>
+        </div>
+
+
         {loading ? (
-          <p className="text-lg">Loading appointments...</p>
+          <p>Loading...</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
             {appointments.map((appt) => (
               <div
                 key={appt._id}
-                className="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition"
+                className="bg-white p-5 rounded-xl shadow"
               >
+                <div className="flex justify-between mb-3">
 
-                <div className="flex items-center justify-between mb-4">
-                  <span
-                    className={`px-3 py-1 rounded-full text-sm font-semibold
-                    ${appt.status === "booked"
-                        ? "bg-blue-100 text-blue-600"
-                        : appt.status === "completed"
-                          ? "bg-green-100 text-green-600"
-                          : "bg-red-100 text-red-600"
-                      }`}
-                  >
+                  <span className="text-sm font-bold">
                     {appt.status}
                   </span>
 
                   {appt.status === "booked" && (
-                    <button
-                      onClick={() => cancelAppointment(appt._id)}
-                      className="text-red-500 hover:text-red-700"
-                    >
-                      <XCircle size={22} />
-                    </button>
+                    <XCircle
+                      className="text-red-500 cursor-pointer"
+                      onClick={() =>
+                        cancelAppointment(appt._id)
+                      }
+                    />
                   )}
 
                   {appt.status === "cancelled" && (
                     <button
-                      onClick={() => deleteAppointment(appt._id)}
-                      className="text-black hover:text-gray-700"
+                      onClick={() =>
+                        deleteAppointment(appt._id)
+                      }
                     >
-                      🗑 Delete
+                      🗑
                     </button>
                   )}
-
                 </div>
 
-                <div className="flex items-center gap-3 mb-2">
-                  <User className="text-blue-500" />
-                  <span className="font-medium">
-                    {appt.patient?.user?.name || "N/A"}
-                  </span>
-                </div>
-
-
-                <div className="flex items-center gap-3 mb-2">
-                  <Stethoscope className="text-green-500" />
-                  <span className="font-medium">
-                    {appt.doctor?.user?.name || "N/A"}
-
-                  </span>
-                </div>
-
-
-                <div className="flex items-center gap-3 mb-2 text-gray-600">
-                  <CalendarDays size={18} />
-                  <span>{new Date(appt.appointmentDate).toLocaleDateString()}</span>
-                </div>
-
-
-                <div className="flex items-center gap-3 mb-4 text-gray-600">
-                  <Clock size={18} />
-                  <span>{appt.slotTime}</span>
-                </div>
-
-
-                <p className="text-gray-600 text-sm">
-                  <strong>Reason:</strong> {appt.reason || "—"}
-                </p>
+                <p><User size={14} /> {appt.patient?.user?.name}</p>
+                <p><Stethoscope size={14} /> {appt.doctor?.user?.name}</p>
+                <p><CalendarDays size={14} /> {new Date(appt.appointmentDate).toLocaleDateString()}</p>
+                <p><Clock size={14} /> {appt.slotTime}</p>
               </div>
             ))}
-
-            {appointments.length === 0 && (
-              <p className="text-gray-500">No appointments found</p>
-            )}
           </div>
         )}
       </div>
