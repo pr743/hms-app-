@@ -10,6 +10,8 @@ function PatientAppointments() {
     const fetchAppointments = async () => {
         try {
             const res = await API.get("/patient/appointments");
+
+            console.log("ApI Data :", res.data);
             setAppointments(res.data.data || []);
         } catch (err) {
             console.error(err);
