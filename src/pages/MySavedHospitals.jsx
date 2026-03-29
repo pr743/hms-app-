@@ -24,8 +24,6 @@ function MySavedHospitals() {
     fetchSaved();
   }, []);
 
-
-
   const handleRemove = async (id) => {
     const confirm = await Swal.fire({
       title: "Remove Hospital?",
@@ -46,6 +44,8 @@ function MySavedHospitals() {
       console.error(error);
     }
   };
+
+
 
   return (
     <>
@@ -73,24 +73,25 @@ function MySavedHospitals() {
           {!loading && hospitals.length > 0 && (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {hospitals.map((hospital) => (
-                <>
+                <div key={hospital._id} className="relative">
 
                   <HospitalCard
-                    key={hospital._id}
                     hospital={hospital}
                     userRole="patient"
                   />
 
-                  <button
-                    onClick={handleRemove}
-                    className="mt-2 w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 transition"
-                  >
-                    Remove from Saved
-                  </button>
-                </>
 
+                  <button
+                    onClick={() => handleRemove(hospital._id)}
+                    className="absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded text-sm shadow"
+                  >
+                    Remove
+                  </button>
+
+                </div>
               ))}
             </div>
+
           )}
         </div>
       </div>

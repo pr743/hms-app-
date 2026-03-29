@@ -5,6 +5,7 @@ import HospitalCard from "../components/HospitalCard";
 import { Search, MapPin, RotateCcw } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Swal from "sweetalert2";
+import API from "../api/axios";
 
 function HospitalsByCity() {
   const { user } = useContext(AuthContext);
@@ -60,6 +61,7 @@ function HospitalsByCity() {
       handleSearch();
     }
   };
+
 
   return (
     <>
@@ -144,6 +146,9 @@ function HospitalsByCity() {
                   userRole={user?.role}
                 />
               ))}
+
+
+
             </div>
           )}
         </div>
