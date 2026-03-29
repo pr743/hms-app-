@@ -207,11 +207,10 @@ function Appointments() {
                     />
                   )}
 
-                  {appt.status === "cancelled" || appt.status === "completed" && (
+                  {(appt.status === "cancelled" || appt.status === "completed") && (
                     <button
-                      onClick={() =>
-                        deleteAppointment(appt._id)
-                      }
+                      className="text-red-600"
+                      onClick={() => deleteAppointment(appt._id)}
                     >
                       🗑
                     </button>
