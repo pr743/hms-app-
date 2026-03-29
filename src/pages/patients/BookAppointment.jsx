@@ -144,42 +144,6 @@ function BookAppointment() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.doctorId) {
-      Swal.fire({
-        icon: "warning",
-        title: "Doctor Required",
-        text: "Please select a doctor",
-      });
-      return;
-    }
-
-    if (!form.appointmentDate) {
-      Swal.fire({
-        icon: "warning",
-        title: "Date Required",
-        text: "Please select appointment date",
-      });
-      return;
-    }
-
-    if (form.appointmentType === "normal" && !form.slotTime) {
-      Swal.fire({
-        icon: "warning",
-        title: "Time Slot Required",
-        text: "Please select time slot",
-      });
-      return;
-    }
-
-    if (!form.reason.trim()) {
-      Swal.fire({
-        icon: "warning",
-        title: "Reason Required",
-        text: "Please enter reason",
-      });
-      return;
-    }
-
     if (loading) return;
 
     try {
@@ -187,14 +151,10 @@ function BookAppointment() {
 
       const res = await API.post("/patient/appointment", form);
 
-      console.log("ApI response", res.data);
-
       Swal.fire({
         icon: "success",
         title: "Booked",
-        text: "Appointment booked successfully ✅",
-        timer: 2500,
-        showConfirmButton: false,
+        text: res.data.message,
       });
 
       setForm({
@@ -205,13 +165,16 @@ function BookAppointment() {
         reason: "",
         appointmentType: "normal",
       });
+
       setSlots([]);
       setDoctors([]);
     } catch (err) {
       Swal.fire({
         icon: "error",
-        title: "Booking Failed",
-        text: err.response?.data?.message || "Booking failed ❌",
+        title: "Cannot Book Appointment",
+        text:
+          err.response?.data?.message ||
+          "Something went wrong",
       });
     } finally {
       setLoading(false);
@@ -327,24 +290,6 @@ function BookAppointment() {
                     <option value="" disabled>
                       Select Time
                     </option>
-                    {/* {[
-                      "10:00 AM",
-                      "11:00 AM",
-                      "12:00 PM",
-                      "2:00 PM",
-                      "3:00 PM",
-                      "4:00 PM",
-                      "5:00 PM",
-                      "6:00 PM",
-                      "7:00 PM",
-                      "8:00 PM",
-                      "9:00 PM",
-                    ].map((time) => (
-                      <option key={time} value={time}>
-                        {time}
-                      </option>
-                    ))} */}
-
 
                     {loadingSlots ? (
                       <option disabled>Loading slots...</option>
