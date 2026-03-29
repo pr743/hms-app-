@@ -73,7 +73,7 @@ function MySavedHospitals() {
           {!loading && hospitals.length > 0 && (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {hospitals.map((hospital) => (
-                <div key={hospital._id} className="relative">
+                <div key={hospital._id} className="relative group">
 
                   <HospitalCard
                     hospital={hospital}
@@ -83,9 +83,25 @@ function MySavedHospitals() {
 
                   <button
                     onClick={() => handleRemove(hospital._id)}
-                    className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full  shadow-md  opacity-100 md:opacity-0 md:group-hover:opacity-100 hover:bg-red-400 transition"
+                    className="
+          absolute top-2 right-2 
+          bg-red-500 hover:bg-red-600 
+          text-white 
+          p-2 md:px-3 md:py-1 
+          rounded-full md:rounded-lg 
+          text-xs md:text-sm 
+          shadow-md 
+          transition-all duration-200
+
+          opacity-100 
+
+          md:opacity-0 md:group-hover:opacity-100
+        "
                   >
-                    Remove
+
+                    <span className="md:hidden">❌</span>
+
+                    <span className="hidden md:block">Remove</span>
                   </button>
 
                 </div>
