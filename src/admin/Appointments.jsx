@@ -207,7 +207,7 @@ function Appointments() {
                     />
                   )}
 
-                  {appt.status === "cancelled" && (
+                  {appt.status === "cancelled" || appt.status === "completed" && (
                     <button
                       onClick={() =>
                         deleteAppointment(appt._id)
