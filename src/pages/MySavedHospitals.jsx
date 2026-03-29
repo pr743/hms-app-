@@ -79,8 +79,14 @@ function MySavedHospitals() {
                     key={hospital._id}
                     hospital={hospital}
                     userRole="patient"
-                    onRemove={handleRemove}
                   />
+
+                  <button
+                    onClick={handleRemove}
+                    className="mt-2 w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 transition"
+                  >
+                    Remove from Saved
+                  </button>
                 </>
 
               ))}
