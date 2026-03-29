@@ -65,6 +65,14 @@ export default function CreatePrescription() {
   }, []);
 
 
+
+
+  const filteredAppointments = appointments.filter(
+    (a) => a.status === "in-progress"
+  );
+
+
+
   const getAISuggestion = async () => {
     if (!selectedSymptom) {
       Swal.fire({
@@ -187,10 +195,6 @@ export default function CreatePrescription() {
         showConfirmButton: false,
       });
 
-      setAppointments((prev) =>
-        prev.filter((a) => a._id !== appointmentId)
-      );
-
 
       setAppointmentId("");
       setSelectedSymptom("");
@@ -234,22 +238,16 @@ export default function CreatePrescription() {
             required
           >
             <option value="">Select Appointment</option>
-
-            {appointments.length === 0 ? (
-              <option value="">
-                {appointments.length === 0
-                  ? "No completed appointments"
-                  : "Select Appointment"}
-              </option>
+            {filteredAppointments.length === 0 ? (
+              <option disabled>No active (in-progress) appointments</option>
             ) : (
-              appointments.map((appt) => (
+              filteredAppointments.map((appt) => (
                 <option key={appt._id} value={appt._id}>
                   {appt?.patient?.user?.name || "Unknown"} | {appt?.slotTime}
                 </option>
               ))
             )}
           </select>
-
 
           <select
             value={selectedSymptom}
