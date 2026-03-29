@@ -115,8 +115,9 @@ function BookAppointment() {
         setLoadingSlots(true);
 
         const res = await API.get(
-          `/appointments/slots?doctorId=${form.doctorId}&date=${form.appointmentDate}`,
+          `/appointments/available-slots?doctorId=${form.doctorId}&date=${form.appointmentDate}`,
         );
+
 
         setSlots(Array.isArray(res.data.data) ? res.data.data : []);
       } catch (error) {
