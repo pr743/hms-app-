@@ -95,11 +95,29 @@ function DoctorAppointment() {
 
 
   const markInProgress = async (id) => {
-    await API.patch(`/appointments/doctor/${id}/status`, {
-      status: "in-progress",
-    });
-    fetchAppointments();
-  }
+    try {
+      await API.patch(`/appointments/doctor/${id}/status`, {
+        status: "in-progress",
+      });
+
+      Swal.fire({
+        icon: "success",
+        title: "Started",
+        timer: 1000,
+        showConfirmButton: false,
+      });
+
+      fetchAppointments();
+    } catch (err) {
+      console.error(err.response?.data);
+
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: err.response?.data?.message || "Failed ❌",
+      });
+    }
+  };
 
 
   const eventStyleGetter = (event) => {
@@ -117,6 +135,8 @@ function DoctorAppointment() {
       bg = "#f59e0b";
     } else if (status === "cancelled") {
       bg = "#ef4444";
+    } else if (status === "in-progress") {
+      bg = "#2563eb";
     }
 
     return {
@@ -288,14 +308,20 @@ function DoctorAppointment() {
 
                 <div className="flex gap-2">
 
-                  {appt.status === "booked" && (
+
+
+
+
+                  {(appt.status === "booked" || appt.status === "in-progress") && (
                     <>
-                      <button
-                        onClick={() => markInProgress(appt._id)}
-                        className="bg-yellow-500 text-white px-3 py-1 mt-2 rounded"
-                      >
-                        Start
-                      </button>
+                      {appt.status === "booked" && (
+                        <button
+                          onClick={() => markInProgress(appt._id)}
+                          className="bg-yellow-500 text-white px-3 py-1 mt-2 rounded"
+                        >
+                          Start
+                        </button>
+                      )}
 
                       <button
                         onClick={() => markCompleted(appt._id)}
@@ -305,6 +331,7 @@ function DoctorAppointment() {
                       </button>
                     </>
                   )}
+
 
                   <button
                     onClick={() =>
