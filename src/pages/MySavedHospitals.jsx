@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import API from "../api/axios";
 import Navbar from "../components/Navbar";
 import HospitalCard from "../components/HospitalCard";
+import Swal from "sweetalert2";
+
 
 function MySavedHospitals() {
   const [hospitals, setHospitals] = useState([]);
@@ -21,6 +23,29 @@ function MySavedHospitals() {
 
     fetchSaved();
   }, []);
+
+
+
+  const handleRemove = async (id) => {
+    const confirm = await Swal.fire({
+      title: "Remove Hospital?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, remove",
+    });
+
+    if (!confirm.isConfirmed) return;
+
+    try {
+      await API.delete(`/hospitals/saved/${id}`);
+
+      setHospitals((prev) => prev.filter((h) => h._id !== id));
+
+      Swal.fire("Removed!", "", "success");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -48,11 +73,16 @@ function MySavedHospitals() {
           {!loading && hospitals.length > 0 && (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {hospitals.map((hospital) => (
-                <HospitalCard
-                  key={hospital._id}
-                  hospital={hospital}
-                  userRole="patient"
-                />
+                <>
+
+                  <HospitalCard
+                    key={hospital._id}
+                    hospital={hospital}
+                    userRole="patient"
+                    onRemove={handleRemove}
+                  />
+                </>
+
               ))}
             </div>
           )}
