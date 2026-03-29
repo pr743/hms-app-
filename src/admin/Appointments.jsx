@@ -145,13 +145,15 @@ function Appointments() {
       confirmButtonText: "Delete",
     });
 
-    if (!result.isConfirmed) return;
+    if ((result.isConfirmed && !["cancelled", "completed"].includes(appointments.status))) return;
 
     await API.delete(`/appointments/admin/${id}`);
 
     setAppointments((prev) =>
       prev.filter((appt) => appt._id !== id)
     );
+
+
   };
 
   return (
