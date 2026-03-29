@@ -39,7 +39,7 @@ function MySavedHospitals() {
 
       setHospitals((prev) => prev.filter((h) => h._id !== id));
 
-      Swal.fire("Removed!", "", "success");
+      Swal.fire("Removed!", "Hospital removed from saved list.", "success");
     } catch (error) {
       console.error(error);
     }
@@ -73,7 +73,7 @@ function MySavedHospitals() {
           {!loading && hospitals.length > 0 && (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {hospitals.map((hospital) => (
-                <div key={hospital._id} className="relative">
+                <div key={hospital._id} className="relative group">
 
                   <HospitalCard
                     hospital={hospital}
@@ -83,7 +83,7 @@ function MySavedHospitals() {
 
                   <button
                     onClick={() => handleRemove(hospital._id)}
-                    className="absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded text-sm shadow"
+                    className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full  shadow-md  opacity-100 md:opacity-0 md:group-hover:opacity-100 hover:bg-red-400 transition"
                   >
                     Remove
                   </button>
