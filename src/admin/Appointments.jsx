@@ -145,7 +145,8 @@ function Appointments() {
       confirmButtonText: "Delete",
     });
 
-    if ((result.isConfirmed && !["cancelled", "completed"].includes(appointments.status))) return;
+
+    if (!result.isConfirmed) return;
 
     await API.delete(`/appointments/admin/${id}`);
 
