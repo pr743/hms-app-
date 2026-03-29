@@ -73,7 +73,7 @@ function MySavedHospitals() {
           {!loading && hospitals.length > 0 && (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {hospitals.map((hospital) => (
-                <div key={hospital._id} className="relative group">
+                <div key={hospital._id} className="relative">
 
                   <HospitalCard
                     hospital={hospital}
