@@ -11,7 +11,7 @@ function Patients() {
   const fetchPatients = async () => {
     try {
       const res = await API.get("/admin/patients");
-      setPatients(res.data.data || []);
+      setPatients(res.data);
       console.log("Patients loaded:", res.data);
     } catch {
       console.error("Failed to load patients");
