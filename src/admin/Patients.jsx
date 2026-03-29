@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import API from "../api/axios";
 import Navbar from "../components/Navbar";
 import { User, Mail, ShieldCheck, ShieldOff } from "lucide-react";
@@ -8,45 +8,17 @@ function Patients() {
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // const fetchPatients = async () => {
-  //   try {
-  //     const res = await API.get("/admin/patients");
-  //     setPatients(res.data);
-
-  //     console.log("Patients loaded:", res.data);
-  //   } catch {
-  //     console.error("Failed to load patients");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-
   const fetchPatients = async () => {
     try {
       const res = await API.get("/admin/patients");
-
-      console.log("RAW RESPONSE:", res.data);
-
-      const data =
-        res.data.data ||
-        res.data.patients ||
-        res.data ||
-        [];
-
-      setPatients(Array.isArray(data) ? data : []);
-
-    } catch (error) {
-      console.error("Failed to load patients", error);
-      setPatients([]);
+      setPatients(res.data.data || []);
+      console.log("Patients loaded:", res.data);
+    } catch {
+      console.error("Failed to load patients");
     } finally {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    fetchPatients();
-  }, []);
-
   const toggleStatus = async (userId) => {
     const result = await Swal.fire({
       title: "Change Status?",
