@@ -243,7 +243,7 @@ export default function CreatePrescription() {
             ) : (
               filteredAppointments.map((appt) => (
                 <option key={appt._id} value={appt._id}>
-                  {appt?.patient?.user?.name || "Unknown"} | {appt?.slotTime}
+                  {appt?.patient?.user?.name || appt?.patient?.name || "Unknown"} | {appt?.slotTime}
                 </option>
               ))
             )}
