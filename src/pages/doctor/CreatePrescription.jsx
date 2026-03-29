@@ -236,7 +236,11 @@ export default function CreatePrescription() {
             <option value="">Select Appointment</option>
 
             {appointments.length === 0 ? (
-              <option disabled>No completed appointments</option>
+              <option value="">
+                {appointments.length === 0
+                  ? "No completed appointments"
+                  : "Select Appointment"}
+              </option>
             ) : (
               appointments.map((appt) => (
                 <option key={appt._id} value={appt._id}>
