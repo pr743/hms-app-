@@ -8,19 +8,41 @@ function Patients() {
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // const fetchPatients = async () => {
+  //   try {
+  //     const res = await API.get("/admin/patients");
+  //     setPatients(res.data);
+
+  //     console.log("Patients loaded:", res.data);
+  //   } catch {
+  //     console.error("Failed to load patients");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+
   const fetchPatients = async () => {
     try {
       const res = await API.get("/admin/patients");
-      setPatients(res.data);
 
-      console.log("Patients loaded:", res.data);
-    } catch {
-      console.error("Failed to load patients");
+      console.log("RAW RESPONSE:", res.data);
+
+      const data =
+        res.data.data ||
+        res.data.patients ||
+        res.data ||
+        [];
+
+      setPatients(Array.isArray(data) ? data : []);
+
+    } catch (error) {
+      console.error("Failed to load patients", error);
+      setPatients([]);
     } finally {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchPatients();
   }, []);
