@@ -8,8 +8,9 @@ function BookAppointment() {
   const [hospitals, setHospitals] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [slots, setSlots] = useState([]);
 
-
+  const [loadingSlots, setLoadingSlots] = useState(false);
 
   const [form, setForm] = useState({
     hospitalId: "",
@@ -103,6 +104,38 @@ function BookAppointment() {
     fetchDoctors();
   }, [form.hospitalId]);
 
+
+
+  useEffect(() => {
+    const fetchSlots = async () => {
+      if (!form.doctorId || !form.appointmentDate) return;
+
+
+      try {
+        setLoadingSlots(true);
+
+        const res = await API.get(
+          `/appointments/slots?doctorId=${form.doctorId}&date=${form.appointmentDate}`,
+        );
+
+        setSlots(Array.isArray(res.data.data) ? res.data.data : []);
+      } catch (error) {
+        console.error("Failed to load slots", error);
+        setSlots([]);
+      } finally {
+        setLoadingSlots(false);
+      }
+
+    };
+
+    fetchSlots();
+
+  }, [form.doctorId, form.appointmentDate]);
+
+
+
+
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -171,7 +204,7 @@ function BookAppointment() {
         reason: "",
         appointmentType: "normal",
       });
-
+      setSlots([]);
       setDoctors([]);
     } catch (err) {
       Swal.fire({
@@ -293,7 +326,7 @@ function BookAppointment() {
                     <option value="" disabled>
                       Select Time
                     </option>
-                    {[
+                    {/* {[
                       "10:00 AM",
                       "11:00 AM",
                       "12:00 PM",
@@ -309,8 +342,28 @@ function BookAppointment() {
                       <option key={time} value={time}>
                         {time}
                       </option>
-                    ))}
+                    ))} */}
+
+
+                    {loadingSlots ? (
+                      <option disabled>Loading slots...</option>
+                    ) : slots.length === 0 ? (
+                      <option disabled>No slots available</option>
+                    ) : (
+                      slots.map((slot) => (
+                        <option
+                          key={slot.time}
+                          value={slot.time}
+                          disabled={slot.isFull}
+                        >
+                          {slot.time} ({slot.availableSpots} Left)
+                        </option>
+                      ))
+                    )}
                   </select>
+
+
+
                 </div>
               </div>
             )}
