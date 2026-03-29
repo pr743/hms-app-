@@ -207,7 +207,7 @@ function Appointments() {
                     />
                   )}
 
-                  {/* {appt.status === "cancelled" || appt.status === "completed" && (
+                  {appt.status === "cancelled" && (
                     <button
                       onClick={() =>
                         deleteAppointment(appt._id)
@@ -215,19 +215,8 @@ function Appointments() {
                     >
                       🗑
                     </button>
-                  )} */}
+                  )}
 
-
-
-                  {(appt.status === "cancelled" ||
-                    appt.status === "completed") && (
-                      <button
-                        className="text-red-600 text-sm"
-                        onClick={() => deleteAppointment(appt._id)}
-                      >
-                        🗑
-                      </button>
-                    )}
                 </div>
 
                 <p><User size={14} /> {appt.patient?.user?.name}</p>
