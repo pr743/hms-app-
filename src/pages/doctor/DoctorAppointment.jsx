@@ -356,7 +356,7 @@ function DoctorAppointment() {
                       {appt.status === "booked" && (
                         <button
                           onClick={() => markInProgress(appt._id)}
-                          className="bg-yellow-500 text-white px-3 py-2 rounded text-xs md:text-sm w-full md:w-auto"
+                          className="bg-yellow-500 text-white px-2 py-1.5 rounded text-[11px] md:text-sm w-full md:w-auto"
                         >
                           Start
                         </button>
@@ -364,7 +364,7 @@ function DoctorAppointment() {
 
                       <button
                         onClick={() => markCompleted(appt._id)}
-                        className="bg-green-600 text-white px-3 py-2 rounded text-xs md:text-sm w-full md:w-auto"
+                        className="bg-green-600 text-white px-2 py-1.5 rounded text-[11px] md:text-sm w-full md:w-auto"
                       >
                         Complete
                       </button>
@@ -375,7 +375,7 @@ function DoctorAppointment() {
                     onClick={() =>
                       navigate(`/doctor/patient/${appt.patient._id}/history`)
                     }
-                    className="bg-blue-600 text-white px-3 py-2 rounded text-xs md:text-sm w-full md:w-auto"
+                    className="bg-blue-600 text-white px-2 py-1.5 rounded text-[11px] md:text-sm w-full md:w-auto"
                   >
                     History
                   </button>
@@ -384,7 +384,7 @@ function DoctorAppointment() {
                     onClick={() =>
                       navigate(`/doctor/create-prescription/${appt._id}`)
                     }
-                    className="bg-purple-600 text-white px-3 py-2 rounded text-xs md:text-sm w-full md:w-auto"
+                    className="bg-purple-600 text-white px-2 py-1.5 rounded text-[11px] md:text-sm w-full md:w-auto"
                   >
                     Open
                   </button>
