@@ -52,7 +52,7 @@ function DoctorPatientHistory() {
         </div>
 
         {history.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow p-6 text-gray-500">
+          <div className="bg-white rounded-2xl shadow p-6 text-gray-200">
             No history found
           </div>
         ) : (

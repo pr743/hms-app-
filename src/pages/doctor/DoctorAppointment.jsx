@@ -226,7 +226,6 @@ function DoctorAppointment() {
           </div>
         </div>
 
-        {/* LEGEND */}
         <div className="flex flex-wrap gap-2 text-xs md:text-sm mb-4">
           <span className="px-3 py-1 rounded-full bg-green-100 text-green-700">🟢 Completed</span>
           <span className="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700">🟠 Pending</span>
@@ -234,7 +233,7 @@ function DoctorAppointment() {
           <span className="px-3 py-1 rounded-full bg-red-200 text-red-800 font-semibold">🚨 Emergency</span>
         </div>
 
-        {/* CALENDAR */}
+
         <div className="bg-white/70 backdrop-blur-md border border-gray-100 rounded-2xl shadow-xl p-3 md:p-4 mb-6">
           <div className="h-[400px] md:h-[650px]">
             <DnDCalendar
@@ -253,7 +252,6 @@ function DoctorAppointment() {
           </div>
         </div>
 
-        {/* APPOINTMENTS LIST */}
         <div className="space-y-3">
           {appointments.map((appt) => (
             <div
@@ -266,7 +264,7 @@ function DoctorAppointment() {
             >
               <div className="flex justify-between items-center">
 
-                {/* LEFT */}
+
                 <div>
                   <div className="font-semibold flex items-center gap-2 text-gray-900">
                     <User size={14} />
@@ -292,7 +290,6 @@ function DoctorAppointment() {
                   )}
                 </div>
 
-                {/* BUTTONS */}
                 <div className="flex flex-wrap gap-2 mt-2 md:mt-0 justify-end">
 
                   {(appt.status === "booked" || appt.status === "in-progress") && (

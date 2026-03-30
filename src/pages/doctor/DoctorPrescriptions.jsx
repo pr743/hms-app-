@@ -99,10 +99,10 @@ function DoctorPrescriptions() {
     <>
       <Navbar />
 
-      <div className="min-h-screen bg-gradient-to-br from-gray-100 via-white to-purple-50 p-6">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6">
 
         <div className="mb-8">
-          <h1 className="text-4xl font-extrabold text-gray-800 tracking-tight">
+          <h1 className="text-4xl font-extrabold text-white tracking-tight">
             💊 My Prescriptions
           </h1>
           <p className="text-gray-500 mt-1">
@@ -115,7 +115,7 @@ function DoctorPrescriptions() {
             <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-purple-600"></div>
           </div>
         ) : prescriptions.length === 0 ? (
-          <div className="text-center text-gray-500 mt-10">
+          <div className="text-center text-gray-200 mt-10">
             No prescriptions found
           </div>
         ) : (
