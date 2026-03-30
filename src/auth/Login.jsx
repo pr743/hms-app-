@@ -5,6 +5,7 @@ import Loader from "../components/Loader";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
+import { motion } from "framer-motion";
 
 function Login() {
   const navigate = useNavigate();
@@ -35,12 +36,10 @@ function Login() {
       });
 
       login(res.data);
-
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
       showAlert("Login successfully", "success");
-
       navigate(`/${res.data.user.role}`);
     } catch {
       showAlert("Login failed", "error");
@@ -51,103 +50,127 @@ function Login() {
 
   const showAlert = (msg, type = "info") => {
     setAlert({ msg, type });
-    setTimeout(() => {
-      setAlert(null);
-    }, 4000);
+    setTimeout(() => setAlert(null), 3000);
   };
 
   return (
     <>
       <Navbar />
 
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-blue-500 to-blue-200 px-4">
-        <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
+      <div className="min-h-screen flex items-center justify-center px-4 
+      bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+
+        <div className="absolute w-[400px] h-[400px] bg-blue-500 opacity-20 blur-3xl rounded-full top-10 left-10"></div>
+        <div className="absolute w-[300px] h-[300px] bg-purple-500 opacity-20 blur-3xl rounded-full bottom-10 right-10"></div>
+
+
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="w-full max-w-md relative z-10 
+          backdrop-blur-xl bg-white/10 border border-white/20 
+          rounded-2xl shadow-2xl p-8 text-white"
+        >
+
+
           <div className="text-center mb-6">
-            <h1 className="text-3xl font-bold text-blue-600">HMS Login</h1>
-            <p className="text-gray-500 text-sm mt-1">
-              Hospital Management System
+            <h1 className="text-3xl font-bold">Welcome Back</h1>
+            <p className="text-gray-300 text-sm mt-1">
+              Login to your HMS account
             </p>
           </div>
 
           {alert && (
-            <div
-              className={`fixed top-4 left-1/2 -translate-x-1/2 
-              px-4 py-2 rounded-xl text-black font-semibold z-50
-              ${alert.type === "error" ? "bg-red-400" : "bg-green-400"}`}
+            <motion.div
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              className={`mb-4 text-center px-4 py-2 rounded-lg text-sm font-medium
+              ${alert.type === "error"
+                  ? "bg-red-500/80"
+                  : "bg-green-500/80"
+                }`}
             >
-              {alert.type === "error" ? "⚠️" : "✅"} {alert.msg}
-            </div>
+              {alert.msg}
+            </motion.div>
           )}
 
-          <form onSubmit={handleSubmit} className="bg-white text-black">
+          <form onSubmit={handleSubmit}>
 
             <div className="mb-5">
-              <label className="text-black mb-2 block">Email</label>
-              <div className="flex items-center bg-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-500">
-                <Mail size={20} className="text-gray-400" />
+              <label className="text-sm text-gray-300">Email</label>
+
+              <div className="flex items-center mt-2 
+              bg-white/10 border border-white/20 
+              rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-400">
+
+                <Mail size={18} className="text-gray-300" />
+
                 <input
                   name="email"
                   type="email"
                   placeholder="doctor@hms.com"
-                  className="bg-transparent outline-none w-full px-3"
+                  className="bg-transparent outline-none w-full px-3 text-white placeholder-gray-400"
                   onChange={handleChange}
                   required
                 />
               </div>
             </div>
 
-
             <div className="mb-6">
-              <label className="text-black mb-2 block">Password</label>
-              <div className="flex items-center bg-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-500">
-                <Lock size={18} className="text-gray-400" />
+              <label className="text-sm text-gray-300">Password</label>
+
+              <div className="flex items-center mt-2 
+              bg-white/10 border border-white/20 
+              rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-400">
+
+                <Lock size={18} className="text-gray-300" />
 
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="••••••••"
-                  className="bg-transparent outline-none w-full px-3"
+                  className="bg-transparent outline-none w-full px-3 text-white placeholder-gray-400"
                   onChange={handleChange}
                   required
                 />
-
 
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   onMouseDown={(e) => e.preventDefault()}
-                  className="text-gray-500"
+                  className="text-gray-300"
                 >
-                  {showPassword ? (
-                    <EyeOff size={20} />
-                  ) : (
-                    <Eye size={20} />
-                  )}
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
             </div>
 
             {loading && <Loader />}
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 transition font-semibold text-lg disabled:opacity-70"
+              className="w-full py-3 rounded-xl 
+              bg-gradient-to-r from-blue-500 to-indigo-500 
+              hover:from-blue-600 hover:to-indigo-600 
+              transition font-semibold text-lg disabled:opacity-60"
             >
               Login
-            </button>
+            </motion.button>
 
-            <p className="text-black text-sm text-center mt-5">
+            <p className="text-sm text-center mt-5 text-gray-300">
               Don’t have an account?{" "}
               <Link
                 to="/admin/register"
-                className="text-blue-400 hover:text-blue-600"
+                className="text-blue-400 hover:underline"
               >
                 Signup
               </Link>
             </p>
           </form>
-        </div>
+        </motion.div>
       </div>
     </>
   );

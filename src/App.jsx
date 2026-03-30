@@ -1,63 +1,45 @@
-import React, { useContext } from "react";
+import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-
 import Register from "./auth/Register";
-import Login from "./auth/Login";
-import AdminRegister from "./auth/AdminRegister";
-
-
+import { useContext } from "react";
 import AdminDashboard from "./admin/AdminDashboard";
+import { AuthContext } from "./context/AuthContext";
 import Doctor from "./admin/Doctor";
 import Patients from "./admin/Patients";
 import Appointments from "./admin/Appointments";
-import AddDoctor from "./admin/AddDoctor";
-import AddHospital from "./admin/AddHospital";
-import EditDoctor from "./admin/EditDoctor";
-
 import DoctorDashboard from "./admin/DoctorDashboard";
 import PatientDashboard from "./admin/PatientDashboard";
-
+import AddDoctor from "./admin/AddDoctor";
 import BookAppointment from "./pages/patients/BookAppointment";
-import PatientAppointments from "./pages/patients/PatientAppointments";
-import PatientPrescriptions from "./pages/patients/PatientPrescriptions";
-import PatientHistory from "./pages/patients/PatientHistory";
-
 import DoctorAppointment from "./pages/doctor/DoctorAppointment";
+import AdminRegister from "./auth/AdminRegister";
+import HospitalsByCity from "./pages/HospitalsByCity";
+import AddHospital from "./admin/AddHospital";
+import CreatePatientProfile from "./admin/CreatePatientProfile";
 import DoctorProfile from "./pages/doctor/DoctorProfile";
 import DoctorPatientHistory from "./pages/doctor/DoctorPatientHistory";
 import DoctorPrescriptions from "./pages/doctor/DoctorPrescriptions";
 import CreatePrescription from "./pages/doctor/CreatePrescription";
-
-import HospitalsByCity from "./pages/HospitalsByCity";
+import PatientPrescriptions from "./pages/patients/PatientPrescriptions";
+import PatientHistory from "./pages/patients/PatientHistory";
 import MySavedHospitals from "./pages/MySavedHospitals";
-import CreatePatientProfile from "./admin/CreatePatientProfile";
-
-import { AuthContext } from "./context/AuthContext";
+import Login from "./auth/Login";
+import EditDoctor from "./admin/EditDoctor";
+import PatientAppointments from "./pages/patients/PatientAppointments";
 import Home from "./components/Home";
-
 function App() {
   const { user } = useContext(AuthContext);
-
   return (
     <BrowserRouter>
       <Routes>
 
-
         <Route path="/" element={<Home />} />
 
-
-        <Route
-          path="/login"
-          element={
-            user ? <Navigate to={`/${user.role}`} /> : <Login />
-          }
-        />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin/register" element={<AdminRegister />} />
 
-
         <Route path="/hospitals" element={<HospitalsByCity />} />
-
 
         <Route
           path="/admin"
@@ -74,13 +56,6 @@ function App() {
           path="/admin/doctors"
           element={
             user?.role === "admin" ? <Doctor /> : <Navigate to="/login" />
-          }
-        />
-
-        <Route
-          path="/admin/doctors/edit/:id"
-          element={
-            user?.role === "admin" ? <EditDoctor /> : <Navigate to="/login" />
           }
         />
 
@@ -105,73 +80,20 @@ function App() {
           }
         />
 
+
+        <Route path="/admin/doctors/edit/:id" element={<EditDoctor />} />
+
         <Route
           path="/admin/hospitals"
           element={
             user?.role === "admin" ? <AddHospital /> : <Navigate to="/login" />
           }
         />
-
         <Route
           path="/doctor"
           element={
             user?.role === "doctor" ? (
               <DoctorDashboard />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-
-        <Route
-          path="/doctor/appointments"
-          element={
-            user?.role === "doctor" ? (
-              <DoctorAppointment />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-
-        <Route
-          path="/doctor/profile"
-          element={
-            user?.role === "doctor" ? (
-              <DoctorProfile />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-
-        <Route
-          path="/doctor/patient/:patientId/history"
-          element={
-            user?.role === "doctor" ? (
-              <DoctorPatientHistory />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-
-        <Route
-          path="/doctor/prescriptions"
-          element={
-            user?.role === "doctor" ? (
-              <DoctorPrescriptions />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-
-        <Route
-          path="/doctor/create-prescription"
-          element={
-            user?.role === "doctor" ? (
-              <CreatePrescription />
             ) : (
               <Navigate to="/login" />
             )
@@ -187,6 +109,12 @@ function App() {
               <Navigate to="/login" />
             )
           }
+        />
+
+
+        <Route
+          path="/patient/appointments"
+          element={<PatientAppointments />}
         />
 
         <Route
@@ -211,16 +139,6 @@ function App() {
           }
         />
 
-        <Route
-          path="/patient/appointments"
-          element={
-            user?.role === "patient" ? (
-              <PatientAppointments />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
 
         <Route
           path="/patient/prescriptions"
@@ -233,6 +151,7 @@ function App() {
           }
         />
 
+
         <Route
           path="/patient/history"
           element={
@@ -243,6 +162,7 @@ function App() {
             )
           }
         />
+
 
         <Route
           path="/saved-hospitals"
@@ -256,11 +176,83 @@ function App() {
         />
 
 
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route
+          path="/doctor/appointments"
+          element={
+            user?.role === "doctor" ? (
+              <DoctorAppointment />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
 
+        <Route
+          path="/doctor/profile"
+          element={
+            user?.role === "doctor" ? (
+              <DoctorProfile />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+
+        <Route
+          path="/doctor/patient/:patientId/history"
+          element={
+            user?.role === "doctor" ? (
+              <DoctorPatientHistory />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+
+        <Route
+          path="/doctor/prescriptions"
+          element={
+            user?.role === "doctor" ? (
+              <DoctorPrescriptions />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          path="/doctor/create-prescription"
+          element={
+            user?.role === "doctor" ? (
+              <CreatePrescription />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

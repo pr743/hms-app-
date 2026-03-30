@@ -9,10 +9,8 @@ function Home() {
     return (
         <div className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white min-h-screen overflow-hidden">
 
-
             <div className="absolute top-0 left-0 w-72 h-72 bg-blue-500 opacity-20 blur-3xl rounded-full"></div>
             <div className="absolute bottom-0 right-0 w-72 h-72 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
-
 
             <motion.div
                 className="flex justify-between items-center px-4 md:px-10 py-4 backdrop-blur-lg bg-white/10 border-b border-white/10 sticky top-0 z-50"
@@ -39,7 +37,6 @@ function Home() {
                 </button>
             </motion.div>
 
-
             {open && (
                 <div className="md:hidden px-4 py-4 bg-white/10 backdrop-blur-lg">
                     <div className="flex flex-col gap-3">
@@ -54,7 +51,6 @@ function Home() {
                     </div>
                 </div>
             )}
-
 
             <div className="grid md:grid-cols-2 items-center px-4 md:px-16 min-h-[90vh] gap-10">
 
@@ -142,7 +138,6 @@ function Home() {
                 </div>
             </div>
 
-
             <div className="px-4 md:px-16 py-12">
 
                 <div className="text-center mb-10">
@@ -194,7 +189,6 @@ function Home() {
                     Create Account
                 </motion.button>
             </div>
-
 
             <div className="border-t border-white/10 px-6 md:px-16 py-10 bg-black/30 backdrop-blur-lg">
 
