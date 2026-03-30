@@ -57,6 +57,47 @@ function DoctorPrescriptions() {
     }
   };
 
+
+
+  const deletePrescription = async (id) => {
+    const result = await Swal.fire({
+      title: "Delete Prescription?",
+      text: "This action cannot be undone",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Delete",
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      await API.delete(`/prescriptions/${id}`);
+
+
+      setPrescriptions((prev) =>
+        prev.filter((p) => p._id !== id)
+      );
+
+      Swal.fire({
+        icon: "success",
+        title: "Deleted",
+        text: "Prescription deleted successfully",
+        timer: 1200,
+        showConfirmButton: false,
+      });
+
+    } catch (error) {
+      console.error("Delete failed", error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to delete ❌",
+      });
+    }
+  };
+
+
   return (
     <>
       <Navbar />
@@ -104,12 +145,29 @@ function DoctorPrescriptions() {
                 </div>
 
 
-                <button
+                {/* <button
                   onClick={() => downloadPDF(prescription._id)}
                   className="mt-4 w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg"
                 >
                   📄 Download PDF
-                </button>
+                </button> */}
+
+
+                <div className="mt-4 space-y-2">
+                  <button
+                    onClick={() => downloadPDF(prescription._id)}
+                    className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg"
+                  >
+                    📄 Download PDF
+                  </button>
+
+                  <button
+                    onClick={() => deletePrescription(prescription._id)}
+                    className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg"
+                  >
+                    🗑 Delete
+                  </button>
+                </div>
               </div>
             ))}
           </div>
