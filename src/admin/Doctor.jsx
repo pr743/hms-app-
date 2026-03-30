@@ -115,118 +115,153 @@ function Doctors() {
     <>
       <Navbar />
 
-      <div className="p-4 md:p-6 bg-gray-100 min-h-screen">
-        <h1 className="text-2xl md:text-3xl font-bold mb-6">
-          Doctors Management
-        </h1>
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 px-4 py-10">
 
-        {loading ? (
-          <p>Loading doctors...</p>
-        ) : (
-          <>
+        <div className="max-w-6xl mx-auto">
 
-            <div className="hidden md:block bg-white rounded-xl shadow-md overflow-x-auto">
-              <table className="w-full text-left">
-                <thead className="bg-gray-100">
-                  <tr>
-                    <th className="px-6 py-3">Name</th>
-                    <th className="px-6 py-3">Email</th>
-                    <th className="px-6 py-3">Specialization</th>
-                    <th className="px-6 py-3">Action</th>
-                  </tr>
-                </thead>
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 mb-6 shadow-2xl">
+            <h1 className="text-3xl font-bold text-white">
+              👨‍⚕️ Doctors Management Dashboard
+            </h1>
+            <p className="text-gray-300 text-sm mt-1">
+              Manage active doctors, control access & monitor system
+            </p>
+          </div>
 
-                <tbody>
-                  {doctors.map((doc) => (
-                    <tr key={doc._id} className="border-t">
-                      <td className="px-6 py-4">{doc.user?.name}</td>
-                      <td className="px-6 py-4">{doc.user?.email}</td>
-                      <td className="px-6 py-4">
-                        {doc.specialization || "—"}
-                      </td>
+          {loading ? (
+            <div className="text-white text-center py-20 text-lg">
+              Loading doctors...
+            </div>
+          ) : (
+            <>
+              <div className="hidden md:block bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl overflow-hidden">
 
-                      <td className="px-6 py-4 flex gap-2">
+                <table className="w-full text-left text-white">
 
-                        <button
-                          onClick={() => toggleStatus(doc.user._id)}
-                          className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg"
-                        >
-                          <UserX size={16} /> Deactivate
-                        </button>
-
-
-                        <button
-                          onClick={() => navigate(`/admin/doctors/edit/${doc._id}`)}
-                          className="px-4 py-2 bg-blue-500 text-white rounded-lg"
-                        >
-                          Edit
-                        </button>
-
-
-                        <button
-                          onClick={() => deleteDoctor(doc.user._id)}
-                          className="px-4 py-2 bg-black text-white rounded-lg"
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-
-                  {doctors.length === 0 && (
+                  <thead className="bg-white/10 text-gray-300">
                     <tr>
-                      <td colSpan="4" className="text-center py-6">
-                        No doctors found
-                      </td>
+                      <th className="px-6 py-4">Doctor</th>
+                      <th className="px-6 py-4">Email</th>
+                      <th className="px-6 py-4">Specialization</th>
+                      <th className="px-6 py-4">Actions</th>
                     </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
 
+                  <tbody>
+                    {doctors.map((doc) => (
+                      <tr
+                        key={doc._id}
+                        className="border-t border-white/10 hover:bg-white/5 transition"
+                      >
 
-            <div className="md:hidden space-y-4">
-              {doctors.map((doc) => (
-                <div key={doc._id} className="bg-white p-4 rounded-xl shadow">
-                  <p className="font-semibold">{doc.user?.name}</p>
-                  <p className="text-sm text-gray-500">
-                    {doc.user?.email}
-                  </p>
+                        <td className="px-6 py-5 font-semibold">
+                          👨‍⚕️ {doc.user?.name}
+                        </td>
 
-                  <p className="text-sm mt-2">
-                    {doc.specialization || "—"}
-                  </p>
+                        <td className="px-6 py-5 text-gray-300">
+                          {doc.user?.email}
+                        </td>
 
-                  <button
-                    onClick={() => toggleStatus(doc.user._id)}
-                    className="w-full mt-3 bg-red-500 text-white py-2 rounded-lg"
+                        <td className="px-6 py-5 text-gray-300">
+                          {doc.specialization || "—"}
+                        </td>
+
+                        <td className="px-6 py-5 flex gap-2 flex-wrap">
+
+                          <button
+                            onClick={() => toggleStatus(doc.user._id)}
+                            className="px-4 py-2 rounded-xl bg-gradient-to-r from-red-500 to-pink-600 text-white shadow-lg hover:scale-105 transition"
+                          >
+                            <UserX size={16} className="inline mr-1" />
+                            Deactivate
+                          </button>
+
+                          <button
+                            onClick={() => navigate(`/admin/doctors/edit/${doc._id}`)}
+                            className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg hover:scale-105 transition"
+                          >
+                            Edit
+                          </button>
+
+                          <button
+                            onClick={() => deleteDoctor(doc.user._id)}
+                            className="px-4 py-2 rounded-xl bg-black border border-white/20 text-white shadow-lg hover:scale-105 transition"
+                          >
+                            Delete
+                          </button>
+
+                        </td>
+                      </tr>
+                    ))}
+
+                    {doctors.length === 0 && (
+                      <tr>
+                        <td colSpan="4" className="text-center py-10 text-gray-300">
+                          No doctors found
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="md:hidden space-y-4">
+
+                {doctors.map((doc) => (
+                  <div
+                    key={doc._id}
+                    className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-5 shadow-xl"
                   >
-                    Deactivate
-                  </button>
 
+                    <div className="mb-3">
+                      <p className="text-white font-bold text-lg">
+                        👨‍⚕️ {doc.user?.name}
+                      </p>
+                      <p className="text-gray-300 text-sm">
+                        {doc.user?.email}
+                      </p>
+                      <p className="text-gray-400 text-sm mt-1">
+                        {doc.specialization || "No specialization"}
+                      </p>
+                    </div>
 
-                  <button
-                    onClick={() => navigate(`/admin/doctors/edit/${doc._id}`)}
-                    className="w-full mt-2 bg-blue-500 text-white py-2 rounded-lg"
-                  >
-                    Edit
-                  </button>
+                    <div className="grid grid-cols-1 gap-2">
 
-                  <button
-                    onClick={() => deleteDoctor(doc.user._id)}
-                    className="w-full mt-2 bg-black text-white py-2 rounded-lg"
-                  >
-                    Delete
-                  </button>
-                </div>
-              ))}
+                      <button
+                        onClick={() => toggleStatus(doc.user._id)}
+                        className="w-full py-2 rounded-xl bg-gradient-to-r from-red-500 to-pink-600 text-white font-medium"
+                      >
+                        <UserX size={16} className="inline mr-1" />
+                        Deactivate
+                      </button>
 
-              {doctors.length === 0 && (
-                <p className="text-center">No doctors found</p>
-              )}
-            </div>
-          </>
-        )}
+                      <button
+                        onClick={() => navigate(`/admin/doctors/edit/${doc._id}`)}
+                        className="w-full py-2 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-medium"
+                      >
+                        Edit Doctor
+                      </button>
+
+                      <button
+                        onClick={() => deleteDoctor(doc.user._id)}
+                        className="w-full py-2 rounded-xl bg-black border border-white/20 text-white"
+                      >
+                        Delete
+                      </button>
+
+                    </div>
+                  </div>
+                ))}
+
+                {doctors.length === 0 && (
+                  <p className="text-center text-white">No doctors found</p>
+                )}
+
+              </div>
+
+            </>
+          )}
+        </div>
       </div>
     </>
   );
