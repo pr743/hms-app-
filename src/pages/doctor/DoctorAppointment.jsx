@@ -306,12 +306,7 @@ function DoctorAppointment() {
                   )}
                 </div>
 
-                <div className="flex gap-2">
-
-
-
-
-
+                {/* <div className="flex gap-2">
                   {(appt.status === "booked" || appt.status === "in-progress") && (
                     <>
                       {appt.status === "booked" && (
@@ -347,6 +342,49 @@ function DoctorAppointment() {
                       navigate(`/doctor/create-prescription/${appt._id}`)
                     }
                     className="bg-purple-600 text-white px-3 py-1 rounded text-xs"
+                  >
+                    Open
+                  </button>
+
+                </div> */}
+
+
+                <div className="flex flex-wrap gap-2 mt-2 md:mt-0 justify-end">
+
+                  {(appt.status === "booked" || appt.status === "in-progress") && (
+                    <>
+                      {appt.status === "booked" && (
+                        <button
+                          onClick={() => markInProgress(appt._id)}
+                          className="bg-yellow-500 text-white px-3 py-2 rounded text-xs md:text-sm w-full md:w-auto"
+                        >
+                          Start
+                        </button>
+                      )}
+
+                      <button
+                        onClick={() => markCompleted(appt._id)}
+                        className="bg-green-600 text-white px-3 py-2 rounded text-xs md:text-sm w-full md:w-auto"
+                      >
+                        Complete
+                      </button>
+                    </>
+                  )}
+
+                  <button
+                    onClick={() =>
+                      navigate(`/doctor/patient/${appt.patient._id}/history`)
+                    }
+                    className="bg-blue-600 text-white px-3 py-2 rounded text-xs md:text-sm w-full md:w-auto"
+                  >
+                    History
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      navigate(`/doctor/create-prescription/${appt._id}`)
+                    }
+                    className="bg-purple-600 text-white px-3 py-2 rounded text-xs md:text-sm w-full md:w-auto"
                   >
                     Open
                   </button>
