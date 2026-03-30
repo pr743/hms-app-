@@ -47,74 +47,6 @@ function MySavedHospitals() {
 
 
 
-  // return (
-  //   <>
-  //     <Navbar />
-
-  //     <div className="min-h-screen bg-gray-100 py-10 px-4">
-  //       <div className="max-w-6xl mx-auto">
-
-  //         <h1 className="text-3xl font-bold mb-8">
-  //           My Saved Hospitals
-  //         </h1>
-
-  //         {loading && (
-  //           <p className="text-gray-500">Loading saved hospitals...</p>
-  //         )}
-
-  //         {!loading && hospitals.length === 0 && (
-  //           <div className="bg-white p-6 rounded-xl shadow text-center">
-  //             <p className="text-gray-600">
-  //               You have not saved any hospitals yet.
-  //             </p>
-  //           </div>
-  //         )}
-
-  //         {!loading && hospitals.length > 0 && (
-  //           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-  //             {hospitals.map((hospital) => (
-  //               <div key={hospital._id} className="relative group">
-
-  //                 <HospitalCard
-  //                   hospital={hospital}
-  //                   userRole="patient"
-  //                 />
-
-
-  //                 <button
-  //                   onClick={() => handleRemove(hospital._id)}
-  //                   className="
-  //         absolute top-2 right-2 
-  //         bg-red-500 hover:bg-red-600 
-  //         text-white 
-  //         p-2 md:px-3 md:py-1 
-  //         rounded-full md:rounded-lg 
-  //         text-xs md:text-sm 
-  //         shadow-md 
-  //         transition-all duration-200
-
-  //         opacity-100 
-
-  //         md:opacity-0 md:group-hover:opacity-100
-  //       "
-  //                 >
-
-  //                   <span className="md:hidden">❌</span>
-
-  //                   <span className="hidden md:block">Remove</span>
-  //                 </button>
-
-  //               </div>
-  //             ))}
-  //           </div>
-
-  //         )}
-  //       </div>
-  //     </div>
-  //   </>
-  // );
-
-
   return (
     <>
       <Navbar />
@@ -122,7 +54,6 @@ function MySavedHospitals() {
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 py-10 px-4">
         <div className="max-w-7xl mx-auto">
 
-          {/* Header */}
           <div className="mb-10 flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
               <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
@@ -134,7 +65,7 @@ function MySavedHospitals() {
             </div>
           </div>
 
-          {/* Loading */}
+
           {loading && (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3].map((i) => (
@@ -150,7 +81,6 @@ function MySavedHospitals() {
             </div>
           )}
 
-          {/* Empty State */}
           {!loading && hospitals.length === 0 && (
             <div className="flex flex-col items-center justify-center mt-20 text-gray-400">
               <div className="text-6xl mb-4">🏥</div>
@@ -160,7 +90,7 @@ function MySavedHospitals() {
             </div>
           )}
 
-          {/* Cards */}
+
           {!loading && hospitals.length > 0 && (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {hospitals.map((hospital) => (
@@ -169,10 +99,9 @@ function MySavedHospitals() {
                   className="relative group bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 overflow-hidden"
                 >
 
-                  {/* Top Gradient Bar */}
+
                   <div className="h-1 bg-gradient-to-r from-pink-500 to-red-500"></div>
 
-                  {/* Hospital Card */}
                   <div className="p-4">
                     <HospitalCard
                       hospital={hospital}
@@ -180,7 +109,6 @@ function MySavedHospitals() {
                     />
                   </div>
 
-                  {/* Remove Button */}
                   <button
                     onClick={() => handleRemove(hospital._id)}
                     className="

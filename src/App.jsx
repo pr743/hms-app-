@@ -26,15 +26,19 @@ import MySavedHospitals from "./pages/MySavedHospitals";
 import Login from "./auth/Login";
 import EditDoctor from "./admin/EditDoctor";
 import PatientAppointments from "./pages/patients/PatientAppointments";
-import Home from "./components/Home";
 function App() {
   const { user } = useContext(AuthContext);
   return (
     <BrowserRouter>
       <Routes>
-
         <Route path="/" element={<Home />} />
 
+        <Route
+          path="/"
+          element={
+            user ? <Navigate to={`/${user.role}`} /> : <Navigate to="/login" />
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin/register" element={<AdminRegister />} />
