@@ -26,6 +26,9 @@ import MySavedHospitals from "./pages/MySavedHospitals";
 import Login from "./auth/Login";
 import EditDoctor from "./admin/EditDoctor";
 import PatientAppointments from "./pages/patients/PatientAppointments";
+import Home from "./components/Home";
+
+
 function App() {
   const { user } = useContext(AuthContext);
   return (
