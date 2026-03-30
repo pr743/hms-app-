@@ -184,41 +184,47 @@ function BookAppointment() {
     <>
       <Navbar />
 
-      <div className="p-6 bg-gray-100 min-h-screen flex justify-center">
-        <div className="bg-white w-full max-w-xl p-8 rounded-2xl shadow-lg">
-          <h1 className="text-2xl font-bold mb-6 text-gray-800">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6">
+
+        <div className="w-full max-w-2xl backdrop-blur-xl bg-white/70 border border-white/40 shadow-2xl rounded-3xl p-8">
+
+          <h1 className="text-3xl font-bold text-white mb-2">
             Book Appointment
           </h1>
+          <p className="text-gray-200 mb-6">
+            Schedule your consultation with top doctors 🚀
+          </p>
 
           <form onSubmit={handleSubmit} className="space-y-5">
+
             <div>
-              <label className="block mb-1 font-medium">Appointment Type</label>
+              <label className="text-sm font-semibold text-gray-600">
+                Appointment Type
+              </label>
               <select
                 name="appointmentType"
                 value={form.appointmentType}
                 onChange={handleChange}
-                className="w-full bg-gray-100 p-3 rounded-lg outline-none"
-                required
+                className="w-full mt-2 p-3 rounded-xl bg-white shadow-sm border focus:ring-2 focus:ring-blue-500 outline-none"
               >
                 <option value="normal">Normal</option>
-                <option value="emergency">Emergency (24×7)</option>
+                <option value="emergency">Emergency 🚨</option>
               </select>
             </div>
 
             <div>
-              <label className="block mb-1 font-medium">Hospital</label>
-              <div className="flex items-center bg-gray-100 rounded-lg px-3">
-                <User className="text-gray-400 mr-2" size={18} />
+              <label className="text-sm font-semibold text-gray-600">
+                Hospital
+              </label>
+              <div className="flex items-center mt-2 bg-white border rounded-xl px-3 shadow-sm focus-within:ring-2 focus-within:ring-blue-500">
+                <User className="text-gray-400" size={18} />
                 <select
                   name="hospitalId"
                   value={form.hospitalId}
                   onChange={handleChange}
-                  className="w-full bg-transparent p-3 outline-none"
-                  required
+                  className="w-full p-3 bg-transparent outline-none"
                 >
-                  <option value="" disabled>
-                    Select hospital
-                  </option>
+                  <option value="">Select hospital</option>
                   {hospitals.map((h) => (
                     <option key={h._id} value={h._id}>
                       {h.name} ({h.city})
@@ -229,22 +235,22 @@ function BookAppointment() {
             </div>
 
             <div>
-              <label className="block mb-1 font-medium">Doctor</label>
-              <div className="flex items-center bg-gray-100 rounded-lg px-3">
-                <User className="text-gray-400 mr-2" size={18} />
+              <label className="text-sm font-semibold text-gray-600">
+                Doctor
+              </label>
+              <div className="flex items-center mt-2 bg-white border rounded-xl px-3 shadow-sm focus-within:ring-2 focus-within:ring-blue-500">
+                <User className="text-gray-400" size={18} />
                 <select
                   name="doctorId"
                   value={form.doctorId}
                   onChange={handleChange}
-                  className="w-full bg-transparent p-3 outline-none"
-                  required
+                  className="w-full p-3 bg-transparent outline-none"
                 >
-                  <option value="" disabled>
+                  <option value="">
                     {doctors.length === 0
                       ? "No doctors available"
                       : "Select Doctor"}
                   </option>
-
                   {doctors.map((doc) => (
                     <option key={doc._id} value={doc._id}>
                       {doc.user?.name} ({doc.specialization})
@@ -252,49 +258,43 @@ function BookAppointment() {
                   ))}
                 </select>
               </div>
-
-              {form.hospitalId && doctors.length === 0 && (
-                <p className="text-sm text-red-500 mt-2">
-                  No doctors available for this hospital
-                </p>
-              )}
             </div>
 
             <div>
-              <label className="block mb-1 font-medium">Date</label>
-              <div className="flex items-center bg-gray-100 rounded-lg px-3">
-                <Calendar className="text-gray-400 mr-2" size={18} />
+              <label className="text-sm font-semibold text-gray-600">
+                Date
+              </label>
+              <div className="flex items-center mt-2 bg-white border rounded-xl px-3 shadow-sm focus-within:ring-2 focus-within:ring-blue-500">
+                <Calendar className="text-gray-400" size={18} />
                 <input
                   type="date"
                   name="appointmentDate"
                   value={form.appointmentDate}
                   onChange={handleChange}
-                  className="w-full bg-transparent p-3 outline-none"
-                  required
+                  className="w-full p-3 bg-transparent outline-none"
                 />
               </div>
             </div>
 
             {form.appointmentType === "normal" && (
               <div>
-                <label className="block mb-1 font-medium">Time Slot</label>
-                <div className="flex items-center bg-gray-100 rounded-lg px-3">
-                  <Clock className="text-gray-400 mr-2" size={18} />
+                <label className="text-sm font-semibold text-gray-600">
+                  Time Slot
+                </label>
+                <div className="flex items-center mt-2 bg-white border rounded-xl px-3 shadow-sm focus-within:ring-2 focus-within:ring-blue-500">
+                  <Clock className="text-gray-400" size={18} />
                   <select
                     name="slotTime"
                     value={form.slotTime}
                     onChange={handleChange}
-                    className="w-full bg-transparent p-3 outline-none"
-                    required={form.appointmentType === "normal"}
+                    className="w-full p-3 bg-transparent outline-none"
                   >
-                    <option value="" disabled>
-                      Select Time
-                    </option>
+                    <option value="">Select Time</option>
 
                     {loadingSlots ? (
-                      <option disabled>Loading slots...</option>
+                      <option disabled>Loading...</option>
                     ) : slots.length === 0 ? (
-                      <option disabled>No slots available</option>
+                      <option disabled>No slots</option>
                     ) : (
                       slots.map((slot) => (
                         <option
@@ -302,35 +302,26 @@ function BookAppointment() {
                           value={slot.time}
                           disabled={slot.isFull}
                         >
-                          {slot.time} ({slot.availableSpots} Left)
+                          {slot.time} ({slot.availableSpots} left)
                         </option>
                       ))
                     )}
                   </select>
-
-
-
                 </div>
               </div>
             )}
 
-            {form.appointmentType === "emergency" && (
-              <p className="text-red-500 font-semibold">
-                Emergency appointments are available 24×7 and given priority.
-              </p>
-            )}
-
             <div>
-              <label className="block mb-1 font-medium">Reason</label>
-              <div className="flex items-start bg-gray-100 rounded-lg px-3">
-                <FileText className="text-gray-400 mr-2 mt-3" size={18} />
-
+              <label className="text-sm font-semibold text-gray-600">
+                Reason
+              </label>
+              <div className="flex items-start mt-2 bg-white border rounded-xl px-3 shadow-sm focus-within:ring-2 focus-within:ring-blue-500">
+                <FileText className="text-gray-400 mt-3" size={18} />
                 <select
                   name="reason"
                   value={form.reason}
                   onChange={handleChange}
-                  className="w-full bg-transparent p-3 outline-none"
-                  required
+                  className="w-full p-3 bg-transparent outline-none"
                 >
                   <option value="">Select problem</option>
                   {reasonsList.map((r, i) => (
@@ -344,9 +335,12 @@ function BookAppointment() {
 
             <button
               disabled={loading}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition"
+              className="w-full py-3 rounded-xl font-semibold text-white 
+              bg-gradient-to-r from-blue-600 to-indigo-600 
+              hover:from-blue-700 hover:to-indigo-700 
+              shadow-lg transition duration-300"
             >
-              {loading ? "Booking..." : "Book Appointment"}
+              {loading ? "Booking..." : "🚀 Book Appointment"}
             </button>
           </form>
         </div>
