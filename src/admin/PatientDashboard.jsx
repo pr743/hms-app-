@@ -26,18 +26,18 @@ function PatientDashboard() {
         const message = err.response?.data?.message;
 
 
-        if(message  === "Patient profile not found"){
-          navigate("/patient/create-profile",{
-            replace:true,
-            state:{
+        if (message === "Patient profile not found") {
+          navigate("/patient/create-profile", {
+            replace: true,
+            state: {
               info: "Please complete your profile to access the dashboard",
             },
           });
-        }else{
+        } else {
           console.error("Dashboard error:", err);
         }
-        
-  
+
+
         console.error(err.response?.data || err.message);
 
         console.error("Patient dashboard load failed");
@@ -77,73 +77,109 @@ function PatientDashboard() {
     <>
       <Navbar />
 
-      <div className="p-6 bg-gray-100 min-h-screen">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">
-          Patient Dashboard
-        </h1>
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-white">
+            💰 Patient Smart Health Wallet
+          </h1>
+          <p className="text-gray-400 mt-1">
+            Track your health activity, appointments & care value
+          </p>
+        </div>
 
-       
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
           <StatCard
             title="Total Appointments"
             value={stats.totalAppointments}
-            icon={<CalendarCheck size={28} />}
+            icon={<CalendarCheck size={26} />}
             color="blue"
           />
 
           <StatCard
-            title="Upcoming Appointments"
+            title="Upcoming Care"
             value={stats.upcomingAppointments}
-            icon={<CalendarClock size={28} />}
+            icon={<CalendarClock size={26} />}
             color="orange"
           />
 
           <StatCard
-            title="Completed Appointments"
+            title="Completed Visits"
             value={stats.completedAppointments}
-            icon={<CheckCircle size={28} />}
+            icon={<CheckCircle size={26} />}
             color="green"
           />
 
           <StatCard
-            title="Prescriptions"
+            title="Health Records"
             value={stats.totalPrescriptions}
-            icon={<FileText size={28} />}
+            icon={<FileText size={26} />}
             color="purple"
           />
         </div>
 
-        
-        <div className="mt-10 bg-white p-6 rounded-xl shadow-md">
-          <h2 className="text-xl font-semibold mb-2">Patient Overview</h2>
-          <p className="text-gray-600">
-            Manage your appointments and view prescriptions easily.  
-            All information is securely fetched from the hospital system.
+        <div className="mt-8 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 text-white shadow-2xl">
+
+          <h2 className="text-xl font-semibold">
+            💡 Health Value Insight
+          </h2>
+
+          <p className="text-gray-300 mt-1">
+            Your health activity score reflects engagement with care system & hospital services.
           </p>
+
+          <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-4">
+
+            <div className="bg-white/10 p-4 rounded-xl">
+              <p className="text-gray-400 text-sm">Health Score</p>
+              <h3 className="text-2xl font-bold text-green-400">Good</h3>
+            </div>
+
+            <div className="bg-white/10 p-4 rounded-xl">
+              <p className="text-gray-400 text-sm">Care Activity</p>
+              <h3 className="text-2xl font-bold text-blue-400">Active</h3>
+            </div>
+
+            <div className="bg-white/10 p-4 rounded-xl">
+              <p className="text-gray-400 text-sm">System Status</p>
+              <h3 className="text-2xl font-bold text-purple-400">Healthy</h3>
+            </div>
+
+          </div>
+
         </div>
+
       </div>
     </>
   );
+
 }
 
 
 function StatCard({ title, value, icon, color }) {
   const colors = {
-    blue: "bg-blue-100 text-blue-600",
-    green: "bg-green-100 text-green-600",
-    purple: "bg-purple-100 text-purple-600",
-    orange: "bg-orange-100 text-orange-600",
+    blue: "from-blue-500/20 to-blue-700/10 text-blue-300",
+    green: "from-green-500/20 to-green-700/10 text-green-300",
+    purple: "from-purple-500/20 to-purple-700/10 text-purple-300",
+    orange: "from-orange-500/20 to-orange-700/10 text-orange-300",
   };
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md flex items-center justify-between">
-      <div>
-        <p className="text-gray-500">{title}</p>
-        <h2 className="text-3xl font-bold text-gray-800">{value}</h2>
+    <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl shadow-xl hover:scale-[1.03] transition-all duration-300">
+
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-gray-300 text-sm">{title}</p>
+          <h2 className="text-3xl font-bold text-white mt-1">
+            {value}
+          </h2>
+        </div>
+
+        <div className={`p-3 rounded-xl bg-gradient-to-br ${colors[color]}`}>
+          {icon}
+        </div>
       </div>
-      <div className={`p-4 rounded-full ${colors[color]}`}>
-        {icon}
-      </div>
+
     </div>
   );
 }
