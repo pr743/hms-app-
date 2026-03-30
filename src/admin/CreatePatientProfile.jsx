@@ -105,7 +105,6 @@ function CreatePatientProfile() {
 
           <input
             name="age"
-            type="number"
             placeholder="Age"
             value={form.age}
             onChange={handleChange}
@@ -127,13 +126,31 @@ function CreatePatientProfile() {
           </select>
 
 
-          <input
+          {/* <input
             name="bloodGroup"
             placeholder="Blood Group"
             value={form.bloodGroup}
             onChange={handleChange}
             className="w-full p-2 border rounded"
-          />
+          /> */}
+
+
+          <select
+            name="bloodGroup"
+            value={form.bloodGroup}
+            onChange={handleChange}
+            className="w-full p-2 border rounded"
+          >
+            <option value="">Select Blood Group</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+          </select>
 
 
           <select
