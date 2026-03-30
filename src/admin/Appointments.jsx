@@ -161,71 +161,132 @@ function Appointments() {
     <>
       <Navbar />
 
-      <div className="p-6 bg-gray-100 min-h-screen">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 px-4 py-10">
 
-        <h1 className="text-3xl font-bold mb-6">
-          📅 Appointments Dashboard
-        </h1>
+        <div className="max-w-7xl mx-auto">
 
-
-        <div className="bg-white rounded-xl shadow p-4 mb-8">
-          <div className="h-[500px]">
-            <BigCalendar
-              localizer={localizer}
-              events={events}
-              startAccessor="start"
-              endAccessor="end"
-              eventPropGetter={eventStyleGetter}
-              onSelectEvent={handleSelectEvent}
-              views={["month", "week", "day"]}
-            />
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 mb-8 shadow-2xl">
+            <h1 className="text-3xl font-bold text-white">
+              📅 Appointments Dashboard
+            </h1>
+            <p className="text-gray-300 text-sm mt-1">
+              Manage hospital bookings, schedule tracking & patient flow
+            </p>
           </div>
-        </div>
 
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl p-4 mb-10">
+            <div className="h-[520px]">
+              <BigCalendar
+                localizer={localizer}
+                events={events}
+                startAccessor="start"
+                endAccessor="end"
+                eventPropGetter={eventStyleGetter}
+                onSelectEvent={handleSelectEvent}
+                views={["month", "week", "day"]}
+                className="text-white"
+              />
+            </div>
+          </div>
 
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {appointments.map((appt) => (
-              <div
-                key={appt._id}
-                className="bg-white p-5 rounded-xl shadow"
-              >
-                <div className="flex justify-between mb-3">
+          {loading ? (
+            <div className="text-center text-white text-lg py-20">
+              Loading appointments...
+            </div>
+          ) : (
+            <>
 
-                  <span className="text-sm font-bold">
-                    {appt.status}
-                  </span>
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
-                  {appt.status === "booked" && (
-                    <XCircle
-                      className="text-red-500 cursor-pointer"
-                      onClick={() =>
-                        cancelAppointment(appt._id)
-                      }
-                    />
-                  )}
+                {appointments.map((appt) => (
+                  <div
+                    key={appt._id}
+                    className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-2xl hover:scale-[1.02] transition"
+                  >
 
-                  {(appt.status === "cancelled" || appt.status === "completed") && (
-                    <button
-                      className="text-red-600"
-                      onClick={() => deleteAppointment(appt._id)}
-                    >
-                      🗑
-                    </button>
-                  )}
+                    <div className="flex items-center justify-between mb-4">
 
-                </div>
+                      <span
+                        className={`px-4 py-1 rounded-full text-xs font-bold border
+                      ${appt.status === "completed"
+                            ? "bg-green-500/20 text-green-400 border-green-400/30"
+                            : appt.status === "cancelled"
+                              ? "bg-red-500/20 text-red-400 border-red-400/30"
+                              : "bg-blue-500/20 text-blue-400 border-blue-400/30"
+                          }`}
+                      >
+                        {appt.status.toUpperCase()}
+                      </span>
 
-                <p><User size={14} /> {appt.patient?.user?.name}</p>
-                <p><Stethoscope size={14} /> {appt.doctor?.user?.name}</p>
-                <p><CalendarDays size={14} /> {new Date(appt.appointmentDate).toLocaleDateString()}</p>
-                <p><Clock size={14} /> {appt.slotTime}</p>
+                      <div className="flex gap-2">
+
+                        {appt.status === "booked" && (
+                          <button
+                            onClick={() => cancelAppointment(appt._id)}
+                            className="p-2 rounded-xl bg-red-500/20 border border-red-400/30 text-red-400 hover:scale-105 transition"
+                          >
+                            <XCircle size={18} />
+                          </button>
+                        )}
+
+                        {(appt.status === "cancelled" || appt.status === "completed") && (
+                          <button
+                            onClick={() => deleteAppointment(appt._id)}
+                            className="p-2 rounded-xl bg-black/40 border border-white/20 text-white hover:scale-105 transition"
+                          >
+                            🗑
+                          </button>
+                        )}
+
+                      </div>
+
+                    </div>
+
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="p-2 bg-blue-500/20 rounded-xl">
+                        <User className="text-blue-400" size={18} />
+                      </div>
+                      <p className="text-white font-medium">
+                        {appt.patient?.user?.name}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="p-2 bg-purple-500/20 rounded-xl">
+                        <Stethoscope className="text-purple-400" size={18} />
+                      </div>
+                      <p className="text-white font-medium">
+                        {appt.doctor?.user?.name}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-3 mb-2 text-gray-300">
+                      <CalendarDays size={18} className="text-blue-400" />
+                      <span>
+                        {new Date(appt.appointmentDate).toLocaleDateString()}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <Clock size={18} className="text-cyan-400" />
+                      <span>{appt.slotTime}</span>
+                    </div>
+
+                  </div>
+                ))}
+
+                {appointments.length === 0 && (
+                  <div className="col-span-full text-center text-gray-300 py-20">
+                    No appointments found
+                  </div>
+                )}
+
               </div>
-            ))}
-          </div>
-        )}
+
+            </>
+          )}
+
+        </div>
       </div>
     </>
   );
