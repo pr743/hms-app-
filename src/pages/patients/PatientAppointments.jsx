@@ -54,60 +54,85 @@ function PatientAppointments() {
         <>
             <Navbar />
 
-            <div className="p-6 bg-gray-100 min-h-screen">
-                <h1 className="text-3xl font-bold mb-6">
-                    My Appointments
-                </h1>
+
+            <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6">
+
+
+                <div className="max-w-7xl mx-auto mb-8">
+                    <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
+                        My Appointments
+                    </h1>
+                    <p className="text-white mt-1">
+                        Manage and track all your bookings 📅
+                    </p>
+                </div>
 
                 {loading ? (
-                    <p>Loading...</p>
+                    <div className="text-center text-lg text-gray-100">
+                        Loading appointments...
+                    </div>
                 ) : appointments.length === 0 ? (
-                    <p>No appointments found</p>
+                    <div className="text-center text-gray-100 text-lg">
+                        No appointments found
+                    </div>
                 ) : (
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
                         {appointments.map((appt) => (
                             <div
                                 key={appt._id}
-                                className="bg-white p-5 rounded-xl shadow"
+                                className="relative bg-white/70 backdrop-blur-xl border border-white/40 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300"
                             >
-                                <h2 className="font-semibold text-lg">
+
+
+                                <h2 className="font-semibold text-lg text-gray-800">
                                     {appt.doctor?.user?.name}
                                 </h2>
+
 
                                 <p className="text-sm text-gray-500">
                                     {appt.hospital?.name} ({appt.hospital?.city})
                                 </p>
 
-                                <p className="mt-2">
-                                    📅 {new Date(appt.appointmentDate).toLocaleDateString()}
-                                </p>
 
-                                <p>⏰ {appt.slotTime}</p>
+                                <div className="mt-3 space-y-1 text-gray-700 text-sm">
+                                    <p>📅 {new Date(appt.appointmentDate).toLocaleDateString()}</p>
+                                    <p>⏰ {appt.slotTime}</p>
+                                </div>
 
-                                <p className="mt-2 text-sm">
+
+                                <p className="mt-3 text-sm text-gray-600">
                                     <strong>Reason:</strong> {appt.reason}
                                 </p>
 
-                                <p
-                                    className={`mt-2 text-sm font-bold
-                  ${appt.status === "completed"
-                                            ? "text-green-600"
-                                            : appt.status === "cancelled"
-                                                ? "text-red-500"
-                                                : "text-blue-600"
-                                        }`}
-                                >
-                                    {appt.status}
-                                </p>
+
+                                <div className="mt-3">
+                                    <span
+                                        className={`px-3 py-1 rounded-full text-xs font-semibold
+                                        ${appt.status === "completed"
+                                                ? "bg-green-100 text-green-600"
+                                                : appt.status === "cancelled"
+                                                    ? "bg-red-100 text-red-500"
+                                                    : "bg-blue-100 text-blue-600"
+                                            }`}
+                                    >
+                                        {appt.status}
+                                    </span>
+                                </div>
+
 
                                 <button
                                     onClick={() => deleteAppointment(appt._id)}
-                                    className="mt-4 w-full bg-red-500 text-white py-2 rounded"
+                                    className="mt-5 w-full py-2 rounded-xl font-semibold text-white
+                                    bg-gradient-to-r from-red-500 to-red-600
+                                    hover:from-red-600 hover:to-red-700
+                                    shadow-md transition"
                                 >
-                                    Delete
+                                    🗑 Delete Appointment
                                 </button>
                             </div>
                         ))}
+
                     </div>
                 )}
             </div>
@@ -116,3 +141,22 @@ function PatientAppointments() {
 }
 
 export default PatientAppointments;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
