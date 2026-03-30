@@ -101,98 +101,129 @@ function Patients() {
     }
   };
 
-  return (
-    <>
-      <Navbar />
+return (
+  <>
+    <Navbar />
 
-      <div className="p-6 bg-gray-100 min-h-screen">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">
-          Patients Management
-        </h1>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 px-4 py-10">
+
+      <div className="max-w-7xl mx-auto">
+
+        <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 mb-8 shadow-2xl">
+          <h1 className="text-3xl font-bold text-white">
+            🧑‍⚕️ Patients Management Dashboard
+          </h1>
+          <p className="text-gray-300 text-sm mt-1">
+            Monitor, block, activate and manage patient accounts
+          </p>
+        </div>
 
         {loading ? (
-          <p className="text-lg">Loading patients...</p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {patients.map((patient) => (
-              <div
-                key={patient._id}
-                className="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition"
-              >
-
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="bg-blue-100 p-3 rounded-full">
-                    <User className="text-blue-600" size={26} />
-                  </div>
-                  <div>
-                    <h2 className="text-lg font-semibold">
-                      {patient.user?.name || "N/A"}
-                    </h2>
-                    <p className="text-gray-500 text-sm">
-                      {patient.gender || "—"} | {patient.age || "—"} yrs
-                    </p>
-                  </div>
-                </div>
-
-
-                <div className="flex items-center gap-2 text-gray-600 mb-4">
-                  <Mail size={18} />
-                  <span className="text-sm">{patient.user?.email}</span>
-                </div>
-
-
-                <div className="grid grid-cols-2 gap-2 mt-4">
-                  <span
-                    className={`px-3 py-1 rounded-full text-sm font-semibold
-                    ${patient.user?.isActive
-                        ? "bg-green-100 text-green-600"
-                        : "bg-red-100 text-red-600"
-                      }`}
-                  >
-                    {patient.user?.isActive ? "Active" : "Blocked"}
-                  </span>
-
-                  <button
-                    onClick={() => toggleStatus(patient.user._id)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-white font-semibold
-                    ${patient.user?.isActive
-                        ? "bg-red-500 hover:bg-red-600"
-                        : "bg-green-500 hover:bg-green-600"
-                      }`}
-                  >
-                    {patient.user?.isActive ? (
-                      <>
-                        <ShieldOff size={16} /> Block
-                      </>
-                    ) : (
-                      <>
-                        <ShieldCheck size={16} /> Activate
-                      </>
-                    )}
-                  </button>
-
-                  {!patient.user?.isActive && (
-                    <button
-                      onClick={() => deletePatient(patient.user._id)}
-                      className="flex items-center justify-center py-2 bg-black text-white rounded-lg hover:bg-gray-800"
-                    >
-                      🗑 Delete
-                    </button>
-                  )}
-
-
-                </div>
-              </div>
-            ))}
-
-            {patients.length === 0 && (
-              <p className="text-gray-500">No patients found</p>
-            )}
+          <div className="text-center text-white text-lg py-20">
+            Loading patients...
           </div>
+        ) : (
+          <>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+              {patients.map((patient) => (
+                <div
+                  key={patient._id}
+                  className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-2xl hover:scale-[1.02] transition"
+                >
+
+                  <div className="flex items-center gap-4 mb-5">
+
+                    <div className="bg-blue-500/20 p-3 rounded-2xl">
+                      <User className="text-blue-400" size={28} />
+                    </div>
+
+                    <div>
+                      <h2 className="text-white font-bold text-lg">
+                        {patient.user?.name || "N/A"}
+                      </h2>
+                      <p className="text-gray-300 text-sm">
+                        {patient.gender || "—"} • {patient.age || "—"} yrs
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <div className="flex items-center gap-2 text-gray-300 mb-5">
+                    <Mail size={18} className="text-blue-400" />
+                    <span className="text-sm break-all">
+                      {patient.user?.email}
+                    </span>
+                  </div>
+
+                  <div className="mb-5">
+                    <span
+                      className={`px-4 py-1 rounded-full text-xs font-bold tracking-wide
+                      ${
+                        patient.user?.isActive
+                          ? "bg-green-500/20 text-green-400 border border-green-400/30"
+                          : "bg-red-500/20 text-red-400 border border-red-400/30"
+                      }`}
+                    >
+                      {patient.user?.isActive ? "ACTIVE USER" : "BLOCKED USER"}
+                    </span>
+                  </div>
+
+                  <div className="space-y-3">
+
+                    <button
+                      onClick={() => toggleStatus(patient.user._id)}
+                      className={`w-full py-3 rounded-2xl font-semibold text-white shadow-xl transition hover:scale-[1.02]
+                      ${
+                        patient.user?.isActive
+                          ? "bg-gradient-to-r from-red-500 to-pink-600"
+                          : "bg-gradient-to-r from-green-500 to-emerald-600"
+                      }`}
+                    >
+                      {patient.user?.isActive ? (
+                        <>
+                          <ShieldOff className="inline mr-2" size={18} />
+                          Block Patient
+                        </>
+                      ) : (
+                        <>
+                          <ShieldCheck className="inline mr-2" size={18} />
+                          Activate Patient
+                        </>
+                      )}
+                    </button>
+
+
+                    {!patient.user?.isActive && (
+                      <button
+                        onClick={() => deletePatient(patient.user._id)}
+                        className="w-full py-3 rounded-2xl font-semibold text-white bg-black/60 border border-white/20 hover:bg-black transition"
+                      >
+                        🗑 Delete Account
+                      </button>
+                    )}
+
+                  </div>
+
+                </div>
+              ))}
+
+              {patients.length === 0 && (
+                <div className="col-span-full text-center text-gray-300 py-20">
+                  No patients found
+                </div>
+              )}
+
+            </div>
+
+          </>
         )}
+
       </div>
-    </>
-  );
+    </div>
+  </>
+);
 }
 
 export default Patients;
