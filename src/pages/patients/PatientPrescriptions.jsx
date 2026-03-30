@@ -60,89 +60,100 @@ export default function PatientPrescriptions() {
     <>
       <Navbar />
 
-      <div className="min-h-screen bg-gray-100 px-4 py-6">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6">
 
-        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
-          My Medical History
-        </h2>
+        <div className="mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-white">
+            🏥 My Medical History
+          </h2>
+          <p className="text-gray-100 mt-1 text-sm">
+            View and manage your prescriptions professionally
+          </p>
+        </div>
 
         {prescriptions.length === 0 ? (
-          <div className="text-center text-gray-500 mt-10">
-            No prescriptions found
+          <div className="flex flex-col items-center justify-center mt-20 text-gray-100">
+            <div className="text-6xl mb-4">📄</div>
+            <p className="text-lg">No prescriptions found</p>
           </div>
         ) : (
+
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
 
             {prescriptions.map((p) => (
               <div
                 key={p._id}
-                className="bg-white rounded-2xl shadow-md hover:shadow-xl transition p-5 flex flex-col justify-between"
+                className="group bg-white/70 backdrop-blur-lg border border-gray-200 
+              rounded-2xl p-6 shadow-md hover:shadow-2xl transition-all duration-300 
+              hover:-translate-y-1 flex flex-col justify-between"
               >
 
+                <div>
 
-                <div className="flex justify-between items-start mb-3">
-                  <div>
-                    <h3 className="text-lg font-semibold text-green-600">
-                      {p.doctor?.user?.name || "N/A"}
-                    </h3>
-                    <p className="text-xs text-gray-400">
-                      Doctor
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <h3 className="text-lg font-semibold text-indigo-600 group-hover:text-indigo-700 transition">
+                        {p.doctor?.user?.name || "N/A"}
+                      </h3>
+                      <p className="text-xs text-gray-400">
+                        Doctor
+                      </p>
+                    </div>
+
+                    <span className="text-xs bg-gray-100 px-3 py-1 rounded-full text-gray-500">
+                      {new Date(p.createdAt).toLocaleDateString()}
+                    </span>
+                  </div>
+
+                  <div className="mb-4 bg-indigo-50 border border-indigo-100 rounded-lg p-3">
+                    <p className="text-sm text-gray-700">
+                      <span className="font-semibold text-indigo-700">
+                        Diagnosis:
+                      </span>{" "}
+                      {p.diagnosis || "-"}
                     </p>
                   </div>
 
-                  <span className="text-xs text-gray-500">
-                    {new Date(p.createdAt).toLocaleDateString()}
-                  </span>
-                </div>
+                  <div className="mb-5">
+                    <h4 className="text-sm font-semibold text-gray-100 mb-2">
+                      💊 Medicines
+                    </h4>
 
+                    <div className="space-y-2 max-h-40 overflow-y-auto pr-1">
+                      {p.medicines.map((m, i) => (
+                        <div
+                          key={i}
+                          className="flex justify-between items-center bg-white border 
+                        border-gray-200 rounded-lg px-3 py-2 hover:bg-gray-50 transition"
+                        >
+                          <div>
+                            <p className="text-sm font-medium text-gray-800">
+                              {m.name}
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              {m.dosage}
+                            </p>
+                          </div>
 
-                <div className="mb-3">
-                  <p className="text-sm text-gray-600">
-                    <span className="font-semibold text-gray-800">
-                      Diagnosis:
-                    </span>{" "}
-                    {p.diagnosis || "-"}
-                  </p>
-                </div>
-
-
-                <div className="mb-4">
-                  <h4 className="text-sm font-semibold text-gray-700 mb-2">
-                    Medicines
-                  </h4>
-
-                  <div className="space-y-2">
-                    {p.medicines.map((m, i) => (
-                      <div
-                        key={i}
-                        className="bg-green-50 border border-green-100 rounded-lg px-3 py-2 flex justify-between items-center"
-                      >
-                        <div>
-                          <p className="text-sm font-medium">
-                            {m.name}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            {m.dosage}
-                          </p>
+                          <span className="text-xs font-medium bg-green-500 text-white px-2 py-1 rounded-full shadow">
+                            {m.duration}
+                          </span>
                         </div>
-
-                        <span className="text-xs bg-green-600 text-white px-2 py-1 rounded-full">
-                          {m.duration}
-                        </span>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
 
+                </div>
 
                 <div className="flex justify-end">
                   <button
                     onClick={() => handleDelete(p._id)}
                     disabled={deletingId === p._id}
-                    className={`text-sm px-4 py-2 rounded-lg transition
-    ${deletingId === p._id
+                    className={`relative overflow-hidden text-sm px-5 py-2 rounded-lg font-medium transition-all duration-300
+                  
+                  ${deletingId === p._id
                         ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                        : "bg-red-100 text-red-600 hover:bg-red-200"
+                        : "bg-red-500 text-white hover:bg-red-600 shadow-md hover:shadow-lg"
                       }`}
                   >
                     {deletingId === p._id ? "Deleting..." : "Delete"}
