@@ -23,11 +23,7 @@ function DoctorProfile() {
     fetchProfile();
   }, []);
 
-  if (loading) return <div className="p-6">Loading...</div>;
-
-  if (!profile)
-    return <div className="p-6 text-red-500">Profile not found</div>;
-
+  if (loading) return <div className="p-6">Loading...</div>
   return (
     <>
       <Navbar />
@@ -56,7 +52,7 @@ function DoctorProfile() {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b pb-6 mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-gray-800">
-                  Dr. {profile.user?.name}
+                  {profile.user?.name}
                 </h2>
                 <p className="text-gray-500">{profile.user?.email}</p>
               </div>
