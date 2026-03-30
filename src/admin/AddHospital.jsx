@@ -96,24 +96,35 @@ function AddHospital() {
     <>
       <Navbar />
 
-      <div className="min-h-screen bg-gray-100 px-4 py-10">
-        <div className="max-w-2xl mx-auto bg-white shadow-xl rounded-2xl p-8">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 px-4 py-10">
 
-          <div className="flex items-center gap-3 mb-6">
-            <Hospital className="text-blue-600" size={32} />
-            <h1 className="text-2xl font-bold">
-              Smart Hospital Setup 🏥
-            </h1>
+        <div className="max-w-3xl mx-auto">
+
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-3xl p-6 mb-6">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-blue-500/20 rounded-2xl">
+                <Hospital className="text-blue-400" size={34} />
+              </div>
+
+              <div>
+                <h1 className="text-2xl font-bold text-white">
+                  Smart Hospital Setup 🏥
+                </h1>
+                <p className="text-gray-300 text-sm">
+                  Premium hospital onboarding system
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div className="space-y-5">
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-3xl p-8 space-y-5">
 
             <input
               name="name"
               value={form.name}
               onChange={handleChange}
               placeholder="Hospital Name"
-              className="input"
+              className="w-full px-4 py-3 rounded-xl bg-white/10 text-white placeholder-gray-300 border border-white/10 focus:border-blue-400 outline-none"
             />
 
             <div className="grid grid-cols-2 gap-4">
@@ -122,7 +133,7 @@ function AddHospital() {
                 value={form.city}
                 onChange={handleChange}
                 placeholder="City"
-                className="input"
+                className="px-4 py-3 rounded-xl bg-white/10 text-white placeholder-gray-300 border border-white/10 focus:border-blue-400 outline-none"
               />
 
               <input
@@ -130,7 +141,7 @@ function AddHospital() {
                 value={form.area}
                 onChange={handleChange}
                 placeholder="Area"
-                className="input"
+                className="px-4 py-3 rounded-xl bg-white/10 text-white placeholder-gray-300 border border-white/10 focus:border-blue-400 outline-none"
               />
             </div>
 
@@ -138,18 +149,18 @@ function AddHospital() {
               name="address"
               value={form.address}
               onChange={handleChange}
-              placeholder="Address"
-              className="input"
+              placeholder="Full Address"
+              className="w-full px-4 py-3 rounded-xl bg-white/10 text-white placeholder-gray-300 border border-white/10 focus:border-blue-400 outline-none"
             />
-
 
             <button
               onClick={handleAISuggest}
-              className="w-full bg-purple-600 text-white py-2 rounded"
+              className="w-full py-3 rounded-xl font-semibold text-white 
+            bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 
+            shadow-lg hover:scale-[1.02] transition"
             >
-              {aiLoading ? "Thinking..." : "🤖 Auto Setup (AI)"}
+              {aiLoading ? "🤖 AI Thinking..." : "⚡ Auto Setup with AI"}
             </button>
-
 
             <div className="grid grid-cols-2 gap-4">
               <input
@@ -157,14 +168,14 @@ function AddHospital() {
                 name="startTime"
                 value={form.startTime}
                 onChange={handleChange}
-                className="input"
+                className="px-4 py-3 rounded-xl bg-white/10 text-white border border-white/10"
               />
               <input
                 type="time"
                 name="endTime"
                 value={form.endTime}
                 onChange={handleChange}
-                className="input"
+                className="px-4 py-3 rounded-xl bg-white/10 text-white border border-white/10"
               />
             </div>
 
@@ -172,34 +183,45 @@ function AddHospital() {
               name="slotDuration"
               value={form.slotDuration}
               onChange={handleChange}
-              className="input"
               placeholder="Slot Duration (minutes)"
+              className="w-full px-4 py-3 rounded-xl bg-white/10 text-white border border-white/10"
             />
 
 
-            <label className="flex items-center gap-2">
+            <label className="flex items-center justify-between bg-white/5 px-4 py-3 rounded-xl border border-white/10">
+              <span className="text-white font-medium">
+                Emergency Enabled
+              </span>
+
               <input
                 type="checkbox"
                 name="emergencyEnabled"
                 checked={form.emergencyEnabled}
                 onChange={handleChange}
+                className="w-5 h-5 accent-blue-500"
               />
-              Emergency Enabled
             </label>
+
 
             <button
               onClick={handleSubmit}
               disabled={loading}
-              className="w-full bg-blue-600 text-white py-3 rounded-xl"
+              className="w-full py-3 rounded-xl font-bold text-white 
+            bg-gradient-to-r from-blue-600 to-cyan-500 
+            shadow-xl hover:scale-[1.02] transition"
             >
-              {loading ? "Saving..." : "Save Hospital"}
+              {loading ? "Saving..." : "💰 Save & Activate Hospital"}
             </button>
 
           </div>
+
+          <div className="h-20 blur-3xl bg-blue-500/20 mt-10 rounded-full"></div>
+
         </div>
       </div>
     </>
   );
+
 }
 
 export default AddHospital;
