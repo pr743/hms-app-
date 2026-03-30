@@ -182,7 +182,7 @@ function AddDoctor() {
 
                 <button className="w-full py-3 rounded-xl font-bold text-white 
             bg-gradient-to-r from-blue-600 to-cyan-500 
-            shadow-xl hover:scale-[1.02] transition  text-center"
+            shadow-xl hover:scale-[1.02] transition  items-center"
                 >
                   {loading ? "Saving..." : "💰 Create & Activate Doctor"}
                 </button>
