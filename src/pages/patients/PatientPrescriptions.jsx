@@ -13,8 +13,7 @@ export default function PatientPrescriptions() {
   };
 
   const handleDelete = async (id) => {
-    if (deletingId) return; // prevent multiple clicks
-
+    if (deletingId) return;
     const result = await Swal.fire({
       title: "Are you sure?",
       text: "This record will be deleted permanently!",

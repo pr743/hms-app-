@@ -58,7 +58,6 @@ function DoctorPrescriptions() {
   };
 
 
-
   const deletePrescription = async (id) => {
     const result = await Swal.fire({
       title: "Delete Prescription?",
@@ -72,7 +71,6 @@ function DoctorPrescriptions() {
 
     try {
       await API.delete(`/prescriptions/${id}`);
-
 
       setPrescriptions((prev) =>
         prev.filter((p) => p._id !== id)
@@ -96,6 +94,31 @@ function DoctorPrescriptions() {
       });
     }
   };
+
+
+  const sharePrescription = async (id) => {
+    try {
+      const url = `${API.defaults.baseURL}/prescriptions/${id}/pdf`;
+
+
+      if (navigator.share) {
+        await navigator.share({
+          title: "Prescription",
+          text: "Download prescription here",
+          url,
+        });
+      } else {
+
+        const whatsappUrl = `https://wa.me/?text=Download Prescription: ${url}`;
+        window.open(whatsappUrl, "_blank");
+      }
+
+    } catch (error) {
+      console.error("Share failed", error);
+      Swal.fire("Error", "Sharing failed ❌", "error");
+    }
+  };
+
 
 
   return (
@@ -145,12 +168,7 @@ function DoctorPrescriptions() {
                 </div>
 
 
-                {/* <button
-                  onClick={() => downloadPDF(prescription._id)}
-                  className="mt-4 w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg"
-                >
-                  📄 Download PDF
-                </button> */}
+
 
 
                 <div className="mt-4 space-y-2">
@@ -162,11 +180,22 @@ function DoctorPrescriptions() {
                   </button>
 
                   <button
+                    onClick={() => sharePrescription(prescription._id)}
+                    className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg"
+                  >
+                    📤 Share
+                  </button>
+
+                  <button
                     onClick={() => deletePrescription(prescription._id)}
                     className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg"
                   >
                     🗑 Delete
                   </button>
+
+
+
+
                 </div>
               </div>
             ))}
