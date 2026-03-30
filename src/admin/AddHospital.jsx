@@ -27,7 +27,6 @@ function AddHospital() {
     });
   };
 
-  // 🤖 AI Suggestion
   const handleAISuggest = async () => {
     try {
       if (!form.city) {

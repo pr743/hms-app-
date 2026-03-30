@@ -159,7 +159,7 @@ function AddDoctor() {
               </button>
 
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 justify-center">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <input name="consultationFee"
                   placeholder="Consultation Fee"
                   className="px-4 py-3 rounded-xl bg-white/10 text-white border border-white/10"
