@@ -213,172 +213,172 @@ export default function CreatePrescription() {
       });
     }
   };
+
+
   return (
     <>
       <Navbar />
 
-      <div className="max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6">
 
-        <h2 className="text-2xl font-bold mb-4">
-          🧠 Smart Prescription AI (Doctor Panel)
-        </h2>
-
-
-        <div className="bg-yellow-100 text-yellow-700 p-3 rounded mb-4">
-          ⚠️ AI suggestions are for assistance only. Doctor must verify.
+        <div className="max-w-6xl mx-auto mb-6">
+          <h2 className="text-3xl font-bold text-white">
+            💰 Smart Prescription Revenue System
+          </h2>
+          <p className="text-gray-400 mt-1">
+            AI-assisted prescription generation with doctor validation
+          </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="max-w-6xl mx-auto bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl p-6 text-white">
 
 
-          <select
-            className="w-full border p-2 rounded"
-            value={appointmentId}
-            onChange={(e) => setAppointmentId(e.target.value)}
-            required
-          >
-            <option value="">Select Appointment</option>
-            {filteredAppointments.length === 0 ? (
-              <option disabled>No active (in-progress) appointments</option>
-            ) : (
-              filteredAppointments.map((appt) => (
-                <option key={appt._id} value={appt._id}>
-                  {appt?.patient?.user?.name || appt?.patient?.name || "Unknown"} | {appt?.slotTime}
-                </option>
-              ))
-            )}
-          </select>
-
-          <select
-            value={selectedSymptom}
-            onChange={(e) => setSelectedSymptom(e.target.value)}
-            className="w-full border p-2 rounded"
-          >
-            <option value="">Select Disease / Symptom</option>
-            {ALL_SYMPTOMS.map((item, i) => (
-              <option key={i} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-
-
-          <button
-            type="button"
-            onClick={getAISuggestion}
-            className="w-full bg-purple-600 text-white py-2 rounded"
-          >
-            {aiLoading ? "Thinking..." : "🤖 Get AI Suggestion"}
-          </button>
-
-
-          {aiMedicines.length > 0 && (
-            <div className="border p-4 rounded bg-gray-50">
-              <h3 className="font-bold mb-3">AI Suggestions</h3>
-
-              {aiMedicines.map((med, index) => (
-                <div key={index} className="border p-3 mb-3 rounded">
-
-
-                  <p className={`text-sm font-bold ${med.confidence < 60 ? "text-red-500" : "text-green-600"
-                    }`}>
-                    Confidence: {med.confidence}%
-                  </p>
-
-
-                  <input
-                    value={med.name}
-                    onChange={(e) =>
-                      editMedicine(index, "name", e.target.value)
-                    }
-                    className="border p-1 w-full mt-1"
-                  />
-
-                  <input
-                    value={med.dosage}
-                    onChange={(e) =>
-                      editMedicine(index, "dosage", e.target.value)
-                    }
-                    className="border p-1 w-full mt-1"
-                  />
-
-                  <input
-                    value={med.duration}
-                    onChange={(e) =>
-                      editMedicine(index, "duration", e.target.value)
-                    }
-                    className="border p-1 w-full mt-1"
-                  />
-
-
-                  <div className="flex gap-2 mt-2">
-                    <button
-                      type="button"
-                      onClick={() => approveMedicine(med)}
-                      className="bg-green-500 text-white px-3 py-1 rounded"
-                    >
-                      ✔ Approve
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => rejectMedicine(index)}
-                      className="bg-red-500 text-white px-3 py-1 rounded"
-                    >
-                      ❌ Reject
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-
-          <div>
-            <h3 className="font-bold text-lg">Final Prescription</h3>
-
-            {medicines.length === 0 ? (
-              <p className="text-gray-500">No medicines added</p>
-            ) : (
-              medicines.map((m, i) => (
-                <div key={i} className="flex justify-between border p-2 mt-2">
-                  <div>
-                    {m.name} - {m.dosage} ({m.duration})
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => removeMedicine(i)}
-                    className="text-red-500"
-                  >
-                    Remove
-                  </button>
-                </div>
-              ))
-            )}
+          <div className="bg-yellow-500/10 border border-yellow-400/30 text-yellow-300 p-3 rounded-xl mb-5">
+            ⚠️ AI suggestions are advisory only — doctor approval required for final prescription
           </div>
 
+          <form onSubmit={handleSubmit} className="space-y-6">
 
-          <textarea
-            placeholder="Doctor Notes"
-            className="w-full border p-2 rounded"
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-          />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
+              <select
+                className="p-3 rounded-xl bg-white/10 border border-white/20 text-white"
+                value={appointmentId}
+                onChange={(e) => setAppointmentId(e.target.value)}
+                required
+              >
+                <option className="text-black" value="">Select Appointment</option>
+                {filteredAppointments.length === 0 ? (
+                  <option className="text-black" disabled>No active appointments</option>
+                ) : (
+                  filteredAppointments.map((appt) => (
+                    <option className="text-black" key={appt._id} value={appt._id}>
+                      {appt?.patient?.user?.name || "Unknown"} | {appt?.slotTime}
+                    </option>
+                  ))
+                )}
+              </select>
 
-          <DoctorSignature onSave={setSignature} />
+              <select
+                className="p-3 rounded-xl bg-white/10 border border-white/20 text-white"
+                value={selectedSymptom}
+                onChange={(e) => setSelectedSymptom(e.target.value)}
+              >
+                <option className="text-black" value="">Select Symptom</option>
+                {ALL_SYMPTOMS.map((item, i) => (
+                  <option className="text-black" key={i} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
 
+            </div>
 
-          <button
-            type="submit"
-            className="w-full bg-green-600 text-white py-2 rounded"
-          >
-            Save Prescription
-          </button>
+            <button
+              type="button"
+              onClick={getAISuggestion}
+              className="w-full bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-indigo-600 hover:to-purple-500 text-white py-3 rounded-xl font-bold shadow-lg transition"
+            >
+              {aiLoading ? "🤖 AI Thinking..." : "⚡ Generate AI Prescription Suggestions"}
+            </button>
 
-        </form>
+            {aiMedicines.length > 0 && (
+              <div className="bg-white/5 border border-white/10 p-4 rounded-xl">
+                <h3 className="font-bold text-lg mb-3">🤖 AI Suggestions Panel</h3>
+
+                {aiMedicines.map((med, index) => (
+                  <div key={index} className="bg-white/5 border border-white/10 p-3 rounded-xl mb-3">
+
+                    <p className={`text-sm font-bold ${med.confidence < 60 ? "text-red-400" : "text-green-400"
+                      }`}>
+                      Confidence Score: {med.confidence}%
+                    </p>
+
+                    <input
+                      value={med.name}
+                      onChange={(e) => editMedicine(index, "name", e.target.value)}
+                      className="w-full mt-2 p-2 rounded bg-white/10 border border-white/20"
+                    />
+
+                    <input
+                      value={med.dosage}
+                      onChange={(e) => editMedicine(index, "dosage", e.target.value)}
+                      className="w-full mt-2 p-2 rounded bg-white/10 border border-white/20"
+                    />
+
+                    <input
+                      value={med.duration}
+                      onChange={(e) => editMedicine(index, "duration", e.target.value)}
+                      className="w-full mt-2 p-2 rounded bg-white/10 border border-white/20"
+                    />
+
+                    <div className="flex gap-2 mt-3">
+                      <button
+                        type="button"
+                        onClick={() => approveMedicine(med)}
+                        className="bg-green-500 px-3 py-1 rounded"
+                      >
+                        ✔ Approve
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => rejectMedicine(index)}
+                        className="bg-red-500 px-3 py-1 rounded"
+                      >
+                        ❌ Reject
+                      </button>
+                    </div>
+
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="bg-white/5 border border-white/10 p-4 rounded-xl">
+              <h3 className="font-bold text-lg">💊 Final Prescription Stack</h3>
+
+              {medicines.length === 0 ? (
+                <p className="text-gray-400 mt-2">No medicines added yet</p>
+              ) : (
+                medicines.map((m, i) => (
+                  <div key={i} className="flex justify-between bg-white/5 p-2 mt-2 rounded">
+                    <div>{m.name} - {m.dosage} ({m.duration})</div>
+
+                    <button
+                      type="button"
+                      onClick={() => removeMedicine(i)}
+                      className="text-red-400"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))
+              )}
+            </div>
+
+            <textarea
+              placeholder="Doctor Notes (Revenue Impact Analysis)"
+              className="w-full p-3 rounded-xl bg-white/10 border border-white/20"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+            />
+
+            <div className="bg-white/5 border border-white/10 p-4 rounded-xl">
+              <DoctorSignature onSave={setSignature} />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-emerald-600 hover:to-green-500 text-white py-3 rounded-xl font-bold shadow-xl"
+            >
+              💰 Save Prescription & Generate Report
+            </button>
+
+          </form>
+        </div>
       </div>
     </>
   );
+
 }
