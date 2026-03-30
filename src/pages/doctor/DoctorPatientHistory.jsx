@@ -43,7 +43,7 @@ function DoctorPatientHistory() {
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6">
 
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-white">
             👤 Patient Medical History
           </h1>
           <p className="text-sm text-gray-500">

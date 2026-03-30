@@ -95,73 +95,87 @@ function DoctorPrescriptions() {
     }
   };
 
-
-
   return (
     <>
       <Navbar />
 
-      <div className="p-6 bg-gray-100 min-h-screen">
-        <h1 className="text-3xl font-bold mb-6">
-          My Prescriptions
-        </h1>
+      <div className="min-h-screen bg-gradient-to-br from-gray-100 via-white to-purple-50 p-6">
+
+        <div className="mb-8">
+          <h1 className="text-4xl font-extrabold text-gray-800 tracking-tight">
+            💊 My Prescriptions
+          </h1>
+          <p className="text-gray-500 mt-1">
+            Manage and download all patient prescriptions
+          </p>
+        </div>
 
         {loading ? (
-          <p>Loading...</p>
+          <div className="flex justify-center items-center h-40">
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-purple-600"></div>
+          </div>
         ) : prescriptions.length === 0 ? (
-          <p>No prescriptions found</p>
+          <div className="text-center text-gray-500 mt-10">
+            No prescriptions found
+          </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {prescriptions.map((prescription) => (
               <div
                 key={prescription._id}
-                className="bg-white p-5 rounded-xl shadow-md"
+                className="bg-white/80 backdrop-blur-lg border border-gray-200 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-2xl p-5 hover:-translate-y-1"
               >
-                <h2 className="text-lg font-semibold">
-                  {prescription.patient?.user?.name || "N/A"}
-                </h2>
 
-                <p className="text-sm text-gray-500">
-                  {new Date(
-                    prescription.createdAt
-                  ).toLocaleDateString()}
-                </p>
+                <div className="flex justify-between items-center mb-3">
+                  <h2 className="text-lg font-bold text-gray-800">
+                    {prescription.patient?.user?.name || "Unknown Patient"}
+                  </h2>
 
-                <p className="mt-2 text-gray-700">
-                  <strong>Diagnosis:</strong>{" "}
-                  {prescription.diagnosis || "-"}
-                </p>
+                  <span className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full">
+                    {new Date(prescription.createdAt).toLocaleDateString()}
+                  </span>
+                </div>
 
-                <div className="mt-2">
-                  <strong>Medicines:</strong>
-                  <ul className="list-disc ml-5 text-sm">
-                    {prescription.medicines.map((med, i) => (
-                      <li key={i}>
-                        {med.name} - {med.dosage} ({med.duration})
-                      </li>
-                    ))}
-                  </ul>
+                <div className="mb-3">
+                  <p className="text-sm text-gray-600 font-semibold">
+                    Diagnosis
+                  </p>
+                  <p className="text-gray-800">
+                    {prescription.diagnosis || "-"}
+                  </p>
                 </div>
 
 
+                <div className="mb-4">
+                  <p className="text-sm font-semibold text-gray-600 mb-1">
+                    Medicines
+                  </p>
+                  <div className="space-y-1 max-h-28 overflow-auto pr-1">
+                    {prescription.medicines.map((med, i) => (
+                      <div
+                        key={i}
+                        className="text-sm bg-gray-50 px-3 py-1 rounded-lg"
+                      >
+                        💊 {med.name} • {med.dosage} • {med.duration}
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-
-
-                <div className="mt-4 space-y-2">
+                <div className="flex gap-2 mt-4">
                   <button
                     onClick={() => downloadPDF(prescription._id)}
-                    className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg"
+                    className="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white py-2 rounded-xl font-semibold shadow-md transition"
                   >
-                    📄 Download PDF
+                    📄 PDF
                   </button>
 
                   <button
                     onClick={() => deletePrescription(prescription._id)}
-                    className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg"
+                    className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 rounded-xl font-semibold shadow-md transition"
                   >
                     🗑 Delete
                   </button>
-
                 </div>
               </div>
             ))}
