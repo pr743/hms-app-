@@ -5,6 +5,7 @@ import Loader from "../components/Loader";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
 function Login() {
@@ -24,9 +25,15 @@ function Login() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const showAlert = (msg, type = "info") => {
+    setAlert({ msg, type });
+    setTimeout(() => setAlert(null), 3000);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loading) return;
+
     setLoading(true);
 
     try {
@@ -39,50 +46,45 @@ function Login() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      showAlert("Login successfully", "success");
-      navigate(`/${res.data.user.role}`);
+      showAlert("Login successful", "success");
+
+      setTimeout(() => {
+        navigate(`/${res.data.user.role}`);
+      }, 1200);
     } catch {
-      showAlert("Login failed", "error");
+      showAlert("Invalid email or password", "error");
     } finally {
       setLoading(false);
     }
-  };
-
-  const showAlert = (msg, type = "info") => {
-    setAlert({ msg, type });
-    setTimeout(() => setAlert(null), 3000);
   };
 
   return (
     <>
       <Navbar />
 
-      <div className="min-h-screen flex items-center justify-center px-4 
-      bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+      <div className="min-h-screen flex items-center justify-center px-4 pt-20
+      bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
 
         <div className="absolute w-[400px] h-[400px] bg-blue-500 opacity-20 blur-3xl rounded-full top-10 left-10"></div>
         <div className="absolute w-[300px] h-[300px] bg-purple-500 opacity-20 blur-3xl rounded-full bottom-10 right-10"></div>
 
-
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-md relative z-10 
-          backdrop-blur-xl bg-white/10 border border-white/20 
+          className="w-full max-w-md relative z-10
+          backdrop-blur-xl bg-white/10 border border-white/20
           rounded-2xl shadow-2xl p-8 text-white"
         >
-
-
           <div className="text-center mb-6">
             <h1 className="text-3xl font-bold">Welcome Back</h1>
             <p className="text-gray-300 text-sm mt-1">
-              Login to your HMS account
+              Login to Hospital Management System
             </p>
           </div>
 
           {alert && (
             <motion.div
-              initial={{ y: -20, opacity: 0 }}
+              initial={{ y: -15, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               className={`mb-4 text-center px-4 py-2 rounded-lg text-sm font-medium
               ${alert.type === "error"
@@ -99,12 +101,8 @@ function Login() {
             <div className="mb-5">
               <label className="text-sm text-gray-300">Email</label>
 
-              <div className="flex items-center mt-2 
-              bg-white/10 border border-white/20 
-              rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-400">
-
+              <div className="flex items-center mt-2 bg-white/10 border border-white/20 rounded-xl px-4 py-3">
                 <Mail size={18} className="text-gray-300" />
-
                 <input
                   name="email"
                   type="email"
@@ -119,10 +117,7 @@ function Login() {
             <div className="mb-6">
               <label className="text-sm text-gray-300">Password</label>
 
-              <div className="flex items-center mt-2 
-              bg-white/10 border border-white/20 
-              rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-400">
-
+              <div className="flex items-center mt-2 bg-white/10 border border-white/20 rounded-xl px-4 py-3">
                 <Lock size={18} className="text-gray-300" />
 
                 <input
@@ -147,6 +142,7 @@ function Login() {
 
             {loading && <Loader />}
 
+
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
@@ -162,13 +158,11 @@ function Login() {
 
             <p className="text-sm text-center mt-5 text-gray-300">
               Don’t have an account?{" "}
-              <Link
-                to="/admin/register"
-                className="text-blue-400 hover:underline"
-              >
+              <Link to="/admin/register" className="text-blue-400 hover:underline">
                 Signup
               </Link>
             </p>
+
           </form>
         </motion.div>
       </div>

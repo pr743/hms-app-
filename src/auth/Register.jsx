@@ -68,113 +68,160 @@ function Register() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-blue-500 to-blue-200 px-4 pt-12 pb-6">
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-          <div className="text-center mb-6">
-            <h1 className="text-3xl font-bold text-blue-600">
-              Patient Register
-            </h1>
+
+      <div className="min-h-screen flex items-center justify-center px-4 pt-20
+      bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 relative overflow-hidden">
+
+        <div className="absolute w-[500px] h-[500px] bg-blue-500/20 blur-3xl rounded-full top-[-100px] left-[-100px]"></div>
+        <div className="absolute w-[400px] h-[400px] bg-purple-500/20 blur-3xl rounded-full bottom-[-100px] right-[-100px]"></div>
+
+        <div className="hidden lg:flex flex-col text-white w-[420px] mr-10">
+          <h1 className="text-4xl font-bold leading-tight">
+            Join Smart Healthcare Platform
+          </h1>
+
+          <p className="mt-4 text-gray-300">
+            Book doctors, manage reports, and track your health — all in one place.
+          </p>
+
+          <div className="mt-6 space-y-3 text-sm text-gray-300">
+            <p>✔ Fast appointment booking</p>
+            <p>✔ Digital prescriptions</p>
+            <p>✔ Secure medical records</p>
           </div>
 
-          {alert && (
-            <div
-              className={`fixed top-4 left-1/2 -translate-x-1/2 
-              px-4 py-2 rounded-xl text-black font-semibold z-50
-              ${alert.type === "error"
-                  ? "bg-red-400"
-                  : "bg-green-400"
-                }`}
-            >
-              {alert.msg}
+          <div className="mt-8 p-4 rounded-xl bg-white/10 border border-white/10">
+            <p className="text-sm text-gray-300">Trusted by patients</p>
+            <p className="text-2xl font-bold text-blue-300">10,000+</p>
+          </div>
+        </div>
+
+        <div className="w-full max-w-md relative z-10">
+
+          <div className="backdrop-blur-xl bg-white/10 border border-white/20 
+          rounded-2xl shadow-2xl p-8 text-white">
+
+            <div className="text-center mb-6">
+              <h1 className="text-3xl font-bold">Create Account</h1>
+              <p className="text-gray-300 text-sm mt-1">
+                Start your healthcare journey
+              </p>
             </div>
-          )}
 
-          <form onSubmit={handleSubmit} className="text-black">
-
-            <div className="mb-5">
-              <label className="mb-2 block">Name</label>
-              <div className="flex items-center bg-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-500">
-                <User size={20} className="text-gray-400" />
-                <input
-                  name="name"
-                  type="text"
-                  placeholder="Enter your name"
-                  className="bg-transparent outline-none w-full px-3"
-                  onChange={handleChange}
-                  required
-                />
+            {alert && (
+              <div className={`mb-4 text-center px-4 py-2 rounded-lg text-sm font-medium
+              ${alert.type === "error" ? "bg-red-500/80" : "bg-green-500/80"}`}>
+                {alert.msg}
               </div>
-            </div>
+            )}
 
-
-            <div className="mb-5">
-              <label className="mb-2 block">Email</label>
-              <div className="flex items-center bg-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-500">
-                <Mail size={20} className="text-gray-400" />
-                <input
-                  name="email"
-                  type="email"
-                  placeholder="Enter email"
-                  className="bg-transparent outline-none w-full px-3"
-                  onChange={handleChange}
-                  required
-                />
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="text-sm text-gray-300">Full Name</label>
+                <div className="flex items-center mt-2 bg-white/10 border border-white/20 rounded-xl px-4 py-3">
+                  <User size={18} className="text-gray-300" />
+                  <input
+                    name="name"
+                    placeholder="John Doe"
+                    className="bg-transparent outline-none w-full px-3 text-white placeholder-gray-400"
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
               </div>
-            </div>
-
-
-            <div className="mb-6">
-              <label className="mb-2 block">Password</label>
-              <div className="flex items-center bg-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-blue-500">
-                <Lock size={18} className="text-gray-400" />
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="••••••••"
-                  className="bg-transparent outline-none w-full px-3"
-                  onChange={handleChange}
-                  required
-                />
-
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  onMouseDown={(e) => e.preventDefault()}
-                  className="text-gray-500"
-                >
-                  {showPassword ? (
-                    <EyeOff size={20} />
-                  ) : (
-                    <Eye size={20} />
-                  )}
-                </button>
+              <div>
+                <label className="text-sm text-gray-300">Email</label>
+                <div className="flex items-center mt-2 bg-white/10 border border-white/20 rounded-xl px-4 py-3">
+                  <Mail size={18} className="text-gray-300" />
+                  <input
+                    name="email"
+                    type="email"
+                    placeholder="patient@email.com"
+                    className="bg-transparent outline-none w-full px-3 text-white placeholder-gray-400"
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
               </div>
-            </div>
 
-            {loading && <Loader />}
+              <div>
+                <label className="text-sm text-gray-300">Password</label>
+                <div className="flex items-center mt-2 bg-white/10 border border-white/20 rounded-xl px-4 py-3">
+                  <Lock size={18} className="text-gray-300" />
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 transition font-semibold text-lg disabled:opacity-70 text-white"
-            >
-              Sign Up
-            </button>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    placeholder="••••••••"
+                    className="bg-transparent outline-none w-full px-3 text-white placeholder-gray-400"
+                    onChange={handleChange}
+                    required
+                  />
 
-            <p className="text-sm text-center mt-5">
-              Already have an account?{" "}
-              <Link
-                to="/login"
-                className="text-blue-500 hover:text-blue-700"
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="text-gray-300"
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+              {loading && <Loader />}
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-3 rounded-xl font-semibold text-lg
+              bg-gradient-to-r from-blue-500 to-indigo-500
+              hover:from-blue-600 hover:to-indigo-600
+              transition transform hover:scale-[1.02] disabled:opacity-60"
               >
-                Login
-              </Link>
-            </p>
-          </form>
+                Create Free Account
+              </button>
+
+              <p className="text-sm text-center text-gray-300 mt-4">
+                Already have an account?{" "}
+                <Link to="/login" className="text-blue-400 hover:underline">
+                  Sign in
+                </Link>
+              </p>
+
+            </form>
+          </div>
         </div>
       </div>
     </>
   );
+
+
+
+
 }
 
+
+
 export default Register;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
