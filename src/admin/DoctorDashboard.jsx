@@ -47,44 +47,77 @@ function DoctorDashboard() {
     );
   }
 
+
   return (
     <>
       <Navbar />
 
-      <div className="p-6 bg-gray-100 min-h-screen">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">
-          Doctor Dashboard
-        </h1>
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 p-6">
+
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-white">
+            💰 Doctor Earnings Dashboard
+          </h1>
+          <p className="text-gray-400 mt-1">
+            Track appointments, performance & revenue insights
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
           <StatCard
             title="Today's Appointments"
             value={stats.todayAppointment}
-            icon={<CalendarDays size={28} />}
+            icon={<CalendarDays size={26} />}
             color="blue"
           />
 
           <StatCard
-            title="Pending Appointments"
+            title="Pending Work"
             value={stats.pendingAppointment}
-            icon={<ClipboardList size={28} />}
+            icon={<ClipboardList size={26} />}
             color="orange"
           />
 
           <StatCard
-            title="Completed Appointments"
+            title="Completed"
             value={stats.completedAppointment}
-            icon={<CheckCircle size={28} />}
+            icon={<CheckCircle size={26} />}
             color="green"
           />
 
           <StatCard
             title="Total Patients"
             value={stats.totalPatients}
-            icon={<Users size={28} />}
+            icon={<Users size={26} />}
             color="purple"
           />
         </div>
+
+        <div className="mt-8 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 text-white shadow-2xl">
+          <h2 className="text-xl font-semibold">💸 Performance Insight</h2>
+          <p className="text-gray-300 mt-1">
+            Optimize consultation timing to increase daily earnings & patient flow
+          </p>
+
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white/10 p-4 rounded-xl">
+              <p className="text-gray-400">Avg Efficiency</p>
+              <h3 className="text-2xl font-bold text-green-400">92%</h3>
+            </div>
+
+            <div className="bg-white/10 p-4 rounded-xl">
+              <p className="text-gray-400">Revenue Score</p>
+              <h3 className="text-2xl font-bold text-blue-400">High</h3>
+            </div>
+
+            <div className="bg-white/10 p-4 rounded-xl">
+              <p className="text-gray-400">Growth</p>
+              <h3 className="text-2xl font-bold text-purple-400">+18%</h3>
+            </div>
+          </div>
+        </div>
+
       </div>
     </>
   );
@@ -92,23 +125,30 @@ function DoctorDashboard() {
 
 function StatCard({ title, value, icon, color }) {
   const colors = {
-    blue: "bg-blue-100 text-blue-600",
-    green: "bg-green-100 text-green-600",
-    purple: "bg-purple-100 text-purple-600",
-    orange: "bg-orange-100 text-orange-600",
+    blue: "from-blue-500/20 to-blue-700/10 text-blue-300",
+    green: "from-green-500/20 to-green-700/10 text-green-300",
+    purple: "from-purple-500/20 to-purple-700/10 text-purple-300",
+    orange: "from-orange-500/20 to-orange-700/10 text-orange-300",
   };
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md flex items-center justify-between">
-      <div>
-        <p className="text-gray-500">{title}</p>
-        <h2 className="text-3xl font-bold text-gray-800">{value}</h2>
+    <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl shadow-xl hover:scale-[1.03] transition-all duration-300">
+
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-gray-300 text-sm">{title}</p>
+          <h2 className="text-3xl font-bold text-white mt-1">
+            {value}
+          </h2>
+        </div>
+
+        <div className={`p-3 rounded-xl bg-gradient-to-br ${colors[color]}`}>
+          {icon}
+        </div>
       </div>
-      <div className={`p-4 rounded-full ${colors[color]}`}>
-        {icon}
-      </div>
+
     </div>
   );
 }
 
-export default DoctorDashboard;8
+export default DoctorDashboard; 8
