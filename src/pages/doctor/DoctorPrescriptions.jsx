@@ -96,30 +96,6 @@ function DoctorPrescriptions() {
   };
 
 
-  const sharePrescription = async (id) => {
-    try {
-      const url = `${API.defaults.baseURL}/prescriptions/${id}/pdf`;
-
-
-      if (navigator.share) {
-        await navigator.share({
-          title: "Prescription",
-          text: "Download prescription here",
-          url,
-        });
-      } else {
-
-        const whatsappUrl = `https://wa.me/?text=Download Prescription: ${url}`;
-        window.open(whatsappUrl, "_blank");
-      }
-
-    } catch (error) {
-      console.error("Share failed", error);
-      Swal.fire("Error", "Sharing failed ❌", "error");
-    }
-  };
-
-
 
   return (
     <>
@@ -180,21 +156,11 @@ function DoctorPrescriptions() {
                   </button>
 
                   <button
-                    onClick={() => sharePrescription(prescription._id)}
-                    className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg"
-                  >
-                    📤 Share
-                  </button>
-
-                  <button
                     onClick={() => deletePrescription(prescription._id)}
                     className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg"
                   >
                     🗑 Delete
                   </button>
-
-
-
 
                 </div>
               </div>
