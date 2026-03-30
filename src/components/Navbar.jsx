@@ -1,9 +1,7 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import { LogOut, User, Hospital, Menu, X } from "lucide-react";
-// eslint-disable-next-line no-unused-vars
-import { motion, AnimatePresence } from "framer-motion";
 
 function Navbar() {
   const { user, logout } = useContext(AuthContext);
@@ -16,130 +14,87 @@ function Navbar() {
     window.location.href = "/login";
   };
 
-
-
-
-
   const closeMenu = () => setIsOpen(false);
 
-  const overlayVariant = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-    exit: { opacity: 0 },
-  };
-
-  const drawerVariant = {
-    hidden: { x: "-100%" },
-    visible: {
-      x: 0,
-      transition: { type: "spring", stiffness: 80, damping: 15 },
-    },
-    exit: { x: "-100%" },
-  };
-
-  const itemVariant = {
-    hidden: { x: -20, opacity: 0 },
-    visible: (i) => ({
-      x: 0,
-      opacity: 1,
-      transition: { delay: i * 0.05 },
-    }),
-  };
-
-
-
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isOpen]);
-
-  const renderLinks = (onClick) => (
-    <>
-      {!user && (
-        <>
-          <motion.div custom={0} variants={itemVariant} initial="hidden" animate="visible">
-            <Link onClick={onClick} to="/login">Login</Link>
-          </motion.div>
-
-          <motion.div custom={1} variants={itemVariant} initial="hidden" animate="visible">
-            <Link onClick={onClick} to="/register">Patient Register</Link>
-          </motion.div>
-
-          <motion.div custom={2} variants={itemVariant} initial="hidden" animate="visible">
-            <Link onClick={onClick} to="/admin/register">Admin Register</Link>
-          </motion.div>
-        </>
-      )}
-
-      {user?.role === "patient" && (
-        <>
-          <Link onClick={onClick} to="/patient">Dashboard</Link>
-          <Link onClick={onClick} to="/patient/appointment">Book Appointment</Link>
-          <Link onClick={onClick} to="/patient/appointments">Appointments</Link>
-          <Link onClick={onClick} to="/hospitals">Hospitals</Link>
-          <Link onClick={onClick} to="/saved-hospitals">Saved</Link>
-        </>
-      )}
-
-      {user?.role === "doctor" && (
-        <>
-          <Link onClick={onClick} to="/doctor">Dashboard</Link>
-          <Link onClick={onClick} to="/doctor/appointments">Appointments</Link>
-          <Link onClick={onClick} to="/doctor/profile">Profile</Link>
-        </>
-      )}
-
-      {user?.role === "admin" && (
-        <>
-          <Link onClick={onClick} to="/admin">Dashboard</Link>
-          <Link onClick={onClick} to="/admin/doctors">Doctors</Link>
-          <Link onClick={onClick} to="/admin/patients">Patients</Link>
-        </>
-      )}
-    </>
-  );
-
   return (
+    // <nav className="sticky top-0 w-full bg-blue-600 text-white shadow-md z-50">
     <nav className="sticky top-0 w-full z-50 backdrop-blur-xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 text-white shadow-lg border-b border-white/10">
+      <div className="flex items-center justify-between px-6 py-3">
 
 
-      <div className="flex items-center justify-between px-6 md:px-10 py-3">
-
-        <div className="flex items-center gap-2 text-blue-300 font-bold text-xl">
-          <Hospital size={26} />
-          HMS
+        <div className="flex items-center gap-2">
+          <Hospital size={28} />
+          <span className="text-xl font-bold">HMS</span>
         </div>
 
 
-        <div className="hidden md:flex items-center gap-6 text-sm font-medium">
-          {renderLinks()}
+        <div className="hidden md:flex items-center gap-6 font-medium">
+          {!user && (
+            <>
+              <Link to="/login">Login</Link>
+              <Link to="/register">Patient Register</Link>
+              <Link to="/admin/register">Admin Register</Link>
+            </>
+          )}
+
+          {user?.role === "patient" && (
+            <>
+              <Link to="/patient">Dashboard</Link>
+              <Link to="/patient/appointment"> Book Appointment </Link>
+              <Link to="/patient/appointments">
+                My Appointments
+              </Link>
+
+              <Link to="/hospitals">Find Hospital</Link>
+              <Link to="/saved-hospitals">Saved</Link>
+              <Link to="/patient/prescriptions"> Prescriptions </Link>
+              <Link to="/patient/history">History</Link>
+            </>
+          )}
+
+          {user?.role === "doctor" && (
+            <>
+              <Link to="/doctor">Dashboard</Link>
+              <Link to="/doctor/appointments">My Appointments</Link>
+              <Link to="/doctor/create-prescription">Create Prescription</Link>
+              <Link to="/doctor/prescriptions">View Prescription</Link>
+              <Link to="/doctor/profile">Profile</Link>
+            </>
+          )}
+
+          {user?.role === "admin" && (
+            <>
+              <Link to="/admin">Dashboard</Link>
+              <Link to="/admin/hospitals">Add Hospital</Link>
+              <Link to="/admin/doctors">Doctors</Link>
+              <Link to="/admin/patients">Patients</Link>
+              <Link to="/admin/appointments">Appointments</Link>
+              <Link to="/admin/add-doctor">Add Doctor</Link>
+            </>
+          )}
         </div>
 
-        <div className="flex items-center gap-3">
 
+        <div className="flex items-center gap-4">
           {user && (
-            <div className="hidden md:flex items-center gap-2 bg-white/10 px-3 py-1 rounded-lg backdrop-blur border border-white/10">
-              <User size={16} />
-              <span className="text-sm capitalize">{user.name}</span>
+            <div className="hidden md:flex items-center gap-2 bg-blue-500 px-3 py-1 rounded-lg">
+              <User size={18} />
+              <span className="capitalize  text-sm">
+                {user.name} ({user.role})
+              </span>
             </div>
           )}
 
           {user && (
             <button
               onClick={handleLogout}
-              className="hidden md:flex items-center gap-2 bg-red-500 hover:bg-red-600 transition px-3 py-1.5 rounded-lg text-sm"
+              className="hidden md:flex items-center gap-2 bg-red-500 hover:bg-red-600 px-3 py-2 rounded-lg"
             >
-              <LogOut size={16} />
+              <LogOut size={18} />
+              Logout
             </button>
           )}
+
 
           <button onClick={() => setIsOpen(true)} className="md:hidden">
             <Menu size={26} />
@@ -147,58 +102,127 @@ function Navbar() {
         </div>
       </div>
 
-      <AnimatePresence>
-        {isOpen && (
-          <>
 
-            <motion.div
-              variants={overlayVariant}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[998]"
-              onClick={closeMenu}
-            />
-            <motion.div
-              variants={drawerVariant}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="fixed top-0 left-0 h-full w-80 ... z-[999]"
-            >
+      {isOpen && (
+        <>
 
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-lg font-bold text-blue-300">HMS Menu</h2>
-                <X size={24} className="cursor-pointer" onClick={closeMenu} />
-              </div>
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 z-40"
+            onClick={closeMenu}
+          ></div>
 
-              <div className="flex flex-col gap-4 text-base">
-                {renderLinks(closeMenu)}
 
-                {user && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mt-6 border-t border-white/20 pt-4"
+          <div className="fixed top-0 left-0 h-full w-72 bg-white text-black z-50 shadow-lg transition-transform duration-300">
+
+
+            <div className="flex justify-between items-center p-4 border-b">
+              <h2 className="text-lg font-bold text-blue-600">Menu</h2>
+              <X
+                size={24}
+                className="cursor-pointer"
+                onClick={closeMenu}
+              />
+            </div>
+
+
+            <div className="flex flex-col p-4 space-y-4">
+
+              {!user && (
+                <>
+                  <Link to="/login" onClick={closeMenu}>Login</Link>
+                  <Link to="/register" onClick={closeMenu}>Patient Register</Link>
+                  <Link to="/admin/register" onClick={closeMenu}>Admin Register</Link>
+                  <Link to="/hospitals" onClick={closeMenu}>Find Hospital</Link>
+                </>
+              )}
+
+              {user?.role === "patient" && (
+                <>
+                  <Link to="/patient" onClick={closeMenu}>Dashboard</Link>
+                  <Link to="/patient/appointment" onClick={closeMenu}> Book Appointment </Link>
+                  <Link to="/hospitals" onClick={closeMenu}>Find Hospital</Link>
+                  <Link to="/saved-hospitals" onClick={closeMenu}>Saved Hospitals</Link>
+                  <Link to="/patient/prescriptions" onClick={closeMenu}> Prescriptions </Link>
+                  <Link to="/patient/history" onClick={closeMenu}>History</Link>
+                </>
+              )}
+
+              {user?.role === "doctor" && (
+                <>
+                  <Link to="/doctor" onClick={closeMenu}>Dashboard</Link>
+                  <Link to="/doctor/appointments" onClick={closeMenu}>My Appointments</Link>
+                  <Link to="/doctor/create-prescription" onClick={closeMenu}>Create Prescription</Link>
+                  <Link to="/doctor/prescriptions" onClick={closeMenu}>View Prescription</Link>
+                  <Link to="/doctor/profile" onClick={closeMenu}>Profile</Link>
+                </>
+              )}
+
+              {user?.role === "admin" && (
+                <>
+                  <Link to="/admin" onClick={closeMenu}>Dashboard</Link>
+                  <Link to="/admin/hospitals" onClick={closeMenu}>Add Hospital</Link>
+                  <Link to="/admin/doctors" onClick={closeMenu}>Doctors</Link>
+                  <Link to="/admin/patients" onClick={closeMenu}>Patients</Link>
+                  <Link to="/admin/appointments" onClick={closeMenu}>Appointments</Link>
+                  <Link to="/admin/add-doctor" onClick={closeMenu}>Add Doctor</Link>
+                </>
+              )}
+
+
+              {user && (
+                <div className="border-t pt-4 mt-4">
+                  <div className="flex items-center gap-2 mb-3 bg-blue-100 px-3 py-2 rounded">
+                    <User size={18} />
+                    <span className="capitalize">
+                      {user.name} ({user.role})
+                    </span>
+                  </div>
+
+                  <button
+                    onClick={handleLogout}
+                    className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600"
                   >
-                    <p className="text-sm text-gray-300">Logged in as</p>
-                    <p className="font-semibold capitalize mb-3">{user.name}</p>
+                    Logout
+                  </button>
+                </div>
+              )}
 
-                    <button
-                      onClick={handleLogout}
-                      className="w-full bg-red-500 hover:bg-red-600 py-2 rounded-lg"
-                    >
-                      Logout
-                    </button>
-                  </motion.div>
-                )}
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+            </div>
+          </div>
+        </>
+      )}
     </nav>
   );
 }
 
 export default Navbar;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
