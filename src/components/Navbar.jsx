@@ -124,7 +124,7 @@ function Navbar() {
             </div>
 
 
-            <div className="flex flex-col p-4 space-y-4">
+            <div className="flex flex-col p-4 space-y-4   text-white">
 
               {!user && (
                 <>
