@@ -102,7 +102,7 @@ function Navbar() {
       </div>
 
 
-      {/* {isOpen && (
+      {isOpen && (
         <>
 
           <div
@@ -111,7 +111,7 @@ function Navbar() {
           ></div>
 
 
-          <div className="fixed top-0 left-0 h-full w-72 bg-white text-black z-50 shadow-lg transition-transform duration-300">
+          <div className="fixed top-0 left-0 h-full w-72 bg-white  z-50 shadow-lg transition-transform duration-300">
 
 
             <div className="flex justify-between items-center p-4 border-b">
@@ -189,97 +189,8 @@ function Navbar() {
             </div>
           </div>
         </>
-      )} */}
-
-
-      {isOpen && (
-        <>
-          {/* Overlay */}
-          <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
-            onClick={closeMenu}
-          ></div>
-
-          {/* Sidebar */}
-          <div className="fixed top-0 left-0 h-full w-72 bg-white text-gray-800 z-50 shadow-2xl transition-transform duration-300 flex flex-col">
-
-            {/* Header */}
-            <div className="flex justify-between items-center px-5 py-4 border-b bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
-              <h2 className="text-lg font-semibold">Menu</h2>
-
-              <button
-                onClick={closeMenu}
-                className="p-2 rounded-full hover:bg-white/20 transition"
-              >
-                <X size={24} />
-              </button>
-            </div>
-
-            {/* Links */}
-            <div className="flex flex-col p-5 space-y-4 flex-1 overflow-y-auto">
-
-              {!user && (
-                <>
-                  <Link to="/login" onClick={closeMenu} className="hover:text-blue-600  text-white">Login</Link>
-                  <Link to="/register" onClick={closeMenu} className="hover:text-blue-600  text-white">Patient Register</Link>
-                  <Link to="/admin/register" onClick={closeMenu} className="hover:text-blue-600  text-white">Admin Register</Link>
-                  <Link to="/hospitals" onClick={closeMenu} className="hover:text-blue-600  text-white">Find Hospital</Link>
-                </>
-              )}
-
-              {user?.role === "patient" && (
-                <>
-                  <Link to="/patient" onClick={closeMenu} className="hover:text-blue-600  text-white">Dashboard</Link>
-                  <Link to="/patient/appointment" onClick={closeMenu} className="hover:text-blue-600  text-white">Book Appointment</Link>
-                  <Link to="/hospitals" onClick={closeMenu} className="hover:text-blue-600  text-white">Find Hospital</Link>
-                  <Link to="/saved-hospitals" onClick={closeMenu} className="hover:text-blue-600  text-white">Saved Hospitals</Link>
-                  <Link to="/patient/prescriptions" onClick={closeMenu} className="hover:text-blue-600  text-white">Prescriptions</Link>
-                  <Link to="/patient/history" onClick={closeMenu} className="hover:text-blue-600  text-white">History</Link>
-                </>
-              )}
-
-              {user?.role === "doctor" && (
-                <>
-                  <Link to="/doctor" onClick={closeMenu} className="hover:text-blue-600  text-white">Dashboard</Link>
-                  <Link to="/doctor/appointments" onClick={closeMenu} className="hover:text-blue-600  text-white">Appointments</Link>
-                  <Link to="/doctor/create-prescription" onClick={closeMenu} className="hover:text-blue-600  text-white">Create Prescription</Link>
-                  <Link to="/doctor/prescriptions" onClick={closeMenu} className="hover:text-blue-600  text-white">Prescriptions</Link>
-                  <Link to="/doctor/profile" onClick={closeMenu} className="hover:text-blue-600  text-white">Profile</Link>
-                </>
-              )}
-
-              {user?.role === "admin" && (
-                <>
-                  <Link to="/admin" onClick={closeMenu} className="hover:text-blue-600  text-white">Dashboard</Link>
-                  <Link to="/admin/hospitals" onClick={closeMenu} className="hover:text-blue-600  text-white">Hospitals</Link>
-                  <Link to="/admin/doctors" onClick={closeMenu} className="hover:text-blue-600  text-white">Doctors</Link>
-                  <Link to="/admin/patients" onClick={closeMenu} className="hover:text-blue-600  text-white">Patients</Link>
-                  <Link to="/admin/appointments" onClick={closeMenu} className="hover:text-blue-600  text-white">Appointments</Link>
-                </>
-              )}
-            </div>
-
-            {/* Bottom User Section */}
-            {user && (
-              <div className="border-t p-4 bg-gray-50">
-                <div className="flex items-center gap-2 mb-3 bg-blue-100 px-3 py-2 rounded-lg">
-                  <User size={18} />
-                  <span className="capitalize text-sm font-medium">
-                    {user.name} ({user.role})
-                  </span>
-                </div>
-
-                <button
-                  onClick={handleLogout}
-                  className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition"
-                >
-                  Logout
-                </button>
-              </div>
-            )}
-          </div>
-        </>
       )}
+
     </nav>
   );
 }
