@@ -220,41 +220,41 @@ function Navbar() {
 
               {!user && (
                 <>
-                  <Link to="/login" onClick={closeMenu} className="hover:text-blue-600">Login</Link>
-                  <Link to="/register" onClick={closeMenu} className="hover:text-blue-600">Patient Register</Link>
-                  <Link to="/admin/register" onClick={closeMenu} className="hover:text-blue-600">Admin Register</Link>
-                  <Link to="/hospitals" onClick={closeMenu} className="hover:text-blue-600">Find Hospital</Link>
+                  <Link to="/login" onClick={closeMenu} className="hover:text-blue-600  text-white">Login</Link>
+                  <Link to="/register" onClick={closeMenu} className="hover:text-blue-600  text-white">Patient Register</Link>
+                  <Link to="/admin/register" onClick={closeMenu} className="hover:text-blue-600  text-white">Admin Register</Link>
+                  <Link to="/hospitals" onClick={closeMenu} className="hover:text-blue-600  text-white">Find Hospital</Link>
                 </>
               )}
 
               {user?.role === "patient" && (
                 <>
-                  <Link to="/patient" onClick={closeMenu}>Dashboard</Link>
-                  <Link to="/patient/appointment" onClick={closeMenu}>Book Appointment</Link>
-                  <Link to="/hospitals" onClick={closeMenu}>Find Hospital</Link>
-                  <Link to="/saved-hospitals" onClick={closeMenu}>Saved Hospitals</Link>
-                  <Link to="/patient/prescriptions" onClick={closeMenu}>Prescriptions</Link>
-                  <Link to="/patient/history" onClick={closeMenu}>History</Link>
+                  <Link to="/patient" onClick={closeMenu} className="hover:text-blue-600  text-white">Dashboard</Link>
+                  <Link to="/patient/appointment" onClick={closeMenu} className="hover:text-blue-600  text-white">Book Appointment</Link>
+                  <Link to="/hospitals" onClick={closeMenu} className="hover:text-blue-600  text-white">Find Hospital</Link>
+                  <Link to="/saved-hospitals" onClick={closeMenu} className="hover:text-blue-600  text-white">Saved Hospitals</Link>
+                  <Link to="/patient/prescriptions" onClick={closeMenu} className="hover:text-blue-600  text-white">Prescriptions</Link>
+                  <Link to="/patient/history" onClick={closeMenu} className="hover:text-blue-600  text-white">History</Link>
                 </>
               )}
 
               {user?.role === "doctor" && (
                 <>
-                  <Link to="/doctor" onClick={closeMenu}>Dashboard</Link>
-                  <Link to="/doctor/appointments" onClick={closeMenu}>Appointments</Link>
-                  <Link to="/doctor/create-prescription" onClick={closeMenu}>Create Prescription</Link>
-                  <Link to="/doctor/prescriptions" onClick={closeMenu}>Prescriptions</Link>
-                  <Link to="/doctor/profile" onClick={closeMenu}>Profile</Link>
+                  <Link to="/doctor" onClick={closeMenu} className="hover:text-blue-600  text-white">Dashboard</Link>
+                  <Link to="/doctor/appointments" onClick={closeMenu} className="hover:text-blue-600  text-white">Appointments</Link>
+                  <Link to="/doctor/create-prescription" onClick={closeMenu} className="hover:text-blue-600  text-white">Create Prescription</Link>
+                  <Link to="/doctor/prescriptions" onClick={closeMenu} className="hover:text-blue-600  text-white">Prescriptions</Link>
+                  <Link to="/doctor/profile" onClick={closeMenu} className="hover:text-blue-600  text-white">Profile</Link>
                 </>
               )}
 
               {user?.role === "admin" && (
                 <>
-                  <Link to="/admin" onClick={closeMenu}>Dashboard</Link>
-                  <Link to="/admin/hospitals" onClick={closeMenu}>Hospitals</Link>
-                  <Link to="/admin/doctors" onClick={closeMenu}>Doctors</Link>
-                  <Link to="/admin/patients" onClick={closeMenu}>Patients</Link>
-                  <Link to="/admin/appointments" onClick={closeMenu}>Appointments</Link>
+                  <Link to="/admin" onClick={closeMenu} className="hover:text-blue-600  text-white">Dashboard</Link>
+                  <Link to="/admin/hospitals" onClick={closeMenu} className="hover:text-blue-600  text-white">Hospitals</Link>
+                  <Link to="/admin/doctors" onClick={closeMenu} className="hover:text-blue-600  text-white">Doctors</Link>
+                  <Link to="/admin/patients" onClick={closeMenu} className="hover:text-blue-600  text-white">Patients</Link>
+                  <Link to="/admin/appointments" onClick={closeMenu} className="hover:text-blue-600  text-white">Appointments</Link>
                 </>
               )}
             </div>
