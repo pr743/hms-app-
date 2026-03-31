@@ -117,7 +117,7 @@ function Navbar() {
             <div className="flex justify-between items-center p-4 border-b  text-blue-500 ">
               <h2 className="text-lg font-bold text-blue-600">Menu</h2>
               <X
-                size={28}
+                size={32}
                 className="p-2 rounded-full hover:bg-white/20 transition"
                 onClick={closeMenu}
               />
