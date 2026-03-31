@@ -37,17 +37,30 @@ function MySavedHospitals() {
     if (!confirm.isConfirmed) return;
 
     try {
-      await API.delete(`/hospitals/saved/${id}`);
+      const res = await API.delete(`/hospitals/saved/${id}`);
 
-      setHospitals((prev) => prev.filter((h) => h._id !== id));
+      console.log("DELETE RESPONSE:", res.data);
 
-      Swal.fire("Removed!", "Hospital removed from saved list.", "success");
+      if (res.data?.success) {
+        setHospitals((prev) =>
+          prev.filter((h) => h._id !== id)
+        );
+
+        Swal.fire("Removed!", "Hospital removed ✅", "success");
+      } else {
+        Swal.fire("Error", res.data?.message || "Failed", "error");
+      }
+
     } catch (error) {
-      console.error(error);
+      console.error("DELETE ERROR:", error.response?.data);
+
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.response?.data?.message || "Delete failed ❌",
+      });
     }
   };
-
-
 
   return (
     <>
