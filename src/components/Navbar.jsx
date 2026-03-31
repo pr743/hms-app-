@@ -118,7 +118,7 @@ function Navbar() {
               <h2 className="text-lg font-bold text-blue-600">Menu</h2>
               <X
                 size={24}
-                className="cursor-pointer  text-black"
+                className="p-2 rounded-full hover:bg-white/20 transition"
                 onClick={closeMenu}
               />
             </div>
