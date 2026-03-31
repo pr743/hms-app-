@@ -114,7 +114,7 @@ function Navbar() {
           <div className="fixed top-0 left-0 h-full w-72 bg-white  z-50 shadow-lg transition-transform duration-300">
 
 
-            <div className="flex justify-between items-center p-4 border-b">
+            <div className="flex justify-between items-center p-4 border-b  text-blue-500 ">
               <h2 className="text-lg font-bold text-blue-600">Menu</h2>
               <X
                 size={24}
