@@ -17,7 +17,6 @@ function Navbar() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    // <nav className="sticky top-0 w-full bg-blue-600 text-white shadow-md z-50">
     <nav className="sticky top-0 w-full z-50 backdrop-blur-xl bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 text-white shadow-lg border-b border-white/10">
       <div className="flex items-center justify-between px-6 py-3">
 
@@ -107,12 +106,12 @@ function Navbar() {
         <>
 
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-40"
+            className="fixed inset-0 bg-black    text-white bg-opacity-50 z-40"
             onClick={closeMenu}
           ></div>
 
 
-          <div className="fixed top-0 left-0 h-full w-72 bg-white text-black z-50 shadow-lg transition-transform duration-300">
+          <div className="fixed top-0 left-0 h-full w-72 bg-white text-white z-50 shadow-lg transition-transform duration-300">
 
 
             <div className="flex justify-between items-center p-4 border-b">
