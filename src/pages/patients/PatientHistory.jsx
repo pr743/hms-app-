@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import API from "../../api/axios";
 import Navbar from "../../components/Navbar";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 export default function PatientHistory() {
   const [records, setRecords] = useState([]);
@@ -50,6 +51,17 @@ export default function PatientHistory() {
 
   return (
     <>
+
+
+      <Helmet>
+        <title>Medical History | HMS</title>
+        <meta
+          name="description"
+          content="Check your complete medical history including diagnosis, doctor notes, and past treatments."
+        />
+        <meta name="keywords" content="medical history, patient records, diagnosis history" />
+      </Helmet>
+
       <Navbar />
 
 

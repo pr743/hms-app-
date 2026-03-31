@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import API from "../api/axios";
 import Navbar from "../components/Navbar";
+import { Helmet } from "react-helmet-async";
 import {
   CalendarDays,
   ClipboardList,
@@ -132,23 +133,48 @@ function StatCard({ title, value, icon, color }) {
   };
 
   return (
-    <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl shadow-xl hover:scale-[1.03] transition-all duration-300">
+    <>
+      <Helmet>
+        <title>Doctor Dashboard | HMS - Manage Appointments & Earnings</title>
 
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-gray-300 text-sm">{title}</p>
-          <h2 className="text-3xl font-bold text-white mt-1">
-            {value}
-          </h2>
+        <meta
+          name="description"
+          content="Doctor dashboard to manage appointments, patients, prescriptions and track daily earnings in Hospital Management System."
+        />
+
+        <meta
+          name="keywords"
+          content="doctor dashboard, hospital management system, doctor appointments, patient management, doctor earnings, HMS India"
+        />
+
+        <meta name="author" content="HMS App" />
+        <meta property="og:title" content="Doctor Dashboard | HMS" />
+        <meta
+          property="og:description"
+          content="Manage appointments and track doctor performance and earnings."
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
+
+
+      <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl shadow-xl hover:scale-[1.03] transition-all duration-300">
+
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-gray-300 text-sm">{title}</p>
+            <h2 className="text-3xl font-bold text-white mt-1">
+              {value}
+            </h2>
+          </div>
+
+          <div className={`p-3 rounded-xl bg-gradient-to-br ${colors[color]}`}>
+            {icon}
+          </div>
         </div>
 
-        <div className={`p-3 rounded-xl bg-gradient-to-br ${colors[color]}`}>
-          {icon}
-        </div>
       </div>
-
-    </div>
+    </>
   );
 }
 
-export default DoctorDashboard; 8
+export default DoctorDashboard; 

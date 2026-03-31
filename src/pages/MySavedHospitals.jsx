@@ -3,6 +3,7 @@ import API from "../api/axios";
 import Navbar from "../components/Navbar";
 import HospitalCard from "../components/HospitalCard";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 
 function MySavedHospitals() {
@@ -49,6 +50,14 @@ function MySavedHospitals() {
 
   return (
     <>
+      <Helmet>
+        <title>Saved Hospitals | HMS</title>
+        <meta
+          name="description"
+          content="Access your saved hospitals and quickly book appointments."
+        />
+        <meta name="keywords" content="saved hospitals, favorite hospitals, patient shortlist" />
+      </Helmet>
       <Navbar />
 
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 py-10 px-4">

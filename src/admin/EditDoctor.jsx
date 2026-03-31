@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import API from "../api/axios";
 import Navbar from "../components/Navbar";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 function EditDoctor() {
     const { id } = useParams();
@@ -92,6 +93,30 @@ function EditDoctor() {
 
     return (
         <>
+            <Helmet>
+                <title>Edit Doctor | HMS Admin Dashboard</title>
+
+                <meta
+                    name="description"
+                    content="Edit doctor profile, consultation fees, experience, and daily appointment limits in Hospital Management System Admin Dashboard."
+                />
+
+                <meta
+                    name="keywords"
+                    content="edit doctor HMS, doctor profile update, hospital admin dashboard, doctor consultation fee setup, healthcare management system"
+                />
+
+                <meta name="author" content="HMS App" />
+                <meta name="robots" content="index, follow" />
+
+
+                <meta property="og:title" content="Edit Doctor | HMS Admin" />
+                <meta
+                    property="og:description"
+                    content="Update doctor details, earnings settings and performance metrics."
+                />
+                <meta property="og:type" content="website" />
+            </Helmet>
             <Navbar />
 
             <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-950 p-6 flex items-center justify-center">

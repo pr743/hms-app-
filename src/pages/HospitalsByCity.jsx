@@ -6,11 +6,12 @@ import { Search, MapPin, RotateCcw } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Swal from "sweetalert2";
 import API from "../api/axios";
+import { Helmet } from "react-helmet-async";
 
 function HospitalsByCity() {
   const { user } = useContext(AuthContext);
 
-  const [city, setCity] = useState(""); 
+  const [city, setCity] = useState("");
   const [hospitals, setHospitals] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -64,7 +65,19 @@ function HospitalsByCity() {
 
 
   return (
-    <div>
+
+    <>
+
+      <Helmet>
+        <title>Find Hospitals Near You | HMS</title>
+        <meta
+          name="description"
+          content="Search hospitals by city and find the best healthcare services near you."
+        />
+        <meta name="keywords" content="hospitals near me, find hospitals, city hospitals search" />
+      </Helmet>
+
+
       <Navbar />
 
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6">
@@ -178,7 +191,7 @@ function HospitalsByCity() {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

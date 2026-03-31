@@ -3,6 +3,7 @@ import API from "../api/axios";
 import Navbar from "../components/Navbar";
 import { User, Mail, ShieldCheck, ShieldOff } from "lucide-react";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 function Patients() {
   const [patients, setPatients] = useState([]);
@@ -22,7 +23,7 @@ function Patients() {
 
   useEffect(() => {
     fetchPatients();
-  })
+  }, []);
   const toggleStatus = async (userId) => {
     const result = await Swal.fire({
       title: "Change Status?",
@@ -101,129 +102,151 @@ function Patients() {
     }
   };
 
-return (
-  <>
-    <Navbar />
+  return (
+    <>
+      <Helmet>
+        <title>Patients Management | HMS Admin Dashboard</title>
 
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 px-4 py-10">
+        <meta
+          name="description"
+          content="Manage patients, activate or block accounts, monitor healthcare users in Hospital Management System Admin Dashboard."
+        />
 
-      <div className="max-w-7xl mx-auto">
+        <meta
+          name="keywords"
+          content="patients management, hospital admin dashboard, HMS patients, user control system, healthcare admin panel"
+        />
 
-        <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 mb-8 shadow-2xl">
-          <h1 className="text-3xl font-bold text-white">
-            🧑‍⚕️ Patients Management Dashboard
-          </h1>
-          <p className="text-gray-300 text-sm mt-1">
-            Monitor, block, activate and manage patient accounts
-          </p>
-        </div>
+        <meta name="author" content="HMS App" />
+        <meta name="robots" content="index, follow" />
 
-        {loading ? (
-          <div className="text-center text-white text-lg py-20">
-            Loading patients...
+
+        <meta property="og:title" content="Patients Dashboard | HMS" />
+        <meta
+          property="og:description"
+          content="Monitor and manage patient accounts in hospital system."
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
+      <Navbar />
+
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 px-4 py-10">
+
+        <div className="max-w-7xl mx-auto">
+
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 mb-8 shadow-2xl">
+            <h1 className="text-3xl font-bold text-white">
+              🧑‍⚕️ Patients Management Dashboard
+            </h1>
+            <p className="text-gray-300 text-sm mt-1">
+              Monitor, block, activate and manage patient accounts
+            </p>
           </div>
-        ) : (
-          <>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-              {patients.map((patient) => (
-                <div
-                  key={patient._id}
-                  className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-2xl hover:scale-[1.02] transition"
-                >
-
-                  <div className="flex items-center gap-4 mb-5">
-
-                    <div className="bg-blue-500/20 p-3 rounded-2xl">
-                      <User className="text-blue-400" size={28} />
-                    </div>
-
-                    <div>
-                      <h2 className="text-white font-bold text-lg">
-                        {patient.user?.name || "N/A"}
-                      </h2>
-                      <p className="text-gray-300 text-sm">
-                        {patient.gender || "—"} • {patient.age || "—"} yrs
-                      </p>
-                    </div>
-
-                  </div>
-
-                  <div className="flex items-center gap-2 text-gray-300 mb-5">
-                    <Mail size={18} className="text-blue-400" />
-                    <span className="text-sm break-all">
-                      {patient.user?.email}
-                    </span>
-                  </div>
-
-                  <div className="mb-5">
-                    <span
-                      className={`px-4 py-1 rounded-full text-xs font-bold tracking-wide
-                      ${
-                        patient.user?.isActive
-                          ? "bg-green-500/20 text-green-400 border border-green-400/30"
-                          : "bg-red-500/20 text-red-400 border border-red-400/30"
-                      }`}
-                    >
-                      {patient.user?.isActive ? "ACTIVE USER" : "BLOCKED USER"}
-                    </span>
-                  </div>
-
-                  <div className="space-y-3">
-
-                    <button
-                      onClick={() => toggleStatus(patient.user._id)}
-                      className={`w-full py-3 rounded-2xl font-semibold text-white shadow-xl transition hover:scale-[1.02]
-                      ${
-                        patient.user?.isActive
-                          ? "bg-gradient-to-r from-red-500 to-pink-600"
-                          : "bg-gradient-to-r from-green-500 to-emerald-600"
-                      }`}
-                    >
-                      {patient.user?.isActive ? (
-                        <>
-                          <ShieldOff className="inline mr-2" size={18} />
-                          Block Patient
-                        </>
-                      ) : (
-                        <>
-                          <ShieldCheck className="inline mr-2" size={18} />
-                          Activate Patient
-                        </>
-                      )}
-                    </button>
-
-
-                    {!patient.user?.isActive && (
-                      <button
-                        onClick={() => deletePatient(patient.user._id)}
-                        className="w-full py-3 rounded-2xl font-semibold text-white bg-black/60 border border-white/20 hover:bg-black transition"
-                      >
-                        🗑 Delete Account
-                      </button>
-                    )}
-
-                  </div>
-
-                </div>
-              ))}
-
-              {patients.length === 0 && (
-                <div className="col-span-full text-center text-gray-300 py-20">
-                  No patients found
-                </div>
-              )}
-
+          {loading ? (
+            <div className="text-center text-white text-lg py-20">
+              Loading patients...
             </div>
+          ) : (
+            <>
 
-          </>
-        )}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
+                {patients.map((patient) => (
+                  <div
+                    key={patient._id}
+                    className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-2xl hover:scale-[1.02] transition"
+                  >
+
+                    <div className="flex items-center gap-4 mb-5">
+
+                      <div className="bg-blue-500/20 p-3 rounded-2xl">
+                        <User className="text-blue-400" size={28} />
+                      </div>
+
+                      <div>
+                        <h2 className="text-white font-bold text-lg">
+                          {patient.user?.name || "N/A"}
+                        </h2>
+                        <p className="text-gray-300 text-sm">
+                          {patient.gender || "—"} • {patient.age || "—"} yrs
+                        </p>
+                      </div>
+
+                    </div>
+
+                    <div className="flex items-center gap-2 text-gray-300 mb-5">
+                      <Mail size={18} className="text-blue-400" />
+                      <span className="text-sm break-all">
+                        {patient.user?.email}
+                      </span>
+                    </div>
+
+                    <div className="mb-5">
+                      <span
+                        className={`px-4 py-1 rounded-full text-xs font-bold tracking-wide
+                      ${patient.user?.isActive
+                            ? "bg-green-500/20 text-green-400 border border-green-400/30"
+                            : "bg-red-500/20 text-red-400 border border-red-400/30"
+                          }`}
+                      >
+                        {patient.user?.isActive ? "ACTIVE USER" : "BLOCKED USER"}
+                      </span>
+                    </div>
+
+                    <div className="space-y-3">
+
+                      <button
+                        onClick={() => toggleStatus(patient.user._id)}
+                        className={`w-full py-3 rounded-2xl font-semibold text-white shadow-xl transition hover:scale-[1.02]
+                      ${patient.user?.isActive
+                            ? "bg-gradient-to-r from-red-500 to-pink-600"
+                            : "bg-gradient-to-r from-green-500 to-emerald-600"
+                          }`}
+                      >
+                        {patient.user?.isActive ? (
+                          <>
+                            <ShieldOff className="inline mr-2" size={18} />
+                            Block Patient
+                          </>
+                        ) : (
+                          <>
+                            <ShieldCheck className="inline mr-2" size={18} />
+                            Activate Patient
+                          </>
+                        )}
+                      </button>
+
+
+                      {!patient.user?.isActive && (
+                        <button
+                          onClick={() => deletePatient(patient.user._id)}
+                          className="w-full py-3 rounded-2xl font-semibold text-white bg-black/60 border border-white/20 hover:bg-black transition"
+                        >
+                          🗑 Delete Account
+                        </button>
+                      )}
+
+                    </div>
+
+                  </div>
+                ))}
+
+                {patients.length === 0 && (
+                  <div className="col-span-full text-center text-gray-300 py-20">
+                    No patients found
+                  </div>
+                )}
+
+              </div>
+
+            </>
+          )}
+
+        </div>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
 }
 
 export default Patients;

@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import API from "../api/axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 function CreatePatientProfile() {
   const location = useLocation();
@@ -88,93 +89,121 @@ function CreatePatientProfile() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md">
-
-        {message && (
-          <div className="mb-4 p-3 bg-blue-100 text-blue-700 rounded-lg">
-            {message}
-          </div>
-        )}
-
-        <h1 className="text-2xl font-bold mb-4">
-          Complete Your Profile
-        </h1>
-
-        <form onSubmit={handleSubmit} className="space-y-3">
-
-          <input
-            name="age"
-            placeholder="Age"
-            value={form.age}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded"
-          />
 
 
-          <select
-            name="gender"
-            value={form.gender}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded"
-          >
-            <option value="">Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
+    <>
+      <Helmet>
+        <title>Create Patient Profile | HMS Healthcare</title>
+
+        <meta
+          name="description"
+          content="Create your patient profile to book appointments, manage medical history, and connect with top hospitals easily using our healthcare platform."
+        />
+
+        <meta
+          name="keywords"
+          content="Patient Profile, Healthcare Registration, Book Appointment, Hospital System, Medical Profile India, HMS Patient Setup"
+        />
+
+        <meta name="author" content="HMS System" />
 
 
-          {/* <input
-            name="bloodGroup"
-            placeholder="Blood Group"
-            value={form.bloodGroup}
-            onChange={handleChange}
-            className="w-full p-2 border rounded"
-          /> */}
+        <meta property="og:title" content="Create Patient Profile | HMS" />
+        <meta
+          property="og:description"
+          content="Complete your patient profile and start booking appointments instantly."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourdomain.com/create-profile" />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Create Patient Profile | HMS" />
+        <meta
+          name="twitter:description"
+          content="Quickly create your healthcare profile and manage appointments."
+        />
+      </Helmet>
+
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md">
+
+          {message && (
+            <div className="mb-4 p-3 bg-blue-100 text-blue-700 rounded-lg">
+              {message}
+            </div>
+          )}
+
+          <h1 className="text-2xl font-bold mb-4">
+            Complete Your Profile
+          </h1>
+
+          <form onSubmit={handleSubmit} className="space-y-3">
+
+            <input
+              name="age"
+              placeholder="Age"
+              value={form.age}
+              onChange={handleChange}
+              required
+              className="w-full p-2 border rounded"
+            />
 
 
-          <select
-            name="bloodGroup"
-            value={form.bloodGroup}
-            onChange={handleChange}
-            className="w-full p-2 border rounded"
-          >
-            <option value="">Select Blood Group</option>
-            <option value="A+">A+</option>
-            <option value="A-">A-</option>
-            <option value="B+">B+</option>
-            <option value="B-">B-</option>
-            <option value="O+">O+</option>
-            <option value="O-">O-</option>
-            <option value="AB+">AB+</option>
-            <option value="AB-">AB-</option>
-          </select>
+            <select
+              name="gender"
+              value={form.gender}
+              onChange={handleChange}
+              required
+              className="w-full p-2 border rounded"
+            >
+              <option value="">Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
 
 
-          <select
-            name="hospitalId"
-            value={form.hospitalId}
-            onChange={handleChange}
-            required
-            className="w-full p-2 border rounded"
-          >
-            <option value="">Select Hospital</option>
 
-            {hospitals.map((h) => (
-              <option key={h._id} value={h._id}>
-                {h.name} ({h.city})
-              </option>
-            ))}
-          </select>
+            <select
+              name="bloodGroup"
+              value={form.bloodGroup}
+              onChange={handleChange}
+              className="w-full p-2 border rounded"
+            >
+              <option value="">Select Blood Group</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+            </select>
 
-          <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
-            Save & Continue
-          </button>
-        </form>
+
+            <select
+              name="hospitalId"
+              value={form.hospitalId}
+              onChange={handleChange}
+              required
+              className="w-full p-2 border rounded"
+            >
+              <option value="">Select Hospital</option>
+
+              {hospitals.map((h) => (
+                <option key={h._id} value={h._id}>
+                  {h.name} ({h.city})
+                </option>
+              ))}
+            </select>
+
+            <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+              Save & Continue
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -3,6 +3,7 @@ import { Calendar, Clock, User, FileText } from "lucide-react";
 import API from "../../api/axios";
 import Navbar from "../../components/Navbar";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 function BookAppointment() {
   const [hospitals, setHospitals] = useState([]);
@@ -182,6 +183,15 @@ function BookAppointment() {
   };
   return (
     <>
+
+      <Helmet>
+        <title>Book Doctor Appointment Online | HMS</title>
+        <meta
+          name="description"
+          content="Book doctor appointments online easily. Choose hospital, doctor, and time slot instantly."
+        />
+        <meta name="keywords" content="doctor booking, hospital appointment, online doctor consultation" />
+      </Helmet>
       <Navbar />
 
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6">

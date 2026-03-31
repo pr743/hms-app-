@@ -3,6 +3,7 @@ import API from "../../api/axios";
 import Navbar from "../../components/Navbar";
 import { Calendar, Clock, User } from "lucide-react";
 import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 function DoctorPatientHistory() {
   const { patientId } = useParams();
@@ -38,6 +39,32 @@ function DoctorPatientHistory() {
   return (
     <>
       <Navbar />
+      <Helmet>
+        <title>Patient History | Doctor HMS</title>
+
+        <meta
+          name="description"
+          content="View complete patient medical history, appointment records and treatment details."
+        />
+
+        <meta
+          name="keywords"
+          content="patient history, medical records, HMS doctor history, appointment history"
+        />
+
+        <meta name="author" content="HMS Team" />
+
+        <meta property="og:title" content="Patient Medical History - HMS" />
+        <meta
+          property="og:description"
+          content="Access full patient consultation and treatment history."
+        />
+        <meta property="og:type" content="website" />
+
+        <meta name="robots" content="noindex, follow" />
+
+        <link rel="canonical" href="https://yourdomain.com/doctor/patient-history" />
+      </Helmet>
 
 
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6">

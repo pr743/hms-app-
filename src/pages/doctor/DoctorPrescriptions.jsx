@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import API from "../../api/axios";
 import Navbar from "../../components/Navbar";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 function DoctorPrescriptions() {
   const [prescriptions, setPrescriptions] = useState([]);
@@ -97,6 +98,34 @@ function DoctorPrescriptions() {
 
   return (
     <>
+      <Helmet>
+        <title>Doctor Prescriptions | HMS</title>
+
+        <meta
+          name="description"
+          content="Manage, download and delete patient prescriptions in HMS doctor dashboard."
+        />
+
+        <meta
+          name="keywords"
+          content="doctor prescriptions, HMS medicines, prescription pdf, patient medicines"
+        />
+
+        <meta name="author" content="HMS Team" />
+
+        <meta property="og:title" content="Doctor Prescriptions - HMS" />
+        <meta
+          property="og:description"
+          content="Download and manage all prescriptions created by doctor."
+        />
+        <meta property="og:type" content="website" />
+
+        <meta name="robots" content="index, follow" />
+
+        <link rel="canonical" href="https://yourdomain.com/doctor/prescriptions" />
+      </Helmet>
+
+
       <Navbar />
 
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6">

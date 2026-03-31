@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import API from "../../api/axios";
 import Navbar from "../../components/Navbar";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
+
 
 function PatientAppointments() {
     const [appointments, setAppointments] = useState([]);
@@ -52,6 +54,15 @@ function PatientAppointments() {
 
     return (
         <>
+
+            <Helmet>
+                <title>My Appointments | HMS</title>
+                <meta
+                    name="description"
+                    content="View and manage all your doctor appointments. Track status, date, and details."
+                />
+                <meta name="keywords" content="my appointments, doctor booking history, patient dashboard" />
+            </Helmet>
             <Navbar />
 
 

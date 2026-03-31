@@ -12,6 +12,7 @@ import API from "../../api/axios";
 import Navbar from "../../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 import {
   Calendar,
@@ -207,6 +208,33 @@ function DoctorAppointment() {
 
   return (
     <>
+      <Helmet>
+        <title>Doctor Appointments | HMS</title>
+
+        <meta
+          name="description"
+          content="Manage doctor appointments, schedule, reschedule, and track patient visits in HMS dashboard."
+        />
+
+        <meta
+          name="keywords"
+          content="doctor appointments, HMS schedule, calendar doctor, patient booking system"
+        />
+
+        <meta name="author" content="HMS Team" />
+
+        <meta property="og:title" content="Doctor Appointment Dashboard - HMS" />
+        <meta
+          property="og:description"
+          content="Track and manage appointments with smart calendar system."
+        />
+        <meta property="og:type" content="website" />
+
+        <meta name="robots" content="index, follow" />
+
+        <link rel="canonical" href="https://yourdomain.com/doctor/appointments" />
+      </Helmet>
+
       <Navbar />
 
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6">

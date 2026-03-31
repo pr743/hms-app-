@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import { UserCheck, UserX } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 function Doctors() {
   const [doctors, setDoctors] = useState([]);
@@ -113,6 +114,38 @@ function Doctors() {
 
   return (
     <>
+      <Helmet>
+        <title>Doctors Management Dashboard | HMS Admin</title>
+
+        <meta
+          name="description"
+          content="Manage doctors in your hospital system. Activate, deactivate, edit, and monitor doctors efficiently using the HMS admin dashboard."
+        />
+
+        <meta
+          name="keywords"
+          content="Doctors Management, Admin Dashboard, Hospital Management System, Manage Doctors, Healthcare Admin Panel, Doctor Control System"
+        />
+
+        <meta name="author" content="HMS System" />
+
+        <meta property="og:title" content="Doctors Dashboard | HMS Admin" />
+        <meta
+          property="og:description"
+          content="Control doctor access, manage profiles, and monitor healthcare system performance."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourdomain.com/admin/doctors" />
+
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Doctors Dashboard | HMS" />
+        <meta
+          name="twitter:description"
+          content="Admin panel to manage doctors in hospital system."
+        />
+      </Helmet>
+
       <Navbar />
 
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 px-4 py-10">

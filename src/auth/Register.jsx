@@ -5,6 +5,7 @@ import Loader from "../components/Loader";
 import { Lock, Mail, User, MapPin, Eye, EyeOff } from "lucide-react";
 import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
+import { Helmet } from "react-helmet-async";
 
 function Register() {
   const navigate = useNavigate();
@@ -67,6 +68,32 @@ function Register() {
 
   return (
     <>
+      <Helmet>
+        <title>patient Register | Hospital Management System</title>
+
+        <meta
+          name="description"
+          content="register patient account to manage hospitals, doctors, patients and appointments in HMS system."
+        />
+
+        <meta
+          name="keywords"
+          content="hospital patient Register, HMS patient panel, healthcare management system, admin Login"
+        />
+
+        <meta name="author" content="HMS Team" />
+
+
+        <meta property="og:title" content="Admin Login - HMS" />
+        <meta
+          property="og:description"
+          content="Create admin account and manage full hospital system dashboard."
+        />
+        <meta property="og:type" content="website" />
+
+
+        <meta name="robots" content="index, follow" />
+      </Helmet>
       <Navbar />
 
       <div className="min-h-screen flex items-center justify-center px-4 pt-20

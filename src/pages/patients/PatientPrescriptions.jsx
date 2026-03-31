@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import API from "../../api/axios";
 import Navbar from "../../components/Navbar";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 export default function PatientPrescriptions() {
   const [prescriptions, setPrescriptions] = useState([]);
@@ -58,6 +59,16 @@ export default function PatientPrescriptions() {
 
   return (
     <>
+
+      <Helmet>
+        <title>My Prescriptions | HMS</title>
+        <meta
+          name="description"
+          content="View all your prescriptions, medicines, dosage, and treatment history."
+        />
+        <meta name="keywords" content="prescriptions, medicines, doctor prescription records" />
+      </Helmet>
+
       <Navbar />
 
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6">

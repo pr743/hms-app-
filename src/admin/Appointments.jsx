@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import API from "../api/axios";
 import Navbar from "../components/Navbar";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 import {
   Calendar as BigCalendar,
@@ -159,6 +160,31 @@ function Appointments() {
 
   return (
     <>
+
+      <Helmet>
+        <title>Appointments Dashboard | HMS Admin</title>
+
+        <meta
+          name="description"
+          content="Manage all hospital appointments, scheduling, cancellations and patient flow from admin dashboard."
+        />
+
+        <meta
+          name="keywords"
+          content="appointments dashboard, hospital booking system, admin appointment panel, HMS appointments, manage doctor bookings"
+        />
+
+        <meta name="robots" content="noindex, nofollow" />
+
+        <meta property="og:title" content="Appointments Dashboard | HMS" />
+        <meta
+          property="og:description"
+          content="Admin panel to manage hospital appointments and scheduling."
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
+
+
       <Navbar />
 
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 px-4 py-10">

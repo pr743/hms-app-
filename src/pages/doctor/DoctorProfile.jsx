@@ -3,6 +3,7 @@ import { useState } from "react";
 import API from "../../api/axios";
 import { useEffect } from "react";
 import Navbar from "../../components/Navbar";
+import { Helmet } from "react-helmet-async";
 
 function DoctorProfile() {
   const [profile, setProfile] = useState(null);
@@ -26,8 +27,33 @@ function DoctorProfile() {
   if (loading) return <div className="p-6">Loading...</div>
   return (
     <>
-      <Navbar />
+      <Helmet>
+        <title>Doctor Profile | HMS</title>
 
+        <meta
+          name="description"
+          content="View doctor profile, experience, specialization and hospital details in HMS."
+        />
+
+        <meta
+          name="keywords"
+          content="doctor profile, HMS doctor info, specialization, hospital doctor"
+        />
+
+        <meta name="author" content="HMS Team" />
+
+        <meta property="og:title" content="Doctor Profile - HMS" />
+        <meta
+          property="og:description"
+          content="Check doctor professional details and performance."
+        />
+        <meta property="og:type" content="website" />
+
+        <meta name="robots" content="noindex, follow" />
+
+        <link rel="canonical" href="https://yourdomain.com/doctor/profile" />
+      </Helmet>
+      <Navbar />
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6">
 
         <div className="max-w-4xl mx-auto mb-8">

@@ -7,6 +7,7 @@ import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 
 function Login() {
   const navigate = useNavigate();
@@ -60,6 +61,32 @@ function Login() {
 
   return (
     <>
+      <Helmet>
+        <title>Login  | Hospital Management System</title>
+
+        <meta
+          name="description"
+          content="Login admin login to manage hospitals, doctors, patients and appointments in HMS system."
+        />
+
+        <meta
+          name="keywords"
+          content="hospital admin Login, HMS admin panel, healthcare management system, admin Login"
+        />
+
+        <meta name="author" content="HMS Team" />
+
+
+        <meta property="og:title" content="Admin Login - HMS" />
+        <meta
+          property="og:description"
+          content="Create admin account and manage full hospital system dashboard."
+        />
+        <meta property="og:type" content="website" />
+
+
+        <meta name="robots" content="index, follow" />
+      </Helmet>
       <Navbar />
 
       <div className="min-h-screen flex items-center justify-center px-4 pt-20

@@ -8,6 +8,7 @@ import {
   FileText,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 function PatientDashboard() {
   const [stats, setStats] = useState(null);
@@ -60,8 +61,6 @@ function PatientDashboard() {
 
 
 
-  if (!stats) return null;
-
   if (!stats) {
     return (
       <>
@@ -75,6 +74,31 @@ function PatientDashboard() {
 
   return (
     <>
+      <Helmet>
+        <title>Patient Dashboard | HMS - Health & Appointments Tracker</title>
+
+        <meta
+          name="description"
+          content="Manage your appointments, track health records, prescriptions and monitor your healthcare journey with HMS Patient Dashboard."
+        />
+
+        <meta
+          name="keywords"
+          content="patient dashboard, hospital management system, appointments tracking, health records, prescriptions, HMS India"
+        />
+
+        <meta name="author" content="HMS App" />
+        <meta name="robots" content="index, follow" />
+
+
+        <meta property="og:title" content="Patient Dashboard | HMS" />
+        <meta
+          property="og:description"
+          content="Track your health, appointments and medical records easily."
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
+
       <Navbar />
 
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6">
@@ -165,22 +189,25 @@ function StatCard({ title, value, icon, color }) {
   };
 
   return (
-    <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl shadow-xl hover:scale-[1.03] transition-all duration-300">
+    <>
 
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-gray-300 text-sm">{title}</p>
-          <h2 className="text-3xl font-bold text-white mt-1">
-            {value}
-          </h2>
+      <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl shadow-xl hover:scale-[1.03] transition-all duration-300">
+
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-gray-300 text-sm">{title}</p>
+            <h2 className="text-3xl font-bold text-white mt-1">
+              {value}
+            </h2>
+          </div>
+
+          <div className={`p-3 rounded-xl bg-gradient-to-br ${colors[color]}`}>
+            {icon}
+          </div>
         </div>
 
-        <div className={`p-3 rounded-xl bg-gradient-to-br ${colors[color]}`}>
-          {icon}
-        </div>
       </div>
-
-    </div>
+    </>
   );
 }
 

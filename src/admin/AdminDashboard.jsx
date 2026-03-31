@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import API from "../api/axios";
+import { Helmet } from "react-helmet-async";
+
 import {
   Users,
   UserCheck,
@@ -60,6 +62,28 @@ function AdminDashboard() {
 
   return (
     <>
+      <Helmet>
+        <title>Admin Dashboard | Hospital Management System</title>
+
+        <meta
+          name="description"
+          content="Admin dashboard to manage hospitals, doctors, patients and appointments with real-time analytics and AI insights."
+        />
+
+        <meta
+          name="keywords"
+          content="admin dashboard, hospital management system, HMS admin panel, manage doctors patients appointments, healthcare dashboard, medical admin system"
+        />
+
+        <meta property="og:title" content="Admin Dashboard | HMS" />
+        <meta
+          property="og:description"
+          content="Manage hospital system with analytics, doctors, patients and appointments."
+        />
+        <meta property="og:type" content="website" />
+
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <Navbar />
 
       <div className="min-h-screen px-6 pt-24 pb-10

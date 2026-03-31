@@ -3,6 +3,7 @@ import { Hospital } from "lucide-react";
 import Navbar from "../components/Navbar";
 import API from "../api/axios";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 function AddHospital() {
   const [form, setForm] = useState({
@@ -93,6 +94,39 @@ function AddHospital() {
 
   return (
     <>
+      <Helmet>
+        <title>Add Hospital | HMS Admin Panel</title>
+
+        <meta
+          name="description"
+          content="Add and manage hospitals with AI-powered setup. Hospital Management System helps admins configure timings, slots, emergency services, and locations easily."
+        />
+
+        <meta
+          name="keywords"
+          content="Add Hospital, Hospital Setup, HMS Admin, Hospital Management System, AI Hospital Setup, Healthcare Platform India, Hospital Registration"
+        />
+
+        <meta name="author" content="HMS System" />
+
+        <meta property="og:title" content="Add Hospital | HMS Admin Panel" />
+        <meta
+          property="og:description"
+          content="Smart AI-powered hospital onboarding system with scheduling and emergency setup."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourdomain.com/admin/add-hospital" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Add Hospital | HMS" />
+        <meta
+          name="twitter:description"
+          content="AI-powered hospital setup system for modern healthcare platforms."
+        />
+      </Helmet>
+
+
+
       <Navbar />
 
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 px-4 py-10">
@@ -107,10 +141,14 @@ function AddHospital() {
 
               <div>
                 <h1 className="text-2xl font-bold text-white">
-                  Smart Hospital Setup 🏥
+                  Add Hospital & Setup Schedule 🏥
                 </h1>
                 <p className="text-gray-300 text-sm">
                   Premium hospital onboarding system
+                </p>
+
+                <p className="hidden">
+                  Add hospitals, manage schedules, enable emergency services, and optimize healthcare booking system using AI powered hospital management software.
                 </p>
               </div>
             </div>

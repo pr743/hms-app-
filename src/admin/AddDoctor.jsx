@@ -3,6 +3,7 @@ import API from "../api/axios";
 import Navbar from "../components/Navbar";
 import { UserPlus } from "lucide-react";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 function AddDoctor() {
   const [form, setForm] = useState({
@@ -111,7 +112,40 @@ function AddDoctor() {
   };
 
   return (
+
     <>
+      <Helmet>
+        <title>Add Doctor | HMS Admin Panel</title>
+
+        <meta
+          name="description"
+          content="Add doctors with AI-powered setup. Hospital Management System helps admins manage doctors, consultation fees, schedules, and patient load efficiently."
+        />
+
+        <meta
+          name="keywords"
+          content="Add Doctor, Hospital Management System, Doctor Setup, AI Doctor Management, HMS Admin, Healthcare Dashboard, Doctor Registration"
+        />
+
+        <meta name="author" content="HMS System" />
+
+        <meta property="og:title" content="Add Doctor | HMS Admin Panel" />
+        <meta
+          property="og:description"
+          content="AI-powered doctor onboarding with smart consultation setup."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourdomain.com/admin/add-doctor" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Add Doctor | HMS" />
+        <meta
+          name="twitter:description"
+          content="Smart AI doctor onboarding system for hospitals."
+        />
+      </Helmet>
+
+
       <Navbar />
 
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 px-4 py-10">

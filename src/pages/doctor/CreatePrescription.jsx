@@ -3,6 +3,7 @@ import API from "../../api/axios";
 import Navbar from "../../components/Navbar";
 import DoctorSignature from "./DoctorSignature";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const ALL_SYMPTOMS = [
   "Fever", "Cold", "Cough", "Headache", "Migraine",
@@ -217,6 +218,34 @@ export default function CreatePrescription() {
 
   return (
     <>
+
+      <Helmet>
+        <title>Create Prescription | Doctor HMS</title>
+
+        <meta
+          name="description"
+          content="Create AI-assisted prescriptions, add medicines, diagnosis and generate reports in HMS doctor dashboard."
+        />
+
+        <meta
+          name="keywords"
+          content="doctor prescription, AI prescription, HMS doctor panel, generate prescription, patient medicine"
+        />
+
+        <meta name="author" content="HMS Team" />
+        <meta property="og:title" content="Create Prescription - HMS Doctor" />
+        <meta
+          property="og:description"
+          content="Doctor can generate smart AI-based prescriptions with medicine validation."
+        />
+        <meta property="og:type" content="website" />
+
+        <meta name="robots" content="index, follow" />
+
+        <link rel="canonical" href="https://yourdomain.com/doctor/create-prescription" />
+      </Helmet>
+
+
       <Navbar />
 
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6">
