@@ -14,7 +14,8 @@ function MySavedHospitals() {
     const fetchSaved = async () => {
       try {
         const res = await API.get("/hospitals/saved");
-        setHospitals(res.data.data);
+        // setHospitals(res.data.data);
+        setHospitals(Array.isArray(res.data?.data) ? res.data.data : []);
       } catch (error) {
         console.error(error);
       } finally {
