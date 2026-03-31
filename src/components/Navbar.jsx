@@ -106,7 +106,7 @@ function Navbar() {
         <>
 
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-40"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
             onClick={closeMenu}
           ></div>
 
@@ -118,7 +118,7 @@ function Navbar() {
               <h2 className="text-lg font-bold text-blue-600">Menu</h2>
               <X
                 size={24}
-                className="cursor-pointer"
+                className="cursor-pointer  text-black"
                 onClick={closeMenu}
               />
             </div>

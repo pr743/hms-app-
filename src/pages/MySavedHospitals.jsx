@@ -98,8 +98,6 @@ function MySavedHospitals() {
                   key={hospital._id}
                   className="relative group bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 overflow-hidden"
                 >
-
-
                   <div className="h-1 bg-gradient-to-r from-pink-500 to-red-500"></div>
 
                   <div className="p-4">
