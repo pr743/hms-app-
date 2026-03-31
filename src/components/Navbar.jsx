@@ -111,7 +111,7 @@ function Navbar() {
           ></div>
 
 
-          <div className="fixed top-0 left-0 h-full w-72 bg-white text-white z-50 shadow-lg transition-transform duration-300">
+          <div className="fixed top-0 left-0 h-full w-72 bg-white text-black z-50 shadow-lg transition-transform duration-300">
 
 
             <div className="flex justify-between items-center p-4 border-b">
