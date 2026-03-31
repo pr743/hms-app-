@@ -51,7 +51,7 @@ function DoctorProfile() {
 
         <meta name="robots" content="noindex, follow" />
 
-        <link rel="canonical" href="https://yourdomain.com/doctor/profile" />
+        <link rel="canonical" href="https://hms-app-l8ub.vercel.app/doctor/profile" />
       </Helmet>
       <Navbar />
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6">

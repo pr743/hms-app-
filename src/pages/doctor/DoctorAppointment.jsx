@@ -232,7 +232,7 @@ function DoctorAppointment() {
 
         <meta name="robots" content="index, follow" />
 
-        <link rel="canonical" href="https://yourdomain.com/doctor/appointments" />
+        <link rel="canonical" href="https://hms-app-l8ub.vercel.app/doctor/appointments" />
       </Helmet>
 
       <Navbar />

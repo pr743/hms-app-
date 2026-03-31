@@ -122,7 +122,7 @@ function DoctorPrescriptions() {
 
         <meta name="robots" content="index, follow" />
 
-        <link rel="canonical" href="https://yourdomain.com/doctor/prescriptions" />
+        <link rel="canonical" href="https://hms-app-l8ub.vercel.app/doctor/prescriptions" />
       </Helmet>
 
 

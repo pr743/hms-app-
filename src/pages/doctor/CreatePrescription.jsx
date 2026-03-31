@@ -242,7 +242,7 @@ export default function CreatePrescription() {
 
         <meta name="robots" content="index, follow" />
 
-        <link rel="canonical" href="https://yourdomain.com/doctor/create-prescription" />
+        <link rel="canonical" href="https://hms-app-l8ub.vercel.app/doctor/create-prescription" />
       </Helmet>
 
 

@@ -115,7 +115,7 @@ function AddHospital() {
           content="Smart AI-powered hospital onboarding system with scheduling and emergency setup."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yourdomain.com/admin/add-hospital" />
+        <meta property="og:url" content="https://hms-app-l8ub.vercel.app/admin/hospitals" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Add Hospital | HMS" />

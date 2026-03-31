@@ -62,8 +62,6 @@ function DoctorPatientHistory() {
         <meta property="og:type" content="website" />
 
         <meta name="robots" content="noindex, follow" />
-
-        <link rel="canonical" href="https://yourdomain.com/doctor/patient-history" />
       </Helmet>
 
 

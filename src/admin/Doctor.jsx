@@ -135,7 +135,7 @@ function Doctors() {
           content="Control doctor access, manage profiles, and monitor healthcare system performance."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yourdomain.com/admin/doctors" />
+        <meta property="og:url" content="https://hms-app-l8ub.vercel.app/admin/doctors" />
 
 
         <meta name="twitter:card" content="summary" />
