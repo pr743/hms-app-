@@ -60,6 +60,8 @@ export default function PatientHistory() {
           content="Check your complete medical history including diagnosis, doctor notes, and past treatments."
         />
         <meta name="keywords" content="medical history, patient records, diagnosis history" />
+
+        <link rel="canonical" href="https://hms-app-l8ub.vercel.app/history" />
       </Helmet>
 
       <Navbar />

@@ -191,6 +191,10 @@ function BookAppointment() {
           content="Book doctor appointments online easily. Choose hospital, doctor, and time slot instantly."
         />
         <meta name="keywords" content="doctor booking, hospital appointment, online doctor consultation" />
+
+        <link rel="canonical" href="https://hms-app-l8ub.vercel.app/book-appointment" />
+
+
       </Helmet>
       <Navbar />
 

@@ -11,15 +11,23 @@ function Home() {
     return (
         <>
             <Helmet>
-                <title>Hospital Management System | Book Doctor Online</title>
+                <title>HMS - Book Doctor Appointment Online</title>
+
                 <meta
                     name="description"
-                    content="Find hospitals, book doctor appointments, manage prescriptions online easily."
+                    content="Find hospitals, book doctor appointments, and manage your health online easily."
                 />
+
                 <meta
                     name="keywords"
-                    content="hospital management system, doctor appointment, HMS project, online booking"
+                    content="hospital management system, doctor booking, hospitals near me"
                 />
+
+                <link rel="canonical" href="https://hms-app-l8ub.vercel.app/" />
+
+                <meta property="og:title" content="HMS - Healthcare Platform" />
+                <meta property="og:description" content="Book appointments easily." />
+                <meta property="og:url" content="https://hms-app-l8ub.vercel.app/" />
             </Helmet>
 
             <div className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white min-h-screen overflow-hidden">
