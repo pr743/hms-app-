@@ -3,22 +3,27 @@
 
   <url>
     <loc>https://hms-app-l8ub.vercel.app/</loc>
+    <priority>1.0</priority>
   </url>
 
   <url>
     <loc>https://hms-app-l8ub.vercel.app/hospitals</loc>
+    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://hms-app-l8ub.vercel.app/book-appointment</loc>
+    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://hms-app-l8ub.vercel.app/my-appointments</loc>
+    <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://hms-app-l8ub.vercel.app/history</loc>
+    <priority>0.6</priority>
   </url>
 
 </urlset>
