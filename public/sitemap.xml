@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://hms-app-l8ub.vercel.app/</loc>
+  </url>
+
+  <url>
+    <loc>https://hms-app-l8ub.vercel.app/hospitals</loc>
+  </url>
+
+  <url>
+    <loc>https://hms-app-l8ub.vercel.app/book-appointment</loc>
+  </url>
+
+  <url>
+    <loc>https://hms-app-l8ub.vercel.app/my-appointments</loc>
+  </url>
+
+  <url>
+    <loc>https://hms-app-l8ub.vercel.app/history</loc>
+  </url>
+
+</urlset>
