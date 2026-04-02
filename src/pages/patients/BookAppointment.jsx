@@ -24,47 +24,107 @@ function BookAppointment() {
 
   const reasonsList = [
     "Fever",
-    "Cold & Cough",
+    "Weakness",
+    "Fatigue",
+    "Body Pain",
+
+
     "Headache",
     "Migraine",
-    "Body Pain",
-    "Back Pain",
+    "Dizziness",
+    "Memory Issues",
+
+
+    "Eye Pain",
+    "Vision Problem",
+    "Red Eyes",
+    "Eye Infection",
+
+
+    "Ear Pain",
+    "Hearing Issue",
+    "Ear Infection",
+    "Ringing in Ears",
+
+
+    "Nose Block",
+    "Sinus",
+    "Nose Bleeding",
+    "Allergy",
+
+
+    "Throat Pain",
+    "Cough",
+    "Cold & Flu",
+    "Voice Problem",
+
+
+    "Tooth Pain",
+    "Gum Bleeding",
+    "Tooth Sensitivity",
+    "Mouth Ulcer",
+
+
     "Chest Pain",
+    "Heart Problem",
+    "Blood Pressure",
+    "Palpitations",
+
+
+    "Breathing Issue",
+    "Asthma",
+    "Lung Infection",
+
+
     "Stomach Pain",
     "Acidity",
     "Vomiting",
     "Diarrhea",
     "Constipation",
+    "Gas Problem",
+    "Indigestion",
+
+
+    "Kidney Problem",
+    "Urine Infection",
+    "Frequent Urination",
+
+
+    "Back Pain",
+    "Joint Pain",
+    "Arthritis",
+    "Muscle Pain",
+    "Fracture",
+    "Injury",
+
+
     "Skin Allergy",
     "Rash",
     "Itching",
+    "Acne",
     "Hair Fall",
-    "Eye Pain",
-    "Vision Problem",
-    "Ear Pain",
-    "Hearing Issue",
-    "Nose Block",
-    "Sinus",
-    "Throat Pain",
-    "Diabetes Check",
-    "Blood Pressure",
-    "Heart Problem",
-    "Asthma",
-    "Breathing Issue",
-    "Kidney Problem",
-    "Urine Infection",
-    "Joint Pain",
-    "Arthritis",
-    "Fracture",
-    "Injury",
-    "Burn",
-    "Pregnancy Check",
-    "Child Health",
-    "General Checkup",
-    "Weakness",
+    "Dandruff",
+
+
     "Stress",
     "Anxiety",
     "Depression",
+    "Sleep Issues",
+
+
+    "Pregnancy Check",
+    "Periods Problem",
+    "PCOS / Hormonal Issue",
+
+
+    "Child Health",
+    "Vaccination",
+
+
+    "Burn",
+    "Accident Injury",
+    "Emergency",
+
     "Other"
   ];
 

@@ -6,22 +6,108 @@ import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 
 const ALL_SYMPTOMS = [
-  "Fever", "Cold", "Cough", "Headache", "Migraine",
-  "Eye Pain", "Eye Infection", "Blur Vision",
-  "Ear Pain", "Hearing Issue",
-  "Chest Pain", "Heart Pain", "Breathing Problem",
-  "Stomach Pain", "Acidity", "Vomiting", "Diarrhea",
-  "Back Pain", "Joint Pain", "Muscle Pain",
-  "Skin Allergy", "Rash", "Itching",
-  "Diabetes", "High Blood Pressure", "Low BP",
-  "Thyroid", "Weakness", "Fatigue",
-  "Anxiety", "Depression", "Sleep Problem",
-  "Tooth Pain", "Gum Infection",
-  "Hair Fall", "Dandruff",
-  "Kidney Pain", "Urine Infection",
-  "Liver Problem",
-  "Asthma", "Sinus",
-  "Covid Symptoms",
+  "Fever",
+  "Weakness",
+  "Fatigue",
+  "Body Pain",
+
+
+  "Headache",
+  "Migraine",
+  "Dizziness",
+  "Memory Issues",
+
+
+  "Eye Pain",
+  "Vision Problem",
+  "Red Eyes",
+  "Eye Infection",
+
+
+  "Ear Pain",
+  "Hearing Issue",
+  "Ear Infection",
+  "Ringing in Ears",
+
+
+  "Nose Block",
+  "Sinus",
+  "Nose Bleeding",
+  "Allergy",
+
+
+  "Throat Pain",
+  "Cough",
+  "Cold & Flu",
+  "Voice Problem",
+
+
+  "Tooth Pain",
+  "Gum Bleeding",
+  "Tooth Sensitivity",
+  "Mouth Ulcer",
+
+
+  "Chest Pain",
+  "Heart Problem",
+  "Blood Pressure",
+  "Palpitations",
+
+
+  "Breathing Issue",
+  "Asthma",
+  "Lung Infection",
+
+
+  "Stomach Pain",
+  "Acidity",
+  "Vomiting",
+  "Diarrhea",
+  "Constipation",
+  "Gas Problem",
+  "Indigestion",
+
+
+  "Kidney Problem",
+  "Urine Infection",
+  "Frequent Urination",
+
+
+  "Back Pain",
+  "Joint Pain",
+  "Arthritis",
+  "Muscle Pain",
+  "Fracture",
+  "Injury",
+
+
+  "Skin Allergy",
+  "Rash",
+  "Itching",
+  "Acne",
+  "Hair Fall",
+  "Dandruff",
+
+
+  "Stress",
+  "Anxiety",
+  "Depression",
+  "Sleep Issues",
+
+  "Pregnancy Check",
+  "Periods Problem",
+  "PCOS / Hormonal Issue",
+
+
+  "Child Health",
+  "Vaccination",
+
+
+  "Burn",
+  "Accident Injury",
+  "Emergency",
+  "Other"
+
 ];
 
 export default function CreatePrescription() {
