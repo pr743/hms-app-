@@ -11,23 +11,24 @@ function Home() {
     return (
         <>
             <Helmet>
-                <title>HMS - Book Doctor Appointment Online</title>
+                <title>Book Doctor Appointment in Rajkot | HMS Healthcare App</title>
 
                 <meta
                     name="description"
-                    content="Find hospitals, book doctor appointments, and manage your health online easily."
+                    content="Find the best doctors, clinics, and hospitals in Rajkot. Book doctor appointments online easily. HMS helps manage appointments, prescriptions, and patient records."
                 />
 
                 <meta
                     name="keywords"
-                    content="hospital management system, doctor booking, hospitals near me"
+                    content="doctor in rajkot, clinic near me, hospital in rajkot, dentist rajkot, book doctor appointment rajkot"
                 />
 
                 <link rel="canonical" href="https://hms-app-l8ub.vercel.app/" />
-
-                <meta property="og:title" content="HMS - Healthcare Platform" />
-                <meta property="og:description" content="Book appointments easily." />
+                <meta property="og:title" content="Book Doctor Appointment in Rajkot | HMS" />
+                <meta property="og:description" content="Find doctors and book appointments online in Rajkot easily." />
                 <meta property="og:url" content="https://hms-app-l8ub.vercel.app/" />
+                <meta property="og:type" content="website" />
+                <meta property="og:image" content="https://hms-app-l8ub.vercel.app/favicon.ico" />
             </Helmet>
 
             <div className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white min-h-screen overflow-hidden">
@@ -82,16 +83,17 @@ function Home() {
                         animate={{ opacity: 1, y: 0 }}
                     >
                         <p className="text-blue-400 text-xs uppercase mb-2 tracking-widest">
-                            Healthcare Platform
+                            Healthcare Platform Rajkot
                         </p>
 
                         <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
-                            Next Generation Hospital Management System
+                            Next Generation Hospital Management System | Book Doctor Appointment in Rajkot
                         </h1>
 
                         <p className="text-gray-300 mb-6 text-sm md:text-base">
                             A powerful digital solution for managing hospitals, doctors,
-                            patients, and appointments with speed and efficiency.
+                            patients, and appointments with speed and efficiency. |  Find doctors in Rajkot, clinics near you, and book appointments online easily.
+                            Best healthcare platform for patients and clinics in Rajkot.
                         </p>
 
                         <div className="flex flex-wrap gap-3">
@@ -242,7 +244,7 @@ function Home() {
                     </div>
 
                     <div className="text-center text-xs mt-8 text-gray-400">
-                        © 2026 HMS Platform
+                        © 2026 HMS Platform | doctor near me • clinic in rajkot • dentist rajkot • hospital near me
                     </div>
                 </div>
 
@@ -252,3 +254,24 @@ function Home() {
 }
 
 export default Home;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
